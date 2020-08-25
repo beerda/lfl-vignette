@@ -1,6 +1,7 @@
 \documentclass[article]{jss}
 
 \usepackage{thumbpdf,lmodern}
+\usepackage{amsmath}
 
 \newcommand{\lfl}{\pkg{lfl}}
 \newcommand{\R}{\proglang{R}}
@@ -23,18 +24,6 @@
 \newcommand{\nluk}{{N}_{\textrm{\L}}}
 
 
-<<include=FALSE>>=
-library(knitr)
-opts_chunk$set(
-engine='R', tidy=FALSE
-)
-@
-
-<<preliminaries, echo=FALSE, results='hide'>>=
-options(prompt = "R> ", continue = "+  ", width = 70, useFancyQuotes = FALSE)
-render_sweave()
-library("MASS")
-@
 
 
 %% -- Article metainformation (author, title, ...) -----------------------------
@@ -212,6 +201,75 @@ causes loading of the package into the working space so that the user can start 
 %%   (e.g., a function synopsis or list of arguments), the environment {Code}
 %%   is recommended. Alternatively, a plain {verbatim} can also be used.
 %%   (For executed code see the next section.)
+
+
+
+\section{Fuzzy Logic and Fuzzy Sets} \label{sec:fuzzysets}
+
+\emph{Triangular norm} (t-norm) is a function $\otimes: [0,1] \times [0,1] \to [0,1]$,
+which is associative, commutative, monotone increasing (in both
+places), and which satisfies the boundary conditions $\alpha \otimes 0 = 0$ and
+$\alpha \otimes 1 = \alpha$ for each $\alpha \in [0, 1]$.
+In fuzzy logic, a t-norm $T$ is used to model the (strong) \emph{conjunction}.
+
+For any left-continuous t-norm $\otimes$, there is a unique binary operation $\Rightarrow$
+called the \emph{residuum} of the t-norm $\otimes$ such that
+%
+$$\gamma \otimes \alpha \le \beta\quad\textrm{if and only if}\quad \gamma \le \alpha \Rightarrow \beta.$$
+%
+Residuum $\Rightarrow$ is used to model the \emph{implication} in fuzzy logic. It can be also
+interpreted as a fuzzy version of the \emph{modus ponens} inference rule.
+
+Truth functions of other logical connectives may be defined based on t-norm $\otimes$
+and its residuum $\Rightarrow$. For instance, the \emph{residual negation} $\lnot$
+and \emph{bi-residual equivalence} (\emph{bi-residuum}) $\Leftrightarrow$ are
+defined as follows:
+%
+\begin{align*}
+\lnot\alpha &= \alpha \Rightarrow 0; \\
+\alpha \Leftrightarrow \beta &= (\alpha \Rightarrow \beta) \otimes (\beta \Rightarrow \alpha).
+\end{align*}
+
+For some t-norms, the residual negation $\lnot$ is not \emph{involutive}, that is,
+it does not obey the law of double negation $\lnot\lnot\alpha = \alpha$. In such
+cases the involutive negation is sometimes added to the fuzzy logic as an additional
+connective $\sim$.
+
+A t-norm $\otimes$ together with the involutive negation $\sim$ is used to define a \emph{triangular conorm}
+(t-conorm), which model a (strong) \emph{disjunction} $\oplus$ in fuzzy logic:
+%
+$$\alpha\oplus\beta = {\sim}({\sim}\alpha \otimes {\sim}\beta).$$
+
+Usually, two more operators are often needed, which are connected to the
+domain of truth values: the lattice operations \emph{infimum} (meet) $\land$ and
+the \emph{supremum} (join) $\lor$. They are usually used to interpret the so-called
+connectives of weak conjunction and the weak disjunction, respectively.
+
+T-norms and t-conorms play a crucial role also in the theory of fuzzy sets. Fuzzy sets
+extend ordinary sets by allowing a partial membership of an element to the set.
+A \emph{fuzzy set} $X$ from a universe $U$ is defined by a \emph{membership function} $X: U \to [0, 1]$
+that specifies for each element $u\in U$ a degree $X(u)$ of membership of the element $u$ in the fuzzy set $X$.
+The degree of membership is a number from the interval $[0, 1]$ where $0$ means $u \notin X$ and $1$
+means full membership $u \in X$. We do not distinguish between a fuzzy set and its
+membership function, that is, $X(u)$ denotes the degree of membership of the element $u$ in the
+fuzzy set $X$. (Clearly ordinary sets are special cases of fuzzy sets such that their membership
+function maps $U$ to $\{0, 1\}$.) A \emph{cardinality} $|X|$ of a fuzzy set $X$ is defined as
+the sum of the membership degrees \citep{novak1999}:
+%
+$$|X| = \sum_{\forall u\in U} X(u).$$
+
+T-norms and t-conorms are used to define respectively an \emph{intersection} and
+a \emph{union} of fuzzy sets. Let $X, Y$ be fuzzy sets, $\otimes$ be
+a~t-norm and $\oplus$ be a corresponding t-conorm. Then the membership function
+of an intersection $X\cap Y$ and a union $X\cup Y$ of fuzzy sets $X$ and $Y$ is defined as:
+
+\begin{align*}
+  (X\cap Y)(u) &= X(u) \otimes Y(u); \\
+  (X\cup Y)(u) &= X(u) \oplus Y(u), \qquad \forall u\in U.
+\end{align*}
+
+Based on the selected t-norm, the \lfl{} package provides all the derived operations in a concise and extendable way. By calling the \code{algebra} function with the name of the underlying t-norm, a named list of functions is obtained. The user may select from \code{"goedel"}, \code{"goguen"}, or \code{"lukasiewicz"} variant. For example, let us obtain the algebra based on the G\"odel t-norm:
+
 
 
 \section*{Acknowledgments}
