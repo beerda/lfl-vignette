@@ -57,5 +57,13 @@ a <- algebra('lukasiewicz')
 a
 @
 
+<<export='na.algebra'>>=
+a <- algebra('goedel')
+a$t(NA, 0.3)
+
+a2 <- sobocinski(a)
+a2$t(NA, 0.3)
+@
+
 
 \end{document}
