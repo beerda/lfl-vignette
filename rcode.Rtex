@@ -34,8 +34,9 @@ devtools::install_github('beerda/lfl')
 library(lfl)
 @
 
-blabla
-
-hh
+<<export='goedel.algebra'>>=
+a <- algebra('goedel')
+a
+@
 
 \end{document}
