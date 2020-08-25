@@ -5,7 +5,7 @@
 
 \newcommand{\lfl}{\pkg{lfl}}
 \newcommand{\R}{\proglang{R}}
-\newcommand{\fixme}[1]{{\color{red} FIXME: #1}}
+\newcommand{\todo}[1]{{\color{red} TODO: #1}}
 
 \newcommand{\tgodel}{{T}_{\textrm{M}}}
 \newcommand{\tluk}{{T}_{\textrm{\L}}}
@@ -164,7 +164,7 @@ by using the technique of \emph{compositions of fuzzy relations}, which were tho
 
 \subsection{Overview of the Paper}
 
-The rest of the paper is organized as follows. \fixme{doplnit}
+The rest of the paper is organized as follows. \todo{doplnit}
 
 
 
@@ -314,8 +314,78 @@ As can be seen, the \code{algebra()} function returns a named list of the follow
 
 Goguen algebra provides operations based on the product t-norm.
 %
-\input{chunks/chunk-go}
+\input{chunks/chunk-goguen.algebra}
 %
+It is defined as follows:
+\begin{itemize}
+    \item \code{n}: (strict) negation defined as:
+    $$
+    \lnot\alpha = \begin{cases}
+    1, & \text{if}\ \alpha = 0, \\
+    0, & \text{otherwise;}
+    \end{cases}
+    $$
+    \item \code{ni}: involutive negation defined as:
+    ${\sim}\alpha = 1 - \alpha;$
+    \item \code{t}, \code{pt}: vectorized and element-wise t-norm defined as:
+    $\alpha \otimes \beta = \alpha\beta;$
+    \item \code{c}, \code{pc}: vectorized and element-wise t-conorm defined as: $\alpha \oplus \beta = \alpha + \beta - \alpha\beta;$
+    \item \code{r}: residuum defined as:
+    $$
+    \alpha\Rightarrow\beta = \begin{cases}
+    1, & \text{if}\ \alpha\le\beta, \\
+    \frac{\beta}{\alpha}, & \text{otherwise;}
+    \end{cases}
+    $$
+    \item \code{b}: bi-residuum;
+    \item \code{i}, \code{pi}: vectorized and element-wise infimum defined as:
+    $\alpha \land \beta = \min\{\alpha, \beta\};$
+    \item \code{s}, \code{ps}: vectorized and element-wise supremum defined as:
+    $\alpha \lor \beta = \max\{\alpha, \beta\}.$
+\end{itemize}
+
+
+
+\subsection{\L{}ukasiewicz Algebra}
+
+\input{chunks/chunk-lukasiewicz.algebra}
+%
+\L{}ukasiewicz algebra provides operations based on the \L{}ukasiewicz t-norm as follows.
+\begin{itemize}
+    \item \code{n}, \code{ni}: both negations are equally defined as:
+    $\lnot\alpha = {\sim}\alpha = 1 - \alpha;$
+    \item \code{t}, \code{pt}: vectorized and element-wise t-norm defined as:
+    $\alpha \otimes \beta = \max\{0, \alpha + \beta - 1\};$
+    \item \code{c}, \code{pc}: vectorized and element-wise t-conorm defined as: $\alpha \oplus \beta = \min\{1, \alpha + \beta\};$
+    \item \code{r}: residuum defined as:
+    $$
+    \alpha\Rightarrow\beta = \begin{cases}
+    1, & \text{if}\ \alpha\le\beta, \\
+    1 - \alpha + \beta, & \text{otherwise;}
+    \end{cases}
+    $$
+    \item \code{b}: bi-residuum;
+    \item \code{i}, \code{pi}: vectorized and element-wise infimum defined as:
+    $\alpha \land \beta = \min\{\alpha, \beta\};$
+    \item \code{s}, \code{ps}: vectorized and element-wise supremum defined as:
+    $\alpha \lor \beta = \max\{\alpha, \beta\}.$
+\end{itemize}
+
+
+
+\subsection{Handling of Missing Values}
+
+The implementation of algebra functions in \pkg{lfl} takes a special care for missing values.
+If \code{NA} appears as a value to some operation,
+it is propagated to the result. That is, any operation with \code{NA} results in \code{NA}, by default.
+This scheme of handling missing values is also known as \emph{Bochvar's internal logic} \citep{book:malinov}.
+
+The \code{sobocinski()}, \code{kleene()} and \code{dragonfly()} functions modify the algebra to
+handle the \code{NA} in a different way than default. Sobocinski's algebra simply ignores \code{NA} values
+whereas Kleene's algebra treats \code{NA} as ``unknown value''. Dragonfly approach is a combination
+of Sobocinski's and Bochvar's approach, which preserves the ordering $0 \le \texttt{NA} \le 1$.
+
+In detail, the behaviour of the algebra modifiers is defined as follows: \todo{doplnit tabulky pro NA hodnoty}
 
 
 
