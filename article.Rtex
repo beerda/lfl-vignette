@@ -174,19 +174,19 @@ The rest of the paper is organized as follows. \fixme{doplnit}
 To obtain the \lfl{} package, a working instance of the \R{} statistical environment has to be installed
 first and then the
 %
-\input{chunks/chunk-cran.lfl.tex}
+\input{chunks/chunk-cran.lfl}
 %
 command automatically downloads the latest stable version of the \lfl{} package from CRAN together with all
 its dependencies, compiles, and installs it. The \lfl{} package works on all platforms supported by
 the \R{} software including Microsoft Windows, GNU/Linux, and MacOS. Alternatively, the development
 version may be installed directly from GitHub by issuing following commands within the R session:
 %
-\input{chunks/chunk-git.lfl.tex}
+\input{chunks/chunk-git.lfl}
 %
 After the installation is successfull, the following command
 causes loading of the package into the working space so that the user can start using it:
 %
-\input{chunks/chunk-load.lfl.tex}
+\input{chunks/chunk-load.lfl}
 %
 
 
@@ -264,11 +264,49 @@ a~t-norm and $\oplus$ be a corresponding t-conorm. Then the membership function
 of an intersection $X\cap Y$ and a union $X\cup Y$ of fuzzy sets $X$ and $Y$ is defined as:
 
 \begin{align*}
-  (X\cap Y)(u) &= X(u) \otimes Y(u); \\
-  (X\cup Y)(u) &= X(u) \oplus Y(u), \qquad \forall u\in U.
+    (X\cap Y)(u) &= X(u) \otimes Y(u); \\
+    (X\cup Y)(u) &= X(u) \oplus Y(u), \qquad \forall u\in U.
 \end{align*}
 
-Based on the selected t-norm, the \lfl{} package provides all the derived operations in a concise and extendable way. By calling the \code{algebra} function with the name of the underlying t-norm, a named list of functions is obtained. The user may select from \code{"goedel"}, \code{"goguen"}, or \code{"lukasiewicz"} variant. For example, let us obtain the algebra based on the G\"odel t-norm:
+
+
+\subsection{G\"odel Algebra}
+
+Based on the selected t-norm, the \lfl{} package provides all the derived operations in a concise and extendable way. By calling the \code{algebra()} function with the name of the underlying t-norm, a named list of functions is obtained. The user may select from \code{"goedel"}, \code{"goguen"}, or \code{"lukasiewicz"} variant. For example, let us obtain the algebra based on the G\"odel t-norm:
+%
+\input{chunks/chunk-goedel.algebra}
+
+As can be seen, the \code{algebra()} function returns a named list of the following functions:
+\begin{itemize}
+    \item \code{n}: (strict) negation defined as:
+    $$
+    \lnot\alpha = \begin{cases}
+    1, & \text{if}\ \alpha = 0, \\
+    0, & \text{otherwise;}
+    \end{cases}
+    $$
+    \item \code{ni}: involutive negation defined as:
+    ${\sim}\alpha = 1 - \alpha;$
+    \item \code{t}, \code{pt}: vectorized and element-wise t-norm defined as:
+    $\alpha \otimes \beta = \min\{\alpha, \beta\};$
+    \item \code{c}, \code{pc}: vectorized and element-wise t-conorm defined as: $\alpha \oplus \beta = \max\{\alpha, \beta\};$
+    \item \code{r}: residuum defined as:
+    $$
+    \alpha\Rightarrow\beta = \begin{cases}
+    1, & \text{if}\ \alpha\le\beta, \\
+    \beta, & \text{otherwise;}
+    \end{cases}
+    $$
+    \item \code{b}: bi-residuum;
+    \item \code{i}, \code{pi}: vectorized and element-wise infimum defined as:
+    $\alpha \land \beta = \min\{\alpha, \beta\};$
+    \item \code{s}, \code{ps}: vectorized and element-wise supremum defined as:
+    $\alpha \lor \beta = \max\{\alpha, \beta\}.$
+\end{itemize}
+
+\code{n} and \code{ni} are functions that accept a vector of numeric values as a single input and return a vector of negated values. \code{r} and \code{b} are two-argument functions, which compute the desired operation element-wisely. Similarly, \code{pt}, \code{pc}, \code{pi} and \code{ps} work element-wisely: they accept multiple vector arguments and compute the desired operation on first elements of the input vectors, then on second elements, etc. until the end of the vectors, which yields a vector of resulting values. The vectorized variants of these functions, i.e., \code{t}, \code{c}, \code{i} and \code{s} first merge all the input vector arguments and then calculate a single resulting value from it. See the example below for more information.
+
+
 
 
 
