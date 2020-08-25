@@ -305,6 +305,9 @@ As can be seen, the \code{algebra()} function returns a named list of the follow
 \end{itemize}
 
 \code{n} and \code{ni} are functions that accept a vector of numeric values as a single input and return a vector of negated values. \code{r} and \code{b} are two-argument functions, which compute the desired operation element-wisely. Similarly, \code{pt}, \code{pc}, \code{pi} and \code{ps} work element-wisely: they accept multiple vector arguments and compute the desired operation on first elements of the input vectors, then on second elements, etc. until the end of the vectors, which yields a vector of resulting values. The vectorized variants of these functions, i.e., \code{t}, \code{c}, \code{i} and \code{s} first merge all the input vector arguments and then calculate a single resulting value from it. See the example below for more information.
+%
+\input{chunks/chunk-goedel.algebra.examples}
+%
 
 
 
