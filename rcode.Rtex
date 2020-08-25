@@ -39,4 +39,8 @@ a <- algebra('goedel')
 a
 @
 
+<<export='goedel.algebra.examples'>>=
+a$n(c(0.5, 0.8, 0, 1))
+@
+
 \end{document}
