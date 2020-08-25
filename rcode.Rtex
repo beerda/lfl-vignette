@@ -47,4 +47,15 @@ a$pt(c(0.8, 0.3), c(0.2, 1), c(1, 0))
 a$r(c(0.8, 0.3), c(0.2, 1))
 @
 
+<<export='goguen.algebra'>>=
+a <- algebra('goguen')
+a
+@
+
+<<export='lukasiewicz.algebra'>>=
+a <- algebra('lukasiewicz')
+a
+@
+
+
 \end{document}
