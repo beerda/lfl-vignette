@@ -310,6 +310,12 @@ As can be seen, the \code{algebra()} function returns a named list of the follow
 %
 
 
+\subsection{Goguen Algebra}
+
+Goguen algebra provides operations based on the product t-norm.
+%
+\input{chunks/chunk-go}
+%
 
 
 
