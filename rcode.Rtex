@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+<<setup, include=FALSE>>=
+  options(prompt='R> ')
+  knitr::opts_chunk$set(tidy=TRUE,
+                        comment='',
+                        prompt=TRUE,
+                        highlight=FALSE)
+
+  knit_hooks$set(export = function(before, options, envir) {
+    if (before) {
+      return(paste0('% --begin: "', options$export, '"\n'))
+    } else {
+      return(paste0('% --end: "', options$export, '"\n'))
+    }
+  })
+
+  render_sweave()
+@
+
+
+<<export='cran.lfl', eval=FALSE>>=
+install.packages('lfl')
+@
+
+<<export='git.lfl', eval=FALSE>>=
+install.packages('devtools')
+devtools::install_github('beerda/lfl')
+@
+
+<<export='load.lfl', message=FALSE>>=
+library(lfl)
+@
+
+blabla
+
+hh
+
+\end{document}

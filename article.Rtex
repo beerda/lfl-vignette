@@ -1,14 +1,292 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
+\documentclass[article]{jss}
 
-\title{lfl package}
-\author{Michal Burda}
-\date{August 2020}
+\usepackage{thumbpdf,lmodern}
+
+\newcommand{\lfl}{\pkg{lfl}}
+\newcommand{\R}{\proglang{R}}
+\newcommand{\fixme}[1]{{\color{red} FIXME: #1}}
+
+\newcommand{\tgodel}{{T}_{\textrm{M}}}
+\newcommand{\tluk}{{T}_{\textrm{\L}}}
+\newcommand{\tgoguen}{{T}_{\textrm{P}}}
+\newcommand{\sgodel}{{C}_{\textrm{M}}}
+\newcommand{\sgoguen}{{C}_{\textrm{P}}}
+\newcommand{\sluk}{{C}_{\textrm{\L}}}
+\newcommand{\rgodel}{{R}_{\textrm{M}}}
+\newcommand{\rgoguen}{{R}_{\textrm{P}}}
+\newcommand{\rluk}{{R}_{\textrm{\L}}}
+\newcommand{\bgodel}{{B}_{\textrm{M}}}
+\newcommand{\bgoguen}{{B}_{\textrm{P}}}
+\newcommand{\bluk}{{B}_{\textrm{\L}}}
+\newcommand{\ngodel}{{N}_{\textrm{M}}}
+\newcommand{\ngoguen}{{N}_{\textrm{P}}}
+\newcommand{\nluk}{{N}_{\textrm{\L}}}
+
+
+<<include=FALSE>>=
+library(knitr)
+opts_chunk$set(
+engine='R', tidy=FALSE
+)
+@
+
+<<preliminaries, echo=FALSE, results='hide'>>=
+options(prompt = "R> ", continue = "+  ", width = 70, useFancyQuotes = FALSE)
+render_sweave()
+library("MASS")
+@
+
+
+%% -- Article metainformation (author, title, ...) -----------------------------
+
+%% - \author{} with primary affiliation
+%% - \Plainauthor{} without affiliations
+%% - Separate authors by \And or \AND (in \author) or by comma (in \Plainauthor).
+%% - \AND starts a new line, \And does not.
+\author{Achim Zeileis\\Universit\"at Innsbruck
+   \And Second Author\\Plus Affiliation}
+\Plainauthor{Achim Zeileis, Second Author}
+
+%% - \title{} in title case
+%% - \Plaintitle{} without LaTeX markup (if any)
+%% - \Shorttitle{} with LaTeX markup (if any), used as running title
+\title{\lfl{}: Linguistic Fuzzy Logic in \R{}}
+\Plaintitle{lfl: Linguistic Fuzzy logic in R}
+\Shorttitle{\lfl{}: Linguistic Fuzzy Logic in \R{}}
+
+%% - \Abstract{} almost as usual
+\Abstract{
+  This paper presents an \R{} package that enables the use of linguistic
+  fuzzy logic in data processing applications. The \lfl{} package provides tools for
+  transformation of data into fuzzy sets representing linguistic expressions, mining
+  of linguistic fuzzy association rules, perfoming an inference on fuzzy rule bases
+  using the Perception-based logical deduction (PbLD), and computing compositions of
+  fuzzy relations. The package also enables to use the Fuzzy rule-based ensemble,
+  a tool for time series forecasting based on an ensemble of forecasts from several individual
+  methods implemented in \R{}.
+}
+
+
+\Keywords{fuzzy sets, fuzzy natural logic, linguistic fuzzy logic, association rules, compositions of relations, \R{}}
+\Plainkeywords{fuzzy sets, fuzzy natural logic, linguistic fuzzy logic, association rules, compositions of relations, R}
+
+
+%% - \Address{} of at least one author
+%% - May contain multiple affiliations for each author
+%%   (in extra lines, separated by \emph{and}\\).
+%% - May contain multiple authors for the same affiliation
+%%   (in the same first line, separated by comma).
+\Address{
+  Achim Zeileis\\
+  Journal of Statistical Software\\
+  \emph{and}\\
+  Department of Statistics\\
+  Faculty of Economics and Statistics\\
+  Universit\"at Innsbruck\\
+  Universit\"atsstr.~15\\
+  6020 Innsbruck, Austria\\
+  E-mail: \email{Achim.Zeileis@R-project.org}\\
+  URL: \url{https://eeecon.uibk.ac.at/~zeileis/}
+}
 
 \begin{document}
 
-\maketitle
 
-\section{Introduction}
+%% -- Introduction -------------------------------------------------------------
+
+%% - In principle "as usual".
+%% - But should typically have some discussion of both _software_ and _methods_.
+%% - Use \proglang{}, \pkg{}, and \code{} markup throughout the manuscript.
+%% - If such markup is in (sub)section titles, a plain text version has to be
+%%   added as well.
+%% - All software mentioned should be properly \cite-d.
+%% - All abbreviations should be introduced.
+%% - Unless the expansions of abbreviations are proper names (like "Journal
+%%   of Statistical Software" above) they should be in sentence case (like
+%%   "generalized linear models" below).
+
+\section{Introduction} \label{sec:intro}
+
+
+The aim of this paper is to present a new package for the \R{} statistical environment
+\citep{R2020} that enables the use of the linguistic fuzzy logic in data processing
+applications. The package provides results of original work of
+\cite{Novak08, Novak:PbLD, DvoStep:PbLD2015, StepBurda:FRBE_FSS}, and others, and it provides
+executable routines that are not freely available elsewhere.
+
+Indeed, there already exist several packages for \R{} that are focused on vagueness and fuzziness. For
+instance, the \pkg{sets}
+package \citep{setsPkg} introduces many basic operations on fuzzy sets, the \pkg{FuzzyNumbers}
+package \citep{FuzzyNumbersPkg} provides classes and methods to deal with fuzzy numbers,
+the \pkg{SAFD} package \citep{safdPkg} contains tools for elementary statistics on fuzzy data, and
+the \pkg{fclust} \citep{fclustPkg} brings the fuzzy K-Means clustering technique to the environment of
+the \R{} system.
+
+The \lfl{} package described in this paper focuses on creation of systems based on fuzzy logic and their
+usage in classification and prediction. A similar task is performed also by the \pkg{fugeR}
+package \citep{fugeRPkg} that introduces an evolutionary algorithm for a construction of a fuzzy system from
+a training data set, or by the \pkg{frbs} package \citep{frbsPkg} that provides many widely
+accepted approaches for building the fuzzy systems, based on space partition, neural networks,
+clustering, gradient descent, or genetic algorithms.
+
+The algorithms provided by the \lfl{} package are tightly connected with the notion of
+the \emph{fuzzy natural logic} (FNL), formerly also called the \emph{linguistic fuzzy logic} (LFL),
+that was initially developed by \cite{Novak08}.
+A central notion of the fuzzy natural logic is the expression of the form
+%
+$$\langle \textrm{linguistic hedge}\rangle \langle \textrm{atomic expression}\rangle$$
+%
+such as ``very small'', ``roughly medium'', or ``extremely big'', where atomic expression (such as
+``small'' or ``big'') denotes some vague quantity that could be extended with a linguistic hedge
+(such as ``very'' or ``rather'') that further adjusts the vagueness of the whole expression.
+\emph{Fuzzy sets} provide a mathematical framework for manipulation and reasoning with
+such linguistic expressions. On top of that, a specific inference method, \emph{Perception-based
+Logical Deduction} (PbLD), was developed by \cite{Novak08}.
+
+As opposed to the traditional approach of \cite{MamdaniAssilian75}, who build the
+rule base as a disjunction of conjunctions of antecedents and consequents, the PbLD approach is
+closer to the implicative approach since it handles
+the rules as implications and rule bases as conjunctions of these implications.
+Thus, PbLD allows a rule base of implicative linguistic IF-THEN
+rules to be inferred from while taking care of the \emph{specificity} of the rule.
+For instance, a rule with antecedent an ``age is very small'' is more specific than a rule
+with an antecedent ``age is small'' since everything that is very small is also small, but not vice versa.
+In PbLD, more specific
+rules take precedence over more general rules, if both of them fire in degree 1. That enables e.g.
+non-continuous changes to be implemented on the output of the inference, as many times is needed by
+the application.
+We refer to \cite{Novak:PbLD,DvoStep:PbLD2015} for all the details on PbLD.
+
+Other software, although not connected with the \R{} statistical environment but dealing with the
+similar topic as the \lfl{} package, is \emph{Linguistic Fuzzy Logic Controller} (LFLC) by \cite{dvo:lflc}.
+However, unlike LFLC, the \lfl{} package is free and open-source.
+
+The \lfl{} package also provides functions for searching for fuzzy association rules. Together
+with PbLD, they can be used as a machine learning tool for classification or regression problems.
+The package also includes the \emph{Fuzzy Rule-based Ensemble}, a tool for time series forecasting
+\citep{frbe2014}, which is built on top of the fuzzy association rules search algorithm and PbLD.
+
+Alternatively to machine learning, classification tasks may be solved based on human expert knowledge
+by using the technique of \emph{compositions of fuzzy relations}, which were thoroughly studied e.g. by
+\cite{Step2014,Cao2017b,Cao2017}.
+
+
+
+
+\subsection{Overview of the Paper}
+
+The rest of the paper is organized as follows. \fixme{doplnit}
+
+
+
+
+\subsection[How to Obtain the lfl Package]{How to Obtain the \lfl{} Package} \label{sec:obtaining}
+
+To obtain the \lfl{} package, a working instance of the \R{} statistical environment has to be installed
+first and then the
+%
+\input{chunks/chunk-cran.lfl.tex}
+%
+command automatically downloads the latest stable version of the \lfl{} package from CRAN together with all
+its dependencies, compiles, and installs it. The \lfl{} package works on all platforms supported by
+the \R{} software including Microsoft Windows, GNU/Linux, and MacOS. Alternatively, the development
+version may be installed directly from GitHub by issuing following commands within the R session:
+%
+\input{chunks/chunk-git.lfl.tex}
+%
+After the installation is successfull, the following command
+causes loading of the package into the working space so that the user can start using it:
+%
+\input{chunks/chunk-load.lfl.tex}
+%
+
+
+
+%% -- Manuscript ---------------------------------------------------------------
+
+%% - In principle "as usual" again.
+%% - When using equations (e.g., {equation}, {eqnarray}, {align}, etc.
+%%   avoid empty lines before and after the equation (which would signal a new
+%%   paragraph.
+%% - When describing longer chunks of code that are _not_ meant for execution
+%%   (e.g., a function synopsis or list of arguments), the environment {Code}
+%%   is recommended. Alternatively, a plain {verbatim} can also be used.
+%%   (For executed code see the next section.)
+
+
+\section*{Acknowledgments}
+
+All acknowledgments (note the AE spelling) should be collected in this
+unnumbered section before the references. It may contain the usual information
+about funding and feedback from colleagues/reviewers/etc. Furthermore,
+information such as relative contributions of the authors may be added here
+(if any).
+
+
+%% -- Bibliography -------------------------------------------------------------
+%% - References need to be provided in a .bib BibTeX database.
+%% - All references should be made with \cite, \citet, \citep, \citealp etc.
+%%   (and never hard-coded). See the FAQ for details.
+%% - JSS-specific markup (\proglang, \pkg, \code) should be used in the .bib.
+%% - Titles in the .bib should be in title case.
+%% - DOIs should be included where available.
+
+\bibliography{bibliography}
+
+
+%% -- Appendix (if any) --------------------------------------------------------
+%% - After the bibliography with page break.
+%% - With proper section titles and _not_ just "Appendix".
+
+\newpage
+
+\begin{appendix}
+
+\section{More technical details} \label{app:technical}
+
+Appendices can be included after the bibliography (with a page break). Each
+section within the appendix should have a proper section title (rather than
+just \emph{Appendix}).
+
+For more technical style details, please check out JSS's style FAQ at
+\url{https://www.jstatsoft.org/pages/view/style#frequently-asked-questions}
+which includes the following topics:
+\begin{itemize}
+  \item Title vs.\ sentence case.
+  \item Graphics formatting.
+  \item Naming conventions.
+  \item Turning JSS manuscripts into \proglang{R} package vignettes.
+  \item Trouble shooting.
+  \item Many other potentially helpful details\dots
+\end{itemize}
+
+
+\section[Using BibTeX]{Using \textsc{Bib}{\TeX}} \label{app:bibtex}
+
+References need to be provided in a \textsc{Bib}{\TeX} file (\code{.bib}). All
+references should be made with \verb|\cite|, \verb|\citet|, \verb|\citep|,
+\verb|\citealp| etc.\ (and never hard-coded). This commands yield different
+formats of author-year citations and allow to include additional details (e.g.,
+pages, chapters, \dots) in brackets. In case you are not familiar with these
+commands see the JSS style FAQ for details.
+
+Cleaning up \textsc{Bib}{\TeX} files is a somewhat tedious task -- especially
+when acquiring the entries automatically from mixed online sources. However,
+it is important that informations are complete and presented in a consistent
+style to avoid confusions. JSS requires the following format.
+\begin{itemize}
+  \item JSS-specific markup (\verb|\proglang|, \verb|\pkg|, \verb|\code|) should
+    be used in the references.
+  \item Titles should be in title case.
+  \item Journal titles should not be abbreviated and in title case.
+  \item DOIs should be included where available.
+  \item Software should be properly cited as well. For \proglang{R} packages
+    \code{citation("pkgname")} typically provides a good starting point.
+\end{itemize}
+
+\end{appendix}
+
+%% -----------------------------------------------------------------------------
+
 
 \end{document}
