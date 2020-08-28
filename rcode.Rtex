@@ -58,17 +58,25 @@ a
 @
 
 <<export='na.algebra'>>=
-# create the underlying Goedel algebra
 a <- algebra('goedel')
-
-# modify the algebra to handle NAs in the Sobocinski style
 a2 <- sobocinski(a)
-
-# see the difference
 a$t(NA, 0.3)
 a2$t(NA, 0.3)
 @
 
+<<export='ctx'>>=
+ctx3()
+ctx3(high=100)
+ctx5()
+ctx3bilat()
+ctx5bilat()
+ctx5bilat(negMax=-100, max=200)
+@
 
+<<export='minmax'>>=
+data <- runif(n=100, min=20, max=5000)
+summary(data)
+minmax(data, type='ctx3')
+@
 
 \end{document}

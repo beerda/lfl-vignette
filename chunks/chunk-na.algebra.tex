@@ -1,13 +1,8 @@
 \begin{Schunk}
 % --begin: "na.algebra"
 \begin{Sinput}
-R> # create the underlying Goedel algebra
 R> a <- algebra("goedel")
-R> 
-R> # modify the algebra to handle NAs in the Sobocinski style
 R> a2 <- sobocinski(a)
-R> 
-R> # see the difference
 R> a$t(NA, 0.3)
 \end{Sinput}
 \begin{Soutput}
