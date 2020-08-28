@@ -370,7 +370,7 @@ The particular functions are defined as follows:
 
 \subsection{Partial Fuzzy Set Theory -- Handling of Undefined and Missing Values}
 
-{\color{red} priste pokracuju tady M}
+{\color{red} tak k tomuto se musime sejit a pokecta, tady si dovedu predstavit tak hrozne ruzne styly, jak to popsat, ze si musime rict, jak ma ten clanek vlastne vypadat, at ti to neborim pod rukama}
 
 The implementation of algebra functions in \pkg{lfl} takes a special care for missing values.
 If \code{NA} appears as a value to some operation,
@@ -480,9 +480,10 @@ In detail, the behaviour of the algebra modifiers is defined as follows: \todo{p
     \end{tabular}
 \end{table}
 
-By default, the functions in the structure that is obtained by calling the \code{algebra()} function simply propagate \code{NA} to the output. If some other handling of missing values is required, it can be done as follows. Firstly, the underlying algebra (G\"odel, Goguen or \L{}ukasiewicz) is created and then modified by aplying one of the \code{sobocinski()}, \code{kleene()}, \code{nelson}, \code{dragonfly}, \code{lowerEst} functions on it -- see the example:
+By default, the functions in the structure that is obtained by calling the \code{algebra()} function simply propagate \code{NA} to the output. If some other handling of missing values is required, it can be done as follows. Firstly, the underlying algebra (G\"odel, Goguen or \L{}ukasiewicz) is created and then modified by applying one of the \code{sobocinski()}, \code{kleene()}, \code{nelson}, \code{dragonfly}, \code{lowerEst} functions on it -- see the example:
 %
 \input{chunks/chunk-na.algebra}
+
 
 
 \section{Evaluative Linguistic Expressions}
@@ -495,6 +496,24 @@ By default, the functions in the structure that is obtained by calling the \code
 	\includegraphics[width=120mm]{DEE.png}
 	\caption{Fuzzy sets representing some particular evaluative linguistive expressions. Specific defuzzification DEE is charted too.}\label{fig_dee}
 \end{figure}
+
+\todo{blabla o lingvistickych vyrazech}
+
+In order to work with linguistic expressions in the \pkg{lfl} package, an appropriate \emph{linguistic context} must be defined firstly. A context describes a range of allowed values. For that, only the borders of the interval, i.e. minimum and maximum, are usually needed, but in \pkg{lfl}, the contexts carry an additional information of the position of other typical values, which in turn define the set of allowed atomic expression to use.
+
+Currently, four different contexts are supported in \pkg{lfl} that determine the types of possible linguistic expressions. The \emph{unilateral} or \emph{bilateral} context is allowed in the variant of \emph{trichotomy} or \emph{pentachotomy}. Trichotomy distinguishes the three points in the interval: the lowest value, the highest value, and the center. Pentachotomy adds the lower center and the upper center to them. As opposite to unilateral, the bilateral context handles explicitly the negative values. That is, bilateral context expects some middle point, the origin (usually 0), around which the positive and negative values are placed.
+
+The linguistic context is created by calling a function \code{ctx3()}, \code{ctx5()}, \code{ctx3bilat()} or \code{ctx5bilat()}. The type of the context determines the allowed atomic expressions as follows:
+%
+\begin{itemize}
+    \item \code{ctx3(low, center, high)}: the unilateral trichotomy that enables the atomic expressions: \emph{small, medium, big}; 
+    \item \code{ctx5(low, lowerCenter, center, upperCenter, high)}: the unilateral pentacho\-to\-my that enables the atomic expressions: \emph{small, lower medium, medium, upper medium, big}; 
+    \item \code{ctx3bilat(negMax, negCenter, origin, center, max)}: the bilateral trichotomy that enables the atomic expressions: \emph{negative big, negative medium, negative small, zero, small, medium, big};
+    \item \code{ctx5bilat(negMax, negUpperCenter, negCenter, negLowerCenter, origin, low\-erCenter, center, upperCenter, max)}: the bilateral pentachotomy that enables the atomic expressions: \emph{negative big, negative medium, negative small, zero, small, medium, big}.
+\end{itemize}
+%
+The arguments of context creator functions have sensible defaults and need not be therefore explicitly stated in all cases. Alternatively, the context may be automatically determined from data by calling the \code{minmax()} function, which creates the selected type of the context based on the minimum and maximum value found in data. See the examples:
+
 
 
 \section{Compositions of Fuzzy Relations}
