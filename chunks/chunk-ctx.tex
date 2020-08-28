@@ -4,7 +4,7 @@
 R> ctx3()
 \end{Sinput}
 \begin{Soutput}
-unilateral trichotomy
+Linguistic context: unilateral trichotomy (ctx3)
    low center   high 
    0.0    0.5    1.0 
 \end{Soutput}
@@ -12,31 +12,15 @@ unilateral trichotomy
 R> ctx3(high = 100)
 \end{Sinput}
 \begin{Soutput}
-unilateral trichotomy
+Linguistic context: unilateral trichotomy (ctx3)
    low center   high 
      0     50    100 
-\end{Soutput}
-\begin{Sinput}
-R> ctx5()
-\end{Sinput}
-\begin{Soutput}
-unilateral pentachotomy
-        low lowerCenter      center upperCenter        high 
-       0.00        0.25        0.50        0.75        1.00 
-\end{Soutput}
-\begin{Sinput}
-R> ctx3bilat()
-\end{Sinput}
-\begin{Soutput}
-bilateral trichotomy
-   negMax negCenter    origin    center       max 
-     -1.0      -0.5       0.0       0.5       1.0 
 \end{Soutput}
 \begin{Sinput}
 R> ctx5bilat()
 \end{Sinput}
 \begin{Soutput}
-bilateral pentachotomy
+Linguistic context: bilateral pentachotomy (ctx5bilat)
         negMax negUpperCenter      negCenter negLowerCenter         origin 
          -1.00          -0.75          -0.50          -0.25           0.00 
    lowerCenter         center    upperCenter            max 
@@ -46,7 +30,7 @@ bilateral pentachotomy
 R> ctx5bilat(negMax = -100, max = 200)
 \end{Sinput}
 \begin{Soutput}
-bilateral pentachotomy
+Linguistic context: bilateral pentachotomy (ctx5bilat)
         negMax negUpperCenter      negCenter negLowerCenter         origin 
           -100            -75            -50            -25              0 
    lowerCenter         center    upperCenter            max 

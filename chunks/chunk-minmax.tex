@@ -6,15 +6,16 @@ R> summary(data)
 \end{Sinput}
 \begin{Soutput}
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  25.95 1113.94 2124.13 2300.27 3480.87 4991.40 
+  118.6  1306.3  2539.8  2580.3  3794.6  4997.8 
 \end{Soutput}
 \begin{Sinput}
-R> minmax(data, type = "ctx3")
+R> context <- minmax(data, type = "ctx3")
+R> print(context)
 \end{Sinput}
 \begin{Soutput}
-unilateral trichotomy
-       low     center       high 
-  25.95496 2508.67835 4991.40173 
+Linguistic context: unilateral trichotomy (ctx3)
+     low   center     high 
+ 118.573 2558.195 4997.816 
 \end{Soutput}
 % --end: "minmax"
 \end{Schunk}

@@ -18,6 +18,7 @@
   })
 
   render_sweave()
+  set.seed(3243)
 @
 
 
@@ -67,8 +68,6 @@ a2$t(NA, 0.3)
 <<export='ctx'>>=
 ctx3()
 ctx3(high=100)
-ctx5()
-ctx3bilat()
 ctx5bilat()
 ctx5bilat(negMax=-100, max=200)
 @
@@ -76,7 +75,13 @@ ctx5bilat(negMax=-100, max=200)
 <<export='minmax'>>=
 data <- runif(n=100, min=20, max=5000)
 summary(data)
-minmax(data, type='ctx3')
+context <- minmax(data, type='ctx3')
+print(context)
+@
+
+<<export='minmax2'>>=
+context <- minmax(data, type='ctx3', center=1000)
+print(context)
 @
 
 \end{document}
