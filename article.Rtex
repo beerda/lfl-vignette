@@ -99,9 +99,9 @@
 
 The aim of this paper is to present a new package for the \R{} statistical environment
 \citep{R2020} that enables the use of the linguistic fuzzy logic in data processing
-applications. The package provides results of original work of
+applications. The package provides implemented tools for using the results of original work of
 \cite{Novak08, Novak:PbLD, DvoStep:PbLD2015, StepBurda:FRBE_FSS}, and others, and it provides
-executable routines that are not freely available elsewhere.
+executable routines that are not freely available anywhere else.
 
 Indeed, there already exist several packages for \R{} that are focused on vagueness and fuzziness. For
 instance, the \pkg{sets}
@@ -120,43 +120,41 @@ clustering, gradient descent, or genetic algorithms.
 
 The algorithms provided by the \lfl{} package are tightly connected with the notion of
 the \emph{fuzzy natural logic} (FNL), formerly also called the \emph{linguistic fuzzy logic} (LFL),
-that was initially developed by \cite{Novak08}.
-A central notion of the fuzzy natural logic is the expression of the form
+that was initially developed by \cite{Novak08}. Moreover, it covers some other closely related areas, for example fuzzy relational calculus  (\cite{BandlerKohout78,Belohlavek_book2002,Behounek:Compositions})  that includes the latest generalizations (\cite{Cao2017, Cao2017b}), the algebraic structures for partial fuzzy logics (\cite{BehounekNovak:IEEE15, BehounekDankova:IPMU16}), and the connection of both topics (\cite{Step_etal_Dragon_IJAR2019}).
+
+\emph{Evaluative linguistic expression} -- a central notion of the fuzzy natural logic -- is the expression of the form
 %
 $$\langle \textrm{linguistic hedge}\rangle \langle \textrm{atomic expression}\rangle$$
 %
-such as ``very small'', ``roughly medium'', or ``extremely big'', where atomic expression (such as
-``small'' or ``big'') denotes some vague quantity that could be extended with a linguistic hedge
-(such as ``very'' or ``rather'') that further adjusts the vagueness of the whole expression.
-\emph{Fuzzy sets} provide a mathematical framework for manipulation and reasoning with
-such linguistic expressions. On top of that, a specific inference method, \emph{Perception-based
-Logical Deduction} (PbLD), was developed by \cite{Novak08}.
+that evaluates the ruoghly a position on the real line, for example, ``very small'', ``roughly medium'', or ``extremely big''. The atomic expression takes values usually from the triplet 
+``small'', ``medium'', and ``big''and its vague information can be adjusted by the used linguistic hedge (such as ``very'', ``extremely'', ``roughly'' or ``more or less'').
+The particular \emph{fuzzy sets} modeling the semantics of the evaluative linguistic expressions including the justification can be found in \cite{Novak08}, see also Figure~\ref{fig_dee}. A mathematical framework for manipulation and reasoning with
+such linguistic expressions is provided in a specific inference method called  \emph{Perception-based
+Logical Deduction} (PbLD), that was tailored to the above-mentioned expressions, see \cite{Dvovrak2004formal,Novak:PbLD, Dvorak_etal:RedundancyFSS}.
 
-As opposed to the traditional approach of \cite{MamdaniAssilian75}, who build the
+
+
+Unlike the traditional approach of \cite{MamdaniAssilian75}, who build the
 rule base as a disjunction of conjunctions of antecedents and consequents, the PbLD approach is
-closer to the implicative approach since it handles
-the rules as implications and rule bases as conjunctions of these implications.
-Thus, PbLD allows a rule base of implicative linguistic IF-THEN
-rules to be inferred from while taking care of the \emph{specificity} of the rule.
-For instance, a rule with antecedent an ``age is very small'' is more specific than a rule
-with an antecedent ``age is small'' since everything that is very small is also small, but not vice versa.
-In PbLD, more specific
-rules take precedence over more general rules, if both of them fire in degree 1. That enables e.g.
-non-continuous changes to be implemented on the output of the inference, as many times is needed by
-the application.
-We refer to \cite{Novak:PbLD,DvoStep:PbLD2015} for all the details on PbLD.
+closer to the implicative approach (\cite{Jones2009}, \cite{Step_etal_continuity}) since it employes genuine residuated implications to connect antecedents and consequents. However, it does not aggregate them conjunctively and it considers the rule base as a list of fuzzy rules from which only single or a very few are fired. The function choosing the particular rules to be fired is calle \emph{perception} and it takes into account the  \emph{specificity} of the antecedents of the rules.
+For instance, the antecedent ``age is very small'' is more specific than the antecedent ``age is small'', see the inclusion of the respective fuzzy sets in Figure~\ref{fig_dee}. 
+In PbLD, rules with more specific antecedents take the precedence over the rules with more general antecedents, assuming that both of them fire in the same degree. That enables, e.g., to employ big discontinuous jumps in the control actions according to the needs of the particular
+application. We refer to \cite{Novak:PbLD,DvoStep:PbLD2015} for all the details on PbLD.
 
-Other software, although not connected with the \R{} statistical environment but dealing with the
+
+
+Another software, dealing with the
 similar topic as the \lfl{} package, is \emph{Linguistic Fuzzy Logic Controller} (LFLC) by \cite{dvo:lflc}.
-However, unlike LFLC, the \lfl{} package is free and open-source.
+However, it is not connected with the \R{} statistical environment and unlike \lfl{} package, LFLC is not fully free nor an open-source.For an exhaustive study on existing software implementations of fuzzy methods we refere to the recent survey \cite{AlcalAlonso:fuzzySW_IEEETFS16}.
 
-The \lfl{} package also provides functions for searching for fuzzy association rules. Together
-with PbLD, they can be used as a machine learning tool for classification or regression problems.
+
+The \lfl{} package also provides functions for searching for fuzzy association rules (\cite{srikant95}). Together
+with PbLD, they can be used as a machine learning tool for classification or regression problems, see \cite{KupkaRusnok:Regression_ESWA_INS17}.
 The package also includes the \emph{Fuzzy Rule-based Ensemble}, a tool for time series forecasting
-\citep{frbe2014}, which is built on top of the fuzzy association rules search algorithm and PbLD.
+\citep{StepBurda:FRBE_FSS}, which is built on top of the fuzzy association rules search algorithm and PbLD.
 
 Alternatively to machine learning, classification tasks may be solved based on human expert knowledge
-by using the technique of \emph{compositions of fuzzy relations}, which were thoroughly studied e.g. by
+by using the technique of \emph{compositions of fuzzy relations}, see
 \cite{Step2014,Cao2017b,Cao2017}.
 
 
@@ -183,7 +181,7 @@ version may be installed directly from GitHub by issuing following commands with
 %
 \input{chunks/chunk-git.lfl}
 %
-After the installation is successfull, the following command
+After the installation is successful, the following command
 causes loading of the package into the working space so that the user can start using it:
 %
 \input{chunks/chunk-load.lfl}
@@ -206,73 +204,60 @@ causes loading of the package into the working space so that the user can start 
 
 \section{Fuzzy Logic and Fuzzy Sets} \label{sec:fuzzysets}
 
-\emph{Triangular norm} (t-norm) is a function $\otimes: [0,1] \times [0,1] \to [0,1]$,
-which is associative, commutative, monotone increasing (in both
-places), and which satisfies the boundary conditions $\alpha \otimes 0 = 0$ and
-$\alpha \otimes 1 = \alpha$ for each $\alpha \in [0, 1]$.
-In fuzzy logic, a t-norm $T$ is used to model the (strong) \emph{conjunction}.
 
-For any left-continuous t-norm $\otimes$, there is a unique binary operation $\Rightarrow$
-called the \emph{residuum} of the t-norm $\otimes$ such that
-%
-$$\gamma \otimes \alpha \le \beta\quad\textrm{if and only if}\quad \gamma \le \alpha \Rightarrow \beta.$$
-%
-Residuum $\Rightarrow$ is used to model the \emph{implication} in fuzzy logic. It can be also
-interpreted as a fuzzy version of the \emph{modus ponens} inference rule.
-
-Truth functions of other logical connectives may be defined based on t-norm $\otimes$
-and its residuum $\Rightarrow$. For instance, the \emph{residual negation} $\lnot$
-and \emph{bi-residual equivalence} (\emph{bi-residuum}) $\Leftrightarrow$ are
-defined as follows:
-%
-\begin{align*}
-\lnot\alpha &= \alpha \Rightarrow 0; \\
-\alpha \Leftrightarrow \beta &= (\alpha \Rightarrow \beta) \otimes (\beta \Rightarrow \alpha).
-\end{align*}
-
-For some t-norms, the residual negation $\lnot$ is not \emph{involutive}, that is,
-it does not obey the law of double negation $\lnot\lnot\alpha = \alpha$. In such
-cases the involutive negation is sometimes added to the fuzzy logic as an additional
-connective $\sim$.
-
-A t-norm $\otimes$ together with the involutive negation $\sim$ is used to define a \emph{triangular conorm}
-(t-conorm), which model a (strong) \emph{disjunction} $\oplus$ in fuzzy logic:
-%
-$$\alpha\oplus\beta = {\sim}({\sim}\alpha \otimes {\sim}\beta).$$
-
-Usually, two more operators are often needed, which are connected to the
-domain of truth values: the lattice operations \emph{infimum} (meet) $\land$ and
-the \emph{supremum} (join) $\lor$. They are usually used to interpret the so-called
-connectives of weak conjunction and the weak disjunction, respectively.
-
-T-norms and t-conorms play a crucial role also in the theory of fuzzy sets. Fuzzy sets
-extend ordinary sets by allowing a partial membership of an element to the set.
-A \emph{fuzzy set} $X$ from a universe $U$ is defined by a \emph{membership function} $X: U \to [0, 1]$
-that specifies for each element $u\in U$ a degree $X(u)$ of membership of the element $u$ in the fuzzy set $X$.
-The degree of membership is a number from the interval $[0, 1]$ where $0$ means $u \notin X$ and $1$
-means full membership $u \in X$. We do not distinguish between a fuzzy set and its
-membership function, that is, $X(u)$ denotes the degree of membership of the element $u$ in the
-fuzzy set $X$. (Clearly ordinary sets are special cases of fuzzy sets such that their membership
-function maps $U$ to $\{0, 1\}$.) A \emph{cardinality} $|X|$ of a fuzzy set $X$ is defined as
+Fuzzy sets were proposed by \cite{Zadeh65} as a generalization of classical sets in such a way that elements may belong to them in a certain degree, most typically from the unit interval $[0,1]$. Formally, a \emph{fuzzy set} $A$ from a universe $U$ is defined as a mapping $A: U \to [0, 1]$ and $A(u)$ is called \emph{membership degree of the element $u$ in the fuzzy set $A$}. As $\{0,1\} \subset [0,1]$ and $A(u)= 0$ and $A(u) = 1$ can be taken as $u \notin A$ and $u\in A$, respectively, a classical set is a special case of a fuzzy set. A \emph{cardinality} $|A|$ of a fuzzy set $A$ on a finite universe $U$ can be defined as
 the sum of the membership degrees \citep{novak1999}:
 %
-$$|X| = \sum_{\forall u\in U} X(u).$$
+$$|A| = \sum_{\forall u\in U} A(u).$$
 
-T-norms and t-conorms are used to define respectively an \emph{intersection} and
-a \emph{union} of fuzzy sets. Let $X, Y$ be fuzzy sets, $\otimes$ be
-a~t-norm and $\oplus$ be a corresponding t-conorm. Then the membership function
-of an intersection $X\cap Y$ and a union $X\cup Y$ of fuzzy sets $X$ and $Y$ is defined as:
 
+
+In order to extend the intersection and union of classical (binary) sets to $[0,1]$ membership degrees, most commonly triangular norms and conorms, respectively. 
+
+\emph{Triangular norm (t-norm)} is a function $\otimes: [0,1] \times [0,1] \to [0,1]$,
+which is associative, commutative, monotone increasing (in both
+places), and with the neutral element 1, i.e., with $\alpha \otimes 1 = \alpha$ for each $\alpha \in [0, 1]$. The annihilating effect of the element 0 can be easily derived: $\alpha \otimes 0 = 0$ for each $\alpha \in [0, 1]$.
+
+In fuzzy logic\footnote{Specific multiple-valued logic for modeling the vagueness phenomenon or gradedness.}, a t-norm $T$ is used to model the \emph{conjunction}. \emph{Triangular conorm (t-conorm)} is a function $\oplus: [0,1] \times [0,1] \to [0,1]$ that possesses the same properties as t-norm with the only difference that the neutral element is here 0, i.e., $\alpha \oplus 0 = \alpha$ for any $\alpha \in [0,1]$. Consequently, we obtain $\alpha \oplus 1 = 1$ for any $\alpha \in [0,1]$.
+  
+Analogously to the case of classical logic and classical set theory, also here we derive the \emph{intersection} and the \emph{union} of fuzzy sets from the above introduced logical operations. Let $A, B$ be fuzzy sets on $U$. Then the membership degree of an element $u\in U$ to their intersection
+$A \cap B$ and their union $A\cup B$ is defined as follows:
 \begin{align*}
-    (X\cap Y)(u) &= X(u) \otimes Y(u); \\
-    (X\cup Y)(u) &= X(u) \oplus Y(u), \qquad \forall u\in U.
+    (A\cap B)(u) &= A(u) \otimes B(u) \ , \\
+    (A\cup B)(u) &= A(u) \oplus B(u) \ .
 \end{align*}
 
+
+For any left-continuous t-norm $\otimes$, there is a unique binary operation $\Rightarrow$
+called the \emph{residuum} (\emph{residuated implication}) of the t-norm $\otimes$ such that the following adjunction property holds
+%
+$$\gamma \otimes \alpha \le \beta\quad\textrm{if and only if}\quad \gamma \le \alpha \Rightarrow \beta \ . $$
+%
+Residuated implications possess special position among other fuzzy implications (\cite{Baczynski_Jayaram_2008c}) in capturing the multiple-valued modus ponens property. 
+
+Stemming from a left-continuous t-norm $\otimes$, we may construct so-called \emph{residuated lattice} $\langle [0,1], \wedge, \vee, \otimes , \Rightarrow , 0 , 1 \rangle$ that is the underlying algebraic structure of truth-values of the respective fuzzy logic. Note, that the structure has two conjunctions, the \emph{strong} conjunction $\otimes$ and the \emph{weak} conjuction $\wedge$ that is present in any residuated lattice. Furthermore, we may define additional logical connectives, for instance, the \emph{residual negation} $\lnot$
+and \emph{biresiduum}  $\Leftrightarrow$ that models the multiple-valued equivalence:
+%
+\begin{align*}
+\lnot\alpha &= \alpha \Rightarrow 0 \ , \\
+\alpha \Leftrightarrow \beta &= (\alpha \Rightarrow \beta) \otimes (\beta \Rightarrow \alpha)\ .
+\end{align*}
+
+For the particular \L ukasiewicz t-norm, the residual negation $\lnot$ leads to the  \emph{involutive} negation $\neg \alpha = 1-\alpha$ that obeys the law of double negation $\lnot\lnot\alpha = \alpha$. Let us denote such an involutive negation by $\sim$. The involutive negation can be used in deriving the dual t-conorm from a given t-norm (and vice-versa) or, in other words, in deriving the \emph{strong disjunction} from a given strong conjunction:
+$$\alpha\oplus\beta = {\sim}({\sim}\alpha \otimes {\sim}\beta)\ .$$
+
+Therefore, $\sim$ is an important unary connective not only for the \L ukasiewicz algebra but for all residuated lattices and we may freely extend such structures by the involutive negation for further use: $\langle [0,1], \wedge, \vee, \otimes , \Rightarrow, \sim 0 , 1 \rangle$. It does not mean that $\neg$ is not at disposal, it is always present via the definition recalled above and we have in general two negations that, in the case of the \L ukasiewicz algebra, coincide. The fact that the weak conjunction $\wedge$ and the weak disjunction $\vee$ are the lattice operations \emph{meet} (\emph{infimum})  $\land$ and the \emph{join} (\emph{supremum})  $\lor$ needs not further explanation.
+
+{\color{blue}M: tuto uvodni sekci 2 az do 2.1 povazuji za cistou, koukni na to, podle mne hotovo az na spell check, jinak nic nechybi, ani relevantni reference}
 
 
 \subsection{G\"odel Algebra}
 
-Based on the selected t-norm, the \lfl{} package provides all the derived operations in a concise and extendable way. By calling the \code{algebra()} function with the name of the underlying t-norm, a named list of functions is obtained. The user may select from \code{"goedel"}, \code{"goguen"}, or \code{"lukasiewicz"} variant. For example, let us obtain the algebra based on the G\"odel t-norm:
+
+
+Based on the selected t-norm, the \lfl{} package provides all the derived operations in a concise and extendable way. By calling the \code{algebra()} function with the name of the underlying t-norm, a named list of functions is obtained. The user may select from \code{"goedel"}, \code{"goguen"}, or \code{"lukasiewicz"} variant calling the respective G\"odel, Goguen (also often called \emph{product}), or the already above-mentioned \L ukasiewicz residuated lattices of operations. 
+
+For example, the algebra based on the G\"odel t-norm, that is the standard minimum $\otimes = \wedge$, is obtained as follows:
 %
 \input{chunks/chunk-goedel.algebra}
 
@@ -281,8 +266,8 @@ As can be seen, the \code{algebra()} function returns a named list of the follow
     \item \code{n}: (strict) negation defined as:
     $$
     \lnot\alpha = \begin{cases}
-    1, & \text{if}\ \alpha = 0, \\
-    0, & \text{otherwise;}
+    1, & \text{if}\ \alpha = 0 \ , \\
+    0, & \text{otherwise} \ ;
     \end{cases}
     $$
     \item \code{ni}: involutive negation defined as:
@@ -293,8 +278,8 @@ As can be seen, the \code{algebra()} function returns a named list of the follow
     \item \code{r}: residuum defined as:
     $$
     \alpha\Rightarrow\beta = \begin{cases}
-    1, & \text{if}\ \alpha\le\beta, \\
-    \beta, & \text{otherwise;}
+    1, & \text{if}\ \alpha\le\beta \ , \\
+    \beta, & \text{otherwise}\ ;
     \end{cases}
     $$
     \item \code{b}: bi-residuum;
@@ -304,15 +289,22 @@ As can be seen, the \code{algebra()} function returns a named list of the follow
     $\alpha \lor \beta = \max\{\alpha, \beta\}.$
 \end{itemize}
 
-\code{n} and \code{ni} are functions that accept a vector of numeric values as a single input and return a vector of negated values. \code{r} and \code{b} are two-argument functions, which compute the desired operation element-wisely. Similarly, \code{pt}, \code{pc}, \code{pi} and \code{ps} work element-wisely: they accept multiple vector arguments and compute the desired operation on first elements of the input vectors, then on second elements, etc. until the end of the vectors, which yields a vector of resulting values. The vectorized variants of these functions, i.e., \code{t}, \code{c}, \code{i} and \code{s} first merge all the input vector arguments and then calculate a single resulting value from it. See the example below for more information.
+
+Functions \code{n} and \code{ni} accept a vector of numeric values as a single input and return a vector of the negated values. Two-argument functions \code{r} and \code{b} compute the desired operation element-wisely. Similarly, \code{pt}, \code{pc}, \code{pi}, and \code{ps} work element-wisely: they accept a vector of multiple arguments and compute the outputs of the desired operation on first elements of the input vectors, then on second elements, etc. until the end of the vectors is reached, which yields a vector of the resulting values. The vectorized variants of these functions, i.e., \code{t}, \code{c}, \code{i}, and \code{s} first merge\footnote{By merging here, we mean application of the chosen operation on all components of the given vector to obtain a single value.} all the input vector arguments and then calculate a single resulting value from them. See the example below for more information.
 %
 \input{chunks/chunk-goedel.algebra.examples}
 %
 
+Note that as the strong and weak conjunction coincide in the G\"{o}del algebra as well as the strong and weak disjunction coincide, also the following holds for the  functions in the \lfl{} R-package: \code{t} = \code{i}, \code{pt} = \code{pi}, \code{c} = \code{s}, and \code{pc} = \code{ps}.
+
+
+
 
 \subsection{Goguen Algebra}
 
-Goguen algebra provides operations based on the product t-norm.
+
+
+Goguen algebra is also often called the product algebra to emphasize that its central point -- the strong conjunction -- is nothing else but the standard product (multiplication) operation. Therefore, $\otimes = \cdot$ is also often called the product t-norm.
 %
 \input{chunks/chunk-goguen.algebra}
 %
@@ -321,9 +313,9 @@ It is defined as follows:
     \item \code{n}: (strict) negation defined as:
     $$
     \lnot\alpha = \begin{cases}
-    1, & \text{if}\ \alpha = 0, \\
-    0, & \text{otherwise;}
-    \end{cases}
+    1, & \text{if}\ \alpha = 0\ , \\
+    0, & \text{otherwise}
+\ ;    \end{cases}
     $$
     \item \code{ni}: involutive negation defined as:
     ${\sim}\alpha = 1 - \alpha;$
@@ -333,8 +325,8 @@ It is defined as follows:
     \item \code{r}: residuum defined as:
     $$
     \alpha\Rightarrow\beta = \begin{cases}
-    1, & \text{if}\ \alpha\le\beta, \\
-    \frac{\beta}{\alpha}, & \text{otherwise;}
+    1, & \text{if}\ \alpha\le\beta\ , \\
+    \frac{\beta}{\alpha}, & \text{otherwise}\ ;
     \end{cases}
     $$
     \item \code{b}: bi-residuum;
@@ -344,13 +336,16 @@ It is defined as follows:
     $\alpha \lor \beta = \max\{\alpha, \beta\}.$
 \end{itemize}
 
-
+{\color{blue}M: sekce 2.1 a 2.2 za mne ciste}
 
 \subsection{\L{}ukasiewicz Algebra}
 
+The last implemented algebra is the \L{}ukasiewicz algebra that stems from the seminal work on 3-valued logic by Polish logician Jan \L ukasiewicz, see \cite{lukasiewicz19673}. Note, that \L ukasiewicz algebra forms so-called MV algebra (\cite{Chang:MV_1958}) that is the best generalization of the classical Boolean algebra. The implementation is provided as follows:
+
 \input{chunks/chunk-lukasiewicz.algebra}
 %
-\L{}ukasiewicz algebra provides operations based on the \L{}ukasiewicz t-norm as follows.
+The particular functions are defined as follows:
+
 \begin{itemize}
     \item \code{n}, \code{ni}: both negations are equally defined as:
     $\lnot\alpha = {\sim}\alpha = 1 - \alpha;$
@@ -373,29 +368,158 @@ It is defined as follows:
 
 
 
-\subsection{Handling of Missing Values}
+\subsection{Partial Fuzzy Set Theory -- Handling of Undefined and Missing Values}
+
+{\color{red} priste pokracuju tady M}
 
 The implementation of algebra functions in \pkg{lfl} takes a special care for missing values.
 If \code{NA} appears as a value to some operation,
 it is propagated to the result. That is, any operation with \code{NA} results in \code{NA}, by default.
 This scheme of handling missing values is also known as \emph{Bochvar's internal logic} \citep{book:malinov}.
 
-The \code{sobocinski()}, \code{kleene()} and \code{dragonfly()} functions modify the algebra to
-handle the \code{NA} in a different way than default. Sobocinski's algebra simply ignores \code{NA} values
+The \code{sobocinski()}, \code{kleene()}, \code{nelson()}, \code{lowerEst()} and \code{dragonfly()} functions modify the algebra to
+handle \code{NA}s in a different way than default. Sobocinski's algebra simply ignores \code{NA} values
 whereas Kleene's algebra treats \code{NA} as ``unknown value''. Dragonfly approach is a combination
-of Sobocinski's and Bochvar's approach, which preserves the ordering $0 \le \texttt{NA} \le 1$.
+of Sobocinski's and Bochvar's approach, which preserves the ordering $0 \le \code{NA} \le 1$.
 
-In detail, the behaviour of the algebra modifiers is defined as follows: \todo{doplnit tabulky pro NA hodnoty}
+In detail, the behaviour of the algebra modifiers is defined as follows: \todo{prosim o kontrolu tabulek -- pokud je v nich chyba, znamena to, ze mam chybu i ve zdrojacich v R}
+
+\begin{table}
+    \centering
+    \caption{Handling of missing values by variants of residual negation}
+    \label{tab:my_label}
+    \begin{tabular}{c|cccccc}
+        $\lnot$     & standard & \texttt{sobocinski} & \texttt{kleene} & \texttt{nelson} & \texttt{dragonfly} & \texttt{lowerEst} \\
+        \hline
+        $\alpha$    & $f(\alpha)$ & $f(\alpha)$ & $f(\alpha)$ & $f(\alpha)$ & $f(\alpha)$ & $f(\alpha)$ \\
+        \code{NA} & \code{NA} & $0$         & \code{NA} & $1$         & \code{NA} & $0$
+    \end{tabular}
+\end{table}
+
+\begin{table}
+    \centering
+    \caption{Handling of missing values by variants of involutive negation}
+    \label{tab:my_label}
+    \begin{tabular}{c|cccccc}
+        $\sim$     & standard & \texttt{sobocinski} & \texttt{kleene} & \texttt{nelson} & \texttt{dragonfly} & \texttt{lowerEst} \\
+        \hline
+        $\alpha$    & $f(\alpha)$ & $f(\alpha)$ & $f(\alpha)$ & $f(\alpha)$ & $f(\alpha)$ & $f(\alpha)$ \\
+        \code{NA} & \code{NA} & \code{NA} & \code{NA} & \code{NA} & \code{NA} & \code{NA}
+    \end{tabular}
+\end{table}
+
+\begin{table}
+    \centering
+    \caption{Handling of missing values by variants of conjunctive operations}
+    \label{tab:my_label}
+    \begin{tabular}{cc|cccccc}
+        \multicolumn{2}{c|}{$\otimes$, $\land$} & standard & \texttt{sobocinski} & \texttt{kleene} & \texttt{nelson} & \texttt{dragonfly} & \texttt{lowerEst} \\
+        \hline
+        $\alpha$    & $\beta$     & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ \\
+        $0$         & \code{NA} & \code{NA} & $0$         & $0$         & $0$         & $0$         & $0$         \\
+        $\alpha$    & \code{NA} & \code{NA} & $\alpha$    & \code{NA} & \code{NA} & \code{NA} & \code{NA} \\
+        $1$         & \code{NA} & \code{NA} & $1$         & \code{NA} & \code{NA} & \code{NA} & \code{NA} \\
+        \code{NA} & $0$         & \code{NA} & $0$         & $0$         & $0$         & $0$         & $0$         \\
+        \code{NA} & $\beta$     & \code{NA} & $\beta$     & \code{NA} & \code{NA} & \code{NA} & \code{NA} \\
+        \code{NA} & $1$         & \code{NA} & $1$         & \code{NA} & \code{NA} & \code{NA} & \code{NA} \\
+        \code{NA} & \code{NA} & \code{NA} & \code{NA} & \code{NA} & \code{NA} & \code{NA} & \code{NA} 
+    \end{tabular}
+\end{table}
+
+\begin{table}
+    \centering
+    \caption{Handling of missing values by variants of disjunctive operations}
+    \label{tab:my_label}
+    \begin{tabular}{cc|cccccc}
+        \multicolumn{2}{c|}{$\oplus$, $\lor$} & standard & \texttt{sobocinski} & \texttt{kleene} & \texttt{nelson} & \texttt{dragonfly} & \texttt{lowerEst} \\
+        \hline
+        $\alpha$    & $\beta$     & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ \\
+        $0$         & \code{NA} & \code{NA} & $0$         & \code{NA} & \code{NA} & \code{NA} & \code{NA} \\
+        $\alpha$    & \code{NA} & \code{NA} & $\alpha$    & \code{NA} & \code{NA} & $\alpha$    & $\alpha$    \\
+        $1$         & \code{NA} & \code{NA} & $1$         & $1$         & $1$         & $1$         & $1$         \\
+        \code{NA} & $0$         & \code{NA} & $0$         & \code{NA} & \code{NA} & \code{NA} & \code{NA} \\
+        \code{NA} & $\beta$     & \code{NA} & $\beta$     & \code{NA} & \code{NA} & $\beta$     & $\beta$     \\
+        \code{NA} & $1$         & \code{NA} & $1$         & $1$         & $1$         & $1$         & $1$         \\
+        \code{NA} & \code{NA} & \code{NA} & \code{NA} & \code{NA} & \code{NA} & \code{NA} & \code{NA} 
+    \end{tabular}
+\end{table}
+
+\begin{table}
+    \centering
+    \caption{Handling of missing values by variants of residuum}
+    \label{tab:my_label}
+    \begin{tabular}{cc|cccccc}
+        \multicolumn{2}{c|}{$\Rightarrow$} & standard & \texttt{sobocinski} & \texttt{kleene} & \texttt{nelson} & \texttt{dragonfly} & \texttt{lowerEst} \\
+        \hline
+        $\alpha$    & $\beta$     & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ \\
+        $0$         & \code{NA} & \code{NA} & $1$           & $1$         & $1$         & $1$         & $1$         \\
+        $\alpha$    & \code{NA} & \code{NA} & $\lnot\alpha$ & \code{NA} & \code{NA} & \code{NA} & \code{NA} \\
+        $1$         & \code{NA} & \code{NA} & $0$           & \code{NA} & \code{NA} & \code{NA} & \code{NA} \\
+        \code{NA} & $0$         & \code{NA} & $0$           & \code{NA} & $1$         & \code{NA} & $0$         \\
+        \code{NA} & $\beta$     & \code{NA} & $\beta$       & \code{NA} & \code{NA} & $\beta$     & $\beta$     \\
+        \code{NA} & $1$         & \code{NA} & $1$           & $1$         & $1$         & $1$         & $1$         \\
+        \code{NA} & \code{NA} & \code{NA} & \code{NA}   & \code{NA} & $1$         & $1$         & \code{NA} 
+    \end{tabular}
+\end{table}
+
+\begin{table}
+    \centering
+    \caption{Handling of missing values by variants of bi-residuum}
+    \label{tab:my_label}
+    \begin{tabular}{cc|cccccc}
+        \multicolumn{2}{c|}{$\Leftrightarrow$} & standard & \texttt{sobocinski} & \texttt{kleene} & \texttt{nelson} & \texttt{dragonfly} & \texttt{lowerEst} \\
+        \hline
+        $\alpha$    & $\beta$     & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ & $f(\alpha, \beta)$ \\
+        $0$         & \code{NA} & \code{NA} & $0$         & \code{NA} & $1$         & ? & ? \\
+        $\alpha$    & \code{NA} & \code{NA} & $0$         & \code{NA} & \code{NA} & ? & ? \\
+        $1$         & \code{NA} & \code{NA} & $0$         & \code{NA} & \code{NA} & ? & ? \\
+        \code{NA} & $0$         & \code{NA} & $0$         & \code{NA} & $1$         & ? & ? \\
+        \code{NA} & $\beta$     & \code{NA} & $0$         & \code{NA} & \code{NA} & ? & ? \\
+        \code{NA} & $1$         & \code{NA} & $0$         & \code{NA} & \code{NA} & ? & ? \\
+        \code{NA} & \code{NA} & \code{NA} & \code{NA} & \code{NA} & $1$         & ? & ? 
+    \end{tabular}
+\end{table}
+
+By default, the functions in the structure that is obtained by calling the \code{algebra()} function simply propagate \code{NA} to the output. If some other handling of missing values is required, it can be done as follows. Firstly, the underlying algebra (G\"odel, Goguen or \L{}ukasiewicz) is created and then modified by aplying one of the \code{sobocinski()}, \code{kleene()}, \code{nelson}, \code{dragonfly}, \code{lowerEst} functions on it -- see the example:
+%
+\input{chunks/chunk-na.algebra}
+
+
+\section{Evaluative Linguistic Expressions}
+
+\todo{budeme potřebovat kvůli kvantifikátorům}
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=120mm]{DEE.png}
+	\caption{Fuzzy sets representing some particular evaluative linguistive expressions. Specific defuzzification DEE is charted too.}\label{fig_dee}
+\end{figure}
+
+
+\section{Compositions of Fuzzy Relations}
+
+
+
+\section{Fuzzy Association Rules}
+
+
+
+\section{Perception-based Logical Deduction}
+
+
+
+\section{Fuzzy Rule-based Ensemble for Time Series Prediction}
+
+
+
+\section{Conclusion}
 
 
 
 \section*{Acknowledgments}
 
-All acknowledgments (note the AE spelling) should be collected in this
-unnumbered section before the references. It may contain the usual information
-about funding and feedback from colleagues/reviewers/etc. Furthermore,
-information such as relative contributions of the authors may be added here
-(if any).
+Partial support of Czech Science Foundation through the grant 20-07851S is gratefully announced.
 
 
 %% -- Bibliography -------------------------------------------------------------
