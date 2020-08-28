@@ -58,12 +58,17 @@ a
 @
 
 <<export='na.algebra'>>=
+# create the underlying Goedel algebra
 a <- algebra('goedel')
-a$t(NA, 0.3)
 
+# modify the algebra to handle NAs in the Sobocinski style
 a2 <- sobocinski(a)
+
+# see the difference
+a$t(NA, 0.3)
 a2$t(NA, 0.3)
 @
+
 
 
 \end{document}
