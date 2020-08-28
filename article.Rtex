@@ -488,7 +488,6 @@ By default, the functions in the structure that is obtained by calling the \code
 
 \section{Evaluative Linguistic Expressions}
 
-\todo{budeme potřebovat kvůli kvantifikátorům}
 
 
 \begin{figure}[htbp]
@@ -497,7 +496,7 @@ By default, the functions in the structure that is obtained by calling the \code
 	\caption{Fuzzy sets representing some particular evaluative linguistive expressions. Specific defuzzification DEE is charted too.}\label{fig_dee}
 \end{figure}
 
-\todo{blabla o lingvistickych vyrazech}
+\todo{tady bude blabla o lingvistickych vyrazech}
 
 In order to work with linguistic expressions in the \pkg{lfl} package, an appropriate \emph{linguistic context} must be defined firstly. A context describes a range of allowed values. For that, only the borders of the interval, i.e. minimum and maximum, are usually needed, but in \pkg{lfl}, the contexts carry an additional information of the position of other typical values, which in turn define the set of allowed atomic expression to use.
 
@@ -512,7 +511,16 @@ The linguistic context is created by calling a function \code{ctx3()}, \code{ctx
     \item \code{ctx5bilat(negMax, negUpperCenter, negCenter, negLowerCenter, origin, low\-erCenter, center, upperCenter, max)}: the bilateral pentachotomy that enables the atomic expressions: \emph{negative big, negative medium, negative small, zero, small, medium, big}.
 \end{itemize}
 %
-The arguments of context creator functions have sensible defaults and need not be therefore explicitly stated in all cases. Alternatively, the context may be automatically determined from data by calling the \code{minmax()} function, which creates the selected type of the context based on the minimum and maximum value found in data. See the examples:
+The arguments of context creator functions have sensible defaults and need not be therefore explicitly stated in all cases:
+%
+\input{chunks/chunk-ctx}
+%
+Alternatively, the context may be automatically determined from data by calling the \code{minmax()} function, which creates the selected type of the context based on the minimum and maximum value found in data:
+%
+\input{chunks/chunk-minmax}
+%
+The \code{minmax()} function may be forced to NOT guess some values by specifying them explicitly:
+%
 
 
 
