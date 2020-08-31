@@ -3,13 +3,11 @@
 \begin{Sinput}
 R> ctx <- ctx3()
 R> sm <- horizon(ctx, atomic = "sm")
-R> me <- horizon(ctx, atomic = "me")
-R> bi <- horizon(ctx, atomic = "bi")
-R> g <- ggplot(data = data.frame(x = 0), mapping = aes(x = x))
-R> g + stat_function(aes(color = "sm"), fun = sm) + stat_function(aes(color = "me"), 
-+     fun = me) + stat_function(aes(color = "bi"), fun = bi) + xlim(-0.5, 1.5)
+R> sm(c(seq(from = 0, to = 1, by = 0.2)))
 \end{Sinput}
-
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-12-1} %
+\begin{Soutput}
+[1] 1.0 0.6 0.2 0.0 0.0 0.0
+\end{Soutput}
+%
 % --end: "horizon"
 \end{Schunk}
