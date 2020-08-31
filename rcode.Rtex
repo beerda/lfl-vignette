@@ -86,19 +86,32 @@ minmax(data, type='ctx3', center=1000)
 
 <<export='horizon'>>=
 ctx <- ctx3()
-sm <- horizon(ctx, atomic='sm')
-sm(c(seq(from=0, to=1, by=0.2)))
+smHoriz <- horizon(ctx, atomic='sm')
+smHoriz(seq(from=0, to=1, by=0.2))
 @
 
 <<horizon, fig.width=6, fig.height=2, fig.show='hide'>>=
-me <- horizon(ctx, atomic='me')
-bi <- horizon(ctx, atomic='bi')
+meHoriz <- horizon(ctx, atomic='me')
+biHoriz <- horizon(ctx, atomic='bi')
 ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
-  stat_function(aes(color='sm'), fun = sm) +
-  stat_function(aes(color='me'), fun = me) +
-  stat_function(aes(color='bi'), fun = bi) +
+  stat_function(aes(color='sm'), fun = smHoriz) +
+  stat_function(aes(color='me'), fun = meHoriz) +
+  stat_function(aes(color='bi'), fun = biHoriz) +
   xlim(-0.5, 1.5) +
   labs(x='', y='', colour='atomic\nexpression')
 @
+
+<<export='hedge'>>=
+veHedge <- hedge('ve')
+ve.sm <- function(x) veHedge(smHoriz(x))
+ve.sm(seq(from=0, to=0.5, by=0.1))
+@
+
+
+<<export='lingexpr'>>=
+ve.sm2 <- lingexpr(ctx, atomic='sm', hedge='ve')
+ve.sm2(seq(from=0, to=0.5, by=0.1))
+@
+
 
 \end{document}
