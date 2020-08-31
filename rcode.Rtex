@@ -124,5 +124,47 @@ sm2 <- lingexpr(ctx, atomic='sm', hedge='-')
 sm2(seq(from=0, to=0.5, by=0.1))
 @
 
+<<lingexpr, fig.width=6, fig.height=2, fig.show='hide'>>=
+createListOfExpressions <- function(context, atomic, hedges) {
+  res <- lapply(hedges, function(h) {
+    lingexpr(context, atomic=atomic, hedge=h)
+  })
+  names(res) <- paste(hedges, atomic, sep='.')
+  res
+}
+
+createPlot <- function(l) {
+  g <- ggplot(data = data.frame(x = 0), mapping = aes(x = x))
+  for (n in names(l)) {
+    f <- l[[n]]
+    g <- g + stat_function(aes_(color=n), fun = f)
+  }
+  g
+}
+
+ctx <- ctx3()
+smList <- createListOfExpressions(ctx,  'sm',
+                                  c("ex", "si", "ve", "-", "ml", "ro", "qr", "vr"))
+meList <- createListOfExpressions(ctx,  'me',
+                                  c("ty", "-", "ml", "ro", "qr", "vr"))
+biList <- createListOfExpressions(ctx,  'bi',
+                                  c("ex", "si", "ve", "-", "ml", "ro", "qr", "vr"))
+
+g <- createPlot(smList) +
+  xlim(0, 1) +
+  labs(x='', y='', colour='atomic\nexpression')
+print(g)
+
+g <- createPlot(meList) +
+  xlim(0, 1) +
+  labs(x='', y='', colour='atomic\nexpression')
+print(g)
+
+g <- createPlot(biList) +
+  xlim(0, 1) +
+  labs(x='', y='', colour='atomic\nexpression')
+print(g)
+
+@
 
 \end{document}
