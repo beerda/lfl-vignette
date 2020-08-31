@@ -545,7 +545,13 @@ A view of horizons of the three basic atomic expressions (\emph{small}, \emph{me
 
 A hedge applied to the horizon produces a final linguistic expression. In \pkg{lfl}, the \code{hedge()} function creates a modifier function, which, combined with the horizon, produces a final linguistic expression. For instance, the function that represents the ``very small'' expression can be obtained as follows:
 %
+\input{chunks/chunk-hedge}
+%
+Such approach gives the user a detailed control of the creation of a linguistic expression, which may be useful for experimenting with novel expressions. However, it may be tedious to manually create the functions for a routine use. Therefore, the \code{lingexpr()} function provides a shortcut for creation of the pre-defined expressions:
+%
+\input{chunks/chunk-lingexpr}
 
+Note that for a linguistic expression consisting of an atomic expression only, an empty hedge has to be used:
 
 
 \section{Compositions of Fuzzy Relations}
