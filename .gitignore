@@ -4,6 +4,5 @@
 .Ruserdata
 *.bbl
 *.log
-*.pdf
 article.tex
 rcode.tex
