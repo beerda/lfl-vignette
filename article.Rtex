@@ -559,6 +559,14 @@ or equivalently:
 %
 \input{chunks/chunk-emptyhedge2}
 
+\begin{figure}
+    \centering
+    \includegraphics{figure/lingexpr1-1.pdf}
+    \includegraphics{figure/lingexpr2-1.pdf}
+    \includegraphics{figure/lingexpr3-1.pdf}
+    \caption{}
+    \label{fig:lingexpr}
+\end{figure}
 
 \section{Compositions of Fuzzy Relations}
 
