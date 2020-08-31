@@ -575,6 +575,16 @@ Figure~\ref{fig:lingexpr} shows all linguistic expressions of the unilateral tri
 
 For the sake of completeness, the \pkg{lfl} package provides tools for creation of triangular or raised-cosinal functions. Both \code{triangular()} and \code{raisedcosinal()} functions take three arguments, \code{lo}, \code{center}, \code{hi}, which fully parameterize the shape of the resulting function. See the example below as well as Figure~\ref{fig:triangular} for more detail. Note also that the \code{lo} and \code{hi} parameters may be set to an infinite value (\code{-Inf} resp. \code{Inf}), which causes the tail to be constantly equal to 1.
 %
+\input{}
+
+\begin{figure}
+    \centering
+    \includegraphics{figure/lingexpr1-1.pdf}
+    \includegraphics{figure/lingexpr2-1.pdf}
+    \includegraphics{figure/lingexpr3-1.pdf}
+    \caption{All pre-defined linguistic expressions for the unilateral trichotomy context \code{ctx3}}
+    \label{fig:lingexpr}
+\end{figure}
 
 
 
