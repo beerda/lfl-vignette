@@ -552,6 +552,12 @@ Such approach gives the user a detailed control of the creation of a linguistic 
 \input{chunks/chunk-lingexpr}
 
 Note that for a linguistic expression consisting of an atomic expression only, an empty hedge has to be used:
+%
+\input{chunks/chunk-emptyhedge1}
+%
+or equivalently:
+%
+\input{chunks/chunk-emptyhedge2}
 
 
 \section{Compositions of Fuzzy Relations}
