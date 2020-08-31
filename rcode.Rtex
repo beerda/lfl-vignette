@@ -113,5 +113,16 @@ ve.sm2 <- lingexpr(ctx, atomic='sm', hedge='ve')
 ve.sm2(seq(from=0, to=0.5, by=0.1))
 @
 
+<<export='emptyhedge1'>>=
+emptyHedge <- hedge('-')
+sm <- function(x) emptyHedge(smHoriz(x))
+sm(seq(from=0, to=0.5, by=0.1))
+@
+
+<<export='emptyhedge2'>>=
+sm2 <- lingexpr(ctx, atomic='sm', hedge='-')
+sm2(seq(from=0, to=0.5, by=0.1))
+@
+
 
 \end{document}
