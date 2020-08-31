@@ -163,5 +163,43 @@ createPlot(meList)
 createPlot(biList)
 @
 
+<<export='triangular'>>=
+tri <- triangular(0, 0.5, 1)
+tri(seq(from = 0, to = 1, by = 0.2))
+rcos <- raisedcosinal(0, 0.5, 1)
+rcos(seq(from = 0, to = 1, by = 0.2))
+@
+
+<<triangular1, fig.width=3, fig.height=2, fig.show='hide'>>=
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  stat_function(aes(color='sm'), fun = triangular(0, 0.5, 1)) +
+  xlim(-0.2, 1.2) +
+  labs(x='', y='') +
+  theme(legend.position = 'none')
+@
+
+<<triangular2, fig.width=3, fig.height=2, fig.show='hide'>>=
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  stat_function(aes(color='sm'), fun = triangular(-Inf, 0.5, 1)) +
+  xlim(-0.2, 1.2) +
+  labs(x='', y='') +
+  theme(legend.position = 'none')
+@
+
+<<raisedcos1, fig.width=3, fig.height=2, fig.show='hide'>>=
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  stat_function(aes(color='sm'), fun = raisedcosinal(0, 0.5, 1)) +
+  xlim(-0.2, 1.2) +
+  labs(x='', y='') +
+  theme(legend.position = 'none')
+@
+
+<<raisedcos2, fig.width=3, fig.height=2, fig.show='hide'>>=
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  stat_function(aes(color='sm'), fun = raisedcosinal(0, 0.5, Inf)) +
+  xlim(-0.2, 1.2) +
+  labs(x='', y='') +
+  theme(legend.position = 'none')
+@
 
 \end{document}

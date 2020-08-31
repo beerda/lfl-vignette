@@ -6,3 +6,8 @@
 *.log
 article.tex
 rcode.tex
+article.pdf
+rcode.pdf
+rcode-concordance.tex
+rcode.synctex.gz
+jss.pdf
