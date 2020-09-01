@@ -501,7 +501,7 @@ By default, the functions in the structure that is obtained by calling the \code
 \todo{tady bude blabla o lingvistickych vyrazech}
 
 
-\subsection{Linguistic Context}
+\subsection{Linguistic Context} \label{sec:context}
 
 In order to work with linguistic expressions in the \pkg{lfl} package, an appropriate \emph{linguistic context} must be defined firstly. A context describes a range of allowed values. For that, only the borders of the interval, i.e. minimum and maximum, are usually needed, but in \pkg{lfl}, the contexts carry an additional information of the position of other typical values, which in turn define the set of allowed atomic expression to use.
 
@@ -613,6 +613,21 @@ Practical applications often require to transform data into multiple fuzzy sets.
 For logical input, both \code{lcut()} and \code{fcut()} return two columns of 0s and 1s: these columns represent (crisp) truth degrees equivalent to the original input and its negation, respectively. The name of the columns is either specified by the user in the \code{name} argument, or derived from the given data argument automatically:
 %
 \input{chunks/chunk-lcut.logical}
+%
+The factor input is dichotomized in the result by both \code{lcut()} and \code{fcut()}:
+%
+\input{chunks/chunk-lcut.factor}
+
+The functionality of \code{lcut()} and \code{fcut()} differs for numeric input.  The \code{lcut()} function performs transformation to linguistic expressions similarly as described in the previous section. For that, a linguistic context must be provided (see Section~\ref{sec:context}) and the atomic expressions and hedges may be specified. If omitted, the context is determined automatically using the \code{minmax()} function described in Section~\ref{sec:context} and all relevant atomic expressions and hedges are applied:
+%
+\input{chunks/chunk-lcut.numeric}
+
+If data frame is to be processed with the \code{lcut()} function, the result is created per column. Also note that the names of the resulting variables are derived from the column names of the input data frame:
+%
+\input{chunks/chunk-lcut.data.frame}
+%
+In default, the given contexts, atomic expressions and hedges are recycled for each input numeric column. If different settings are needed for each column, the arguments should be given as named lists as follows:
+
 
 
 
