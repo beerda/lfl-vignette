@@ -608,17 +608,17 @@ For the sake of completeness, the \pkg{lfl} package provides tools for creation 
 
 \subsection{Batch Transformations of Data to Membership Degrees of Fuzzy Sets}
 
-Practical applications often require to transform data into multiple fuzzy sets. The \pkg{lfl} package provides the \code{lcut()} and \code{fcut()} functions to perform such transformations. Both functions transform vectors (numeric, logical or factors), matrices or data frames into a data frame with multiple columns derived from a single data column such that each resulting column contains values from the $[0, 1]$ interval and represents a  degree of the original value's membership to a distinct fuzzy set. These functions are the fuzzy-counterparts of the well known \code{cut()} operation of the base \R{}.
+Practical applications often require to transform data into multiple fuzzy sets. The \pkg{lfl} package provides the \code{lcut()} and \code{fcut()} functions to perform such transformations. Both functions transform vectors (numeric, logical or factors), matrices or data frames into an \code{fsets} object, which is a data frame with columns representing a fuzzy set and values from the $[0, 1]$ interval denoting a degree of the original value's membership to a distinct fuzzy set. These functions are the fuzzy-counterparts of the well known \code{cut()} operation of the base \R{}.
 
-For logical input, both \code{lcut()} and \code{fcut()} return two columns of 0s and 1s: these columns represent (crisp) truth degrees equivalent to the original input and its negation, respectively. The name of the columns is either specified by the user in the \code{name} argument, or derived from the given data argument automatically:
+For logical input, the \code{lcut()} function returns two columns of 0s and 1s: these columns represent (crisp) truth degrees equivalent to the original input and its negation, respectively. The name of the columns is either specified by the user in the \code{name} argument, or derived from the given data argument automatically:
 %
 \input{chunks/chunk-lcut.logical}
 %
-The factor input is dichotomized in the result by both \code{lcut()} and \code{fcut()}:
+The factor input is dichotomized in the result:
 %
 \input{chunks/chunk-lcut.factor}
 
-The functionality of \code{lcut()} and \code{fcut()} differs for numeric input.  The \code{lcut()} function performs transformation to linguistic expressions similarly as described in the previous section. For that, a linguistic context must be provided (see Section~\ref{sec:context}) and the atomic expressions and hedges may be specified. If omitted, the context is determined automatically using the \code{minmax()} function described in Section~\ref{sec:context} and all relevant atomic expressions and hedges are applied:
+For numeric input, the \code{lcut()} function performs transformation to linguistic expressions similarly as described in the previous section. For that, a linguistic context must be provided (see Section~\ref{sec:context}) and the atomic expressions and hedges may be specified. If omitted, the context is determined automatically using the \code{minmax()} function described in Section~\ref{sec:context} and all relevant atomic expressions and hedges are applied:
 %
 \input{chunks/chunk-lcut.numeric}
 
@@ -626,7 +626,16 @@ If data frame is to be processed with the \code{lcut()} function, the result is 
 %
 \input{chunks/chunk-lcut.data.frame}
 %
-In default, the given contexts, atomic expressions and hedges are recycled for each input numeric column. If different settings are needed for each column, the arguments should be given as named lists as follows:
+The given contexts, atomic expressions and hedges are recycled for each input numeric column. If different settings are needed for each column, the arguments should be given as named lists as follows:
+%
+\input{chunks/chunk-lcut.data.frame2}
+
+The \code{fsets} object returned by the \code{lcut()} function (and the \code{fcut()} function as well, see below) handles an additional information, the \code{vars} and \code{specs} attributes. \code{vars} is a character vector that assigns the original data name to each of the resulting column of membership degrees. In other words, the \code{vars} vector specifies the equivalence classes of fuzzy sets that were originated from the same data:
+%
+
+
+The \code{fcut()} function works identically as \code{lcut()} for logical and factor input:
+
 
 
 
