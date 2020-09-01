@@ -250,7 +250,7 @@ vars(employees)
 @
 
 <<export='lcut.specs'>>=
-specs(employees)
+specs(employees)[1:6, 1:6]
 @
 
 
