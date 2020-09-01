@@ -215,7 +215,7 @@ lcut(position)
 @
 
 <<export='lcut.numeric'>>=
-age <- c(runif(n=5, min=18, max=65))
+age <- round(runif(n=5, min=18, max=65))
 print(age)
 lcut(age,
      context=ctx3(low=0, high=100))
@@ -226,21 +226,31 @@ data <- data.frame(position=position,
                    age=age,
                    employed=logvec)
 print(data)
-lcut(data,
+employees <- lcut(data,
      context=ctx3(low=0, high=100),
      atomic=c('sm', 'me', 'bi'),
      hedges=c('ve', '-', 'ro'))
+print(employees)
 @
 
 <<export='lcut.data.frame2', tidy=FALSE>>=
-data$salary <- runif(n=5, min=1000, max=20000)
+data$salary <- round(runif(n=5, min=1000, max=20000))
 print(data)
-lcut(data,
-     context=list(age=ctx3(low=0, high=100),
-                  salary=ctx3(low=500, high=50000)),
-     atomic=list(salary=c('sm', 'bi')), # age is still default
-     hedges=list(age=c('ve', '-', 'ro'),
-                 salary=c('ex', 've', '-', 'ro')))
+employees <- lcut(data,
+                  context=list(age=ctx3(low=0, high=100),
+                               salary=ctx3(low=500, high=50000)),
+                  atomic=list(salary=c('sm', 'bi')), # age is default
+                  hedges=list(age=c('ve', '-', 'ro'),
+                              salary=c('ex', 've', '-', 'ro')))
+print(employees)
+@
+
+<<export='lcut.vars'>>=
+vars(employees)
+@
+
+<<export='lcut.specs'>>=
+specs(employees)
 @
 
 
