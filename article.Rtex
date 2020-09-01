@@ -610,8 +610,9 @@ For the sake of completeness, the \pkg{lfl} package provides tools for creation 
 
 Practical applications often require to transform data into multiple fuzzy sets. The \pkg{lfl} package provides the \code{lcut()} and \code{fcut()} functions to perform such transformations. Both functions transform vectors (numeric, logical or factors), matrices or data frames into a data frame with multiple columns derived from a single data column such that each resulting column contains values from the $[0, 1]$ interval and represents a  degree of the original value's membership to a distinct fuzzy set. These functions are the fuzzy-counterparts of the well known \code{cut()} operation of the base \R{}.
 
-For logical input, both \code{lcut()} and \code{fcut()} return two columns of 0s and 1s: these columns represent (crisp) truth degrees equivalent to the original input and its negation, respectively. The name of the columns is either specified by the user in the \code{name} argument, or derived from the given data argument automatically.
-
+For logical input, both \code{lcut()} and \code{fcut()} return two columns of 0s and 1s: these columns represent (crisp) truth degrees equivalent to the original input and its negation, respectively. The name of the columns is either specified by the user in the \code{name} argument, or derived from the given data argument automatically:
+%
+\input{chunks/chunk-lcut.logical}
 
 
 
