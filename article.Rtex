@@ -128,7 +128,7 @@ that was initially developed by \cite{Novak08}. Moreover, it covers some other c
 %
 $$\langle \textrm{linguistic hedge}\rangle \langle \textrm{atomic expression}\rangle$$
 %
-that evaluates the ruoghly a position on the real line, for example, ``very small'', ``roughly medium'', or ``extremely big''. The atomic expression takes values usually from the triplet 
+that evaluates the roughly a position on the real line, for example, ``very small'', ``roughly medium'', or ``extremely big''. The atomic expression takes values usually from the triplet 
 ``small'', ``medium'', and ``big''and its vague information can be adjusted by the used linguistic hedge (such as ``very'', ``extremely'', ``roughly'' or ``more or less'').
 The particular \emph{fuzzy sets} modeling the semantics of the evaluative linguistic expressions including the justification can be found in \cite{Novak08}, see also Figure~\ref{fig_dee}. A mathematical framework for manipulation and reasoning with
 such linguistic expressions is provided in a specific inference method called  \emph{Perception-based
@@ -250,8 +250,6 @@ $$\alpha\oplus\beta = {\sim}({\sim}\alpha \otimes {\sim}\beta)\ .$$
 
 Therefore, $\sim$ is an important unary connective not only for the \L ukasiewicz algebra but for all residuated lattices and we may freely extend such structures by the involutive negation for further use: $\langle [0,1], \wedge, \vee, \otimes , \Rightarrow, \sim 0 , 1 \rangle$. It does not mean that $\neg$ is not at disposal, it is always present via the definition recalled above and we have in general two negations that, in the case of the \L ukasiewicz algebra, coincide. The fact that the weak conjunction $\wedge$ and the weak disjunction $\vee$ are the lattice operations \emph{meet} (\emph{infimum})  $\land$ and the \emph{join} (\emph{supremum})  $\lor$ needs not further explanation.
 
-{\color{blue}M: tuto uvodni sekci 2 az do 2.1 povazuji za cistou, koukni na to, podle mne hotovo az na spell check, jinak nic nechybi, ani relevantni reference}
-
 
 \subsection{G\"odel Algebra}
 
@@ -338,7 +336,6 @@ It is defined as follows:
     $\alpha \lor \beta = \max\{\alpha, \beta\}.$
 \end{itemize}
 
-{\color{blue}M: sekce 2.1 a 2.2 za mne ciste}
 
 \subsection{\L{}ukasiewicz Algebra}
 
@@ -372,7 +369,7 @@ The particular functions are defined as follows:
 
 \subsection{Partial Fuzzy Set Theory -- Handling of Undefined and Missing Values}
 
-{\color{red} tak k tomuto se musime sejit a pokecta, tady si dovedu predstavit tak hrozne ruzne styly, jak to popsat, ze si musime rict, jak ma ten clanek vlastne vypadat, at ti to neborim pod rukama}
+
 
 The implementation of algebra functions in \pkg{lfl} takes a special care for missing values.
 If \code{NA} appears as a value to some operation,
@@ -488,8 +485,15 @@ By default, the functions in the structure that is obtained by calling the \code
 
 
 
+
+\section{Compositions of Fuzzy Relations}
+
+
+
+
 \section{Evaluative Linguistic Expressions}
 
+\subsection{Theoretical Background} \label{sec:lingexpr-theory}
 
 
 \begin{figure}[htbp]
@@ -632,15 +636,18 @@ The given contexts, atomic expressions and hedges are recycled for each input nu
 
 The \code{fsets} object returned by the \code{lcut()} function (and the \code{fcut()} function as well, see below) handles an additional information, the \code{vars} and \code{specs} attributes. \code{vars} is a character vector that assigns the original data name to each of the resulting column of membership degrees. In other words, the \code{vars} vector specifies the equivalence classes of fuzzy sets that were originated from the same data:
 %
+\input{chunks/chunk-lcut.vars}
+%
+The \code{specs} attribute returns a matrix that encodes a relation of \emph{specificity} (see Section~\ref{sec:lingexpr-theory}) between the columns of the \code{fsets} object (some columns and rows are omitted for brevity):
+%
+\input{chunks/chunk-lcut.specs}
+%
+As can be seen, the 4th fuzzy set (\code{ve.sm.age}) is more specific than 5th (\code{sm.age}), which is more specific than the 6th fuzzy set (\code{ro.sm.age}).
 
 
 The \code{fcut()} function works identically as \code{lcut()} for logical and factor input:
 
 
-
-
-
-\section{Compositions of Fuzzy Relations}
 
 
 
