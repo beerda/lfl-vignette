@@ -2,6 +2,8 @@
 
 \usepackage{thumbpdf,lmodern}
 \usepackage{amsmath}
+\usepackage{caption}
+\usepackage{subcaption}
 
 \newcommand{\lfl}{\pkg{lfl}}
 \newcommand{\R}{\proglang{R}}
@@ -575,16 +577,40 @@ Figure~\ref{fig:lingexpr} shows all linguistic expressions of the unilateral tri
 
 For the sake of completeness, the \pkg{lfl} package provides tools for creation of triangular or raised-cosinal functions. Both \code{triangular()} and \code{raisedcosinal()} functions take three arguments, \code{lo}, \code{center}, \code{hi}, which fully parameterize the shape of the resulting function. See the example below as well as Figure~\ref{fig:triangular} for more detail. Note also that the \code{lo} and \code{hi} parameters may be set to an infinite value (\code{-Inf} resp. \code{Inf}), which causes the tail to be constantly equal to 1.
 %
-\input{}
+\input{chunks/chunk-triangular}
 
 \begin{figure}
     \centering
-    \includegraphics{figure/lingexpr1-1.pdf}
-    \includegraphics{figure/lingexpr2-1.pdf}
-    \includegraphics{figure/lingexpr3-1.pdf}
-    \caption{All pre-defined linguistic expressions for the unilateral trichotomy context \code{ctx3}}
-    \label{fig:lingexpr}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics{figure/triangular1-1.pdf}
+        \caption{\code{triangular(0, 0.5, 1)}}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics{figure/triangular2-1.pdf}
+        \caption{\code{triangular(-Inf, 0.5, 1)}}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics{figure/raisedcos1-1.pdf}
+        \caption{\code{raisedcosinal(0, 0.5, 1)}}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics{figure/raisedcos2-1.pdf}
+        \caption{\code{raisedcosinal(0, 0.5, Inf)}}
+    \end{subfigure}
+    \caption{Triangular and raised-cosinal functions}
+    \label{fig:triangular}
 \end{figure}
+
+
+\subsection{Batch Transformations of Data to Membership Degrees of Fuzzy Sets}
+
+Practical applications often require to transform data into multiple fuzzy sets. The \pkg{lfl} package provides the \code{lcut()} and \code{fcut()} functions to perform such transformations. Both functions transform vectors (numeric, logical or factors), matrices or data frames into a data frame with multiple columns derived from a single data column such that each resulting column contains values from the $[0, 1]$ interval and represents a  degree of the original value's membership to a distinct fuzzy set. These functions are the fuzzy-counterparts of the well known \code{cut()} operation of the base \R{}.
+
+For logical input, both \code{lcut()} and \code{fcut()} return two columns of 0s and 1s: these columns represent (crisp) truth degrees equivalent to the original input and its negation, respectively. The name of the columns is either specified by the user in the \code{name} argument, or derived from the given data argument automatically.
 
 
 
