@@ -5,6 +5,7 @@
 <<setup, include=FALSE>>=
   options(prompt='R> ')
   knitr::opts_chunk$set(tidy=TRUE,
+                        tidy.opts = list(width.cutoff = 70),
                         comment='',
                         prompt=TRUE,
                         highlight=FALSE)
