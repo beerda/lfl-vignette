@@ -3,7 +3,7 @@
 
 \begin{document}
 <<setup, include=FALSE>>=
-  options(prompt='R> ')
+  options(prompt='R> ', continue='+  ')
   knitr::opts_chunk$set(tidy=TRUE,
                         tidy.opts = list(width.cutoff = 70),
                         comment='',
@@ -221,7 +221,7 @@ lcut(age,
      context=ctx3(low=0, high=100))
 @
 
-<<export='lcut.data.frame'>>=
+<<export='lcut.data.frame', tidy=FALSE>>=
 data <- data.frame(position=position,
                    age=age,
                    employed=logvec)
@@ -231,5 +231,18 @@ lcut(data,
      atomic=c('sm', 'me', 'bi'),
      hedges=c('ve', '-', 'ro'))
 @
+
+<<export='lcut.data.frame2', tidy=FALSE>>=
+data$salary <- runif(n=5, min=1000, max=20000)
+print(data)
+lcut(data,
+     context=list(age=ctx3(low=0, high=100),
+                  salary=ctx3(low=500, high=50000)),
+     atomic=list(salary=c('sm', 'bi')), # age is still default
+     hedges=list(age=c('ve', '-', 'ro'),
+                 salary=c('ex', 've', '-', 'ro')))
+@
+
+
 
 \end{document}

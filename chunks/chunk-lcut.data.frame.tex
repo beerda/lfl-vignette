@@ -1,7 +1,9 @@
 \begin{Schunk}
 % --begin: "lcut.data.frame"
 \begin{Sinput}
-R> data <- data.frame(position = position, age = age, employed = logvec)
+R> data <- data.frame(position=position,
++                     age=age,
++                     employed=logvec)
 R> print(data)
 \end{Sinput}
 \begin{Soutput}
@@ -13,8 +15,10 @@ R> print(data)
 5 accountant 50.63086     TRUE
 \end{Soutput}
 \begin{Sinput}
-R> lcut(data, context = ctx3(low = 0, high = 100), atomic = c("sm", "me", 
-+     "bi"), hedges = c("ve", "-", "ro"))
+R> lcut(data,
++       context=ctx3(low=0, high=100),
++       atomic=c('sm', 'me', 'bi'),
++       hedges=c('ve', '-', 'ro'))
 \end{Sinput}
 \begin{Soutput}
      position=accountant position=manager position=worker ve.sm.age sm.age
