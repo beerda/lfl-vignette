@@ -205,7 +205,7 @@ ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
 <<export='lcut.logical'>>=
 logvec <- c(TRUE, FALSE, FALSE, TRUE, TRUE)
 lcut(logvec)
-lcut(correct, name='employed')
+lcut(logvec, name='employed')
 @
 
 <<export='lcut.factor'>>=
