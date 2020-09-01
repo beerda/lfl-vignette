@@ -1,0 +1,23 @@
+\begin{Schunk}
+% --begin: "lcut.logical"
+\begin{Sinput}
+R> logvec <- c(TRUE, FALSE, FALSE, TRUE, TRUE)
+R> lcut(logvec)
+\end{Sinput}
+\begin{Soutput}
+     logvec not.logvec
+[1,]      1          0
+[2,]      0          1
+[3,]      0          1
+[4,]      1          0
+[5,]      1          0
+\end{Soutput}
+\begin{Sinput}
+R> lcut(correct, name = "employed")
+\end{Sinput}
+\begin{Soutput}
+Error in lcut(correct, name = "employed"): object 'correct' not found
+\end{Soutput}
+%
+% --end: "lcut.logical"
+\end{Schunk}

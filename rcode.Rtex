@@ -202,4 +202,33 @@ ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
   theme(legend.position = 'none')
 @
 
+<<export='lcut.logical'>>=
+logvec <- c(TRUE, FALSE, FALSE, TRUE, TRUE)
+lcut(logvec)
+lcut(correct, name='employed')
+@
+
+<<export='lcut.factor'>>=
+position <- factor(c('worker', 'manager', 'worker', 'worker', 'accountant'))
+lcut(position)
+@
+
+<<export='lcut.numeric'>>=
+age <- c(runif(n=5, min=18, max=65))
+print(age)
+lcut(age,
+     context=ctx3(low=0, high=100))
+@
+
+<<export='lcut.data.frame'>>=
+data <- data.frame(position=position,
+                   age=age,
+                   employed=logvec)
+print(data)
+lcut(data,
+     context=ctx3(low=0, high=100),
+     atomic=c('sm', 'me', 'bi'),
+     hedges=c('ve', '-', 'ro'))
+@
+
 \end{document}
