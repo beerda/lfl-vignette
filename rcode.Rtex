@@ -95,8 +95,9 @@ compose(R, S, alg='lukasiewicz', type='basic')
 @
 
 <<export='comp.mult'>>=
+a <- algebra('lukasiewicz')
 mult(R, S, function(r, s) {
-  lukas.tconorm(plukas.tnorm(r, s))
+  a$s(a$pt(r, s))
 })
 @
 
