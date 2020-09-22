@@ -94,6 +94,12 @@ print(S)
 compose(R, S, alg='lukasiewicz', type='basic')
 @
 
+<<export='comp.mult'>>=
+mult(R, S, function(r, s) {
+  lukas.tconorm(plukas.tnorm(r, s))
+})
+@
+
 <<export='ctx'>>=
 ctx3(low=5, center=100, high=1000)
 ctx3()
