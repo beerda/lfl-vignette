@@ -557,9 +557,9 @@ Note that these four compositions were studied already in late 1970's and early 
 
 The main compositions, as defined above,  may be computed in \pkg{lfl} with the \code{compose()} function as follows:
 %
-%\input{chunks/chunk-comp.basic}
+\input{chunks/chunk-comp.basic}
 %
-The \code{type} argument must be equal to any of: \code{'basic'}, \code{'sub'}, \code{'super'} or \code{'square'}.
+The \code{type} argument must be equal to any of: \code{'basic'}, \code{'sub'}, \code{'super'} or \code{'square'}. The \code{compose()} function is merely a wrapper around the \code{mult()} function, which computes a customizable inner-product of two matrices.
 {\color{red}M: sem asi popis jake funkce toto implementuji v lflfl package}
 
 The fundamental fuzzy relational compositions (\ref{form:circ})-(\ref{form:squ}) can be directly used in the expert classification problem, and the above-mentioned medical diagnosis \citep{Mak:JMS2015} is only its special case where the symptoms are take as the features and the set of diseases is a special case of the set of classes. However, observing the particular formulas it is obvious, that the the huge gap between the existential quantifiers, represented by $\bigvee$ in (\ref{form:circ}), and the universal quantifier, represented by $\bigwedge$ in (\ref{form:lhd})-(\ref{form:squ}), may cause undesirable effect. In particular, the basic composition $\circ$ may detect too many suspicions as finding a single ``connecting'' feature (symptom) will be a very frequent case for many classes (diseases) while carrying all the expected features (symptoms) may be rather idealistic in practice too eliminating requirement. Thus, $\circ$ could nominate too many candidate classes while $\lhd, \rhd$, and $\squ$ may vice-versa, eliminate all possibilities. 
