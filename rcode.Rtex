@@ -107,6 +107,48 @@ compose(R, S, alg='lukasiewicz', type='super')
 compose(R, S, alg='lukasiewicz', type='square')
 @
 
+<<>>=
+E <- matrix(c(0, 0, 1, 0,
+              0, 0, 0, 0,
+              0, 0, 0, 0,
+              0, 1, 0, 0,
+              0, 0, 0, 0), nrow=4)
+colnames(E) <- colnames(S)
+rownames(E) <- rownames(S)
+
+U <- matrix(c(0, 0, 0, 1,
+              0, 0, 0, 0,
+              0, 0, 0, 0,
+              0, 0, 0, 0,
+              0, 1, 0, 0), nrow=4)
+colnames(U) <- colnames(S)
+rownames(U) <- rownames(S)
+@
+
+<<export='comp.e'>>=
+print(E)
+@
+
+<<export='comp.u'>>=
+print(U)
+@
+
+<<export='comp.circ.excl'>>=
+a <- algebra('lukasiewicz')
+RS <- compose(R, S, alg=a, type='basic')
+RE <- compose(R, E, alg=a, type='basic')
+a$pt(RS, a$n(RE))
+@
+
+<<export='comp.circ.unavoid'>>=
+RU <- compose(R, S, alg=a, type='super')
+a$pt(RS, RU)
+@
+
+<<export='comp.circ.excl.unavoid'>>=
+a$pt(RS, a$n(RE), RU)
+@
+
 <<export='ctx'>>=
 ctx3(low=5, center=100, high=1000)
 ctx3()
