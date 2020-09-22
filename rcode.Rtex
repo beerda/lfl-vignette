@@ -68,7 +68,29 @@ a$t(NA, 0.3)
 a2$t(NA, 0.3)
 @
 
+<<>>=
+S <- matrix(c(1, 0.9, 0, 1,
+              1, 0.2, 1, 0,
+              0.1, 0.9, 0, 0.7,
+              0.9, 0, 1, 0.1,
+              0, 1, 1, 0.9), nrow=4)
+colnames(S) <- c('pulm.hypertension', 'sleeping.sickness', 'malaria', 'hangover', 'influenza')
+rownames(S) <- c('tiredness', 'cough', 'fever', 'blurred.vision')
+
+R <- matrix(c(0.9, 0, 0, 0,
+              1, 0.9, 0.8, 0,
+              0.8, 0.8, 0.9, 1,
+              0, 0.1, 0, 0.9), nrow=4)
+colnames(R) <- rownames(S)
+@
+
+<<export='comp.data'>>=
+print(R)
+print(S)
+@
+
 <<export='ctx'>>=
+ctx3(low=5, center=100, high=1000)
 ctx3()
 ctx3(high=100)
 ctx5bilat()
