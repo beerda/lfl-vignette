@@ -74,7 +74,7 @@ S <- matrix(c(1, 0.9, 0, 1,
               0.1, 0.9, 0, 0.7,
               0.9, 0, 1, 0.1,
               0, 1, 1, 0.9), nrow=4)
-colnames(S) <- c('pulm.hypertension', 'sleeping.sickness', 'malaria', 'hangover', 'influenza')
+colnames(S) <- c('pulm.hypertens', 'sleeping.sickn', 'malaria', 'hangover', 'influenza')
 rownames(S) <- c('tiredness', 'cough', 'fever', 'blurred.vision')
 
 R <- matrix(c(0.9, 0, 0, 0,
@@ -82,11 +82,16 @@ R <- matrix(c(0.9, 0, 0, 0,
               0.8, 0.8, 0.9, 1,
               0, 0.1, 0, 0.9), nrow=4)
 colnames(R) <- rownames(S)
+rownames(R) <- paste0('patient', 1:4)
 @
 
 <<export='comp.data'>>=
 print(R)
 print(S)
+@
+
+<<export='comp.basic'>>=
+compose(R, S, alg='lukasiewicz', type='basic')
 @
 
 <<export='ctx'>>=
