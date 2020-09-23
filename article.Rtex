@@ -537,6 +537,7 @@ By default, the functions in the structure that is obtained by calling the \code
 \section{Compositions of Fuzzy Relations}
 
 \subsection{Fundamental compositions}
+\label{sec:fundcomp}
 
 Compositions of fuzzy relation establish one of the fundamental blocks for mathematical fuzzy modeling, see \citep{Belohlavek_book2002,DeBaetsKerre_compoositions93}. Let us consider three non-empty universes $X,Y,Z$ and let $R\in\mathcal{F}(X\times Y)$ and $S\in\mathcal{F}(Y\times Z)$. In general, a composition of $R$ and $S$ results a fuzzy relation $R@S$ on $X\times Z$ so, it defines some appropriate relationship between elements from universes that were not connected before defining the composition. The obligatory example comes from the medical diagnosis where $X$ denotes the set of patients, $Y$ denotes the set of symptoms and $Z$ denotes the set of diseases \citep{BandlerKohout78}. 
 
@@ -563,7 +564,7 @@ The \code{type} argument must be equal to any of: \code{'basic'}, \code{'sub'}, 
 %
 \input{chunks/chunk-comp.mult}
 %
-See below additional examples of more complicated compositions computed with the \code{mult()} function.
+Additional examples of more complicated compositions computed with the \code{mult()} function may be found below in Section~\ref{sec:compquant}.
 
 The fundamental fuzzy relational compositions (\ref{form:circ})-(\ref{form:squ}) can be directly used in the expert classification problem, and the above-mentioned medical diagnosis \citep{Mak:JMS2015} is only its special case where the symptoms are take as the features and the set of diseases is a special case of the set of classes. However, observing the particular formulas it is obvious, that the the huge gap between the existential quantifiers, represented by $\bigvee$ in (\ref{form:circ}), and the universal quantifier, represented by $\bigwedge$ in (\ref{form:lhd})-(\ref{form:squ}), may cause undesirable effect. In particular, the basic composition $\circ$ may detect too many suspicions as finding a single ``connecting'' feature (symptom) will be a very frequent case for many classes (diseases) while carrying all the expected features (symptoms) may be rather idealistic in practice too eliminating requirement. Thus, $\circ$ could nominate too many candidate classes while $\lhd, \rhd$, and $\squ$ may vice-versa, eliminate all possibilities:
 %
@@ -587,18 +588,29 @@ where the last one $\RSE^{\rhd U}$ combines the extra knowledge contained in bot
 
 For example, let us imagine that the occurrence of fever is an evidence of NOT having a pulmonary hypertension. Similarly, let cough excludes hangover from the possible diagnoses. That is, fever and cough are excluding features of pulmonary hypertension and hangover, respectively. This corresponds to the following matrix $E$ of excluding features:
 %
-
-To compute $\RSE$ as in (\ref{form:circ_excl}, one can proceed as follows:
+\input{chunks/chunk-comp.e}
 %
-
+To compute $\RSE$ as in (\ref{form:circ_excl}), one can proceed as follows:
+%
+\input{chunks/chunk-comp.circ.excl}
+%
 Now let us assume the blurred vision to be a typical unavoidable feature of pulmonary hypertension as well as cough would be unavoidable for influenza. This corresponds to the following matrix $U$ of unavoidable features:
 %
+\input{chunks/chunk-comp.u}
+%
+$(R\circ S)^{\rhd U}$ (see (\ref{form:circ_unavoid})) may be evaluated by the following commands:
+%
+\input{chunks/chunk-comp.circ.unavoid}
+%
+Finally, the concept unavoidable and excluding features together, as defined in (\ref{form:circ_excl_unavoid}), is processed as follows:
+%
+\input{chunks/chunk-comp.circ.excl.unavoid}
 
+\michal{možná ty příklady nejsou zrovna super, ještě je třeba se tomu asi pověnovat}
 
-
-{\color{red}M: sem asi popis jake funkce toto implementuji v lflfl package}
 
 \subsection{Compositions based on generalized quantifiers}
+\label{sec:compquant}
 
 Another approach to avoid the undesirable effect of too many suspicions (classification candidates) provided by the basic composition and too few (or often none)  suspicions provided by the Bandler-Kohout products is based on employing generalized quantifiers such as {\tt A Few}, {\tt At least 2}, {\tt At least 40\%}, or {\tt Majority}.
 
@@ -624,6 +636,12 @@ $n$ denotes the cardinality of $Y$. The calculation according to (\ref{form_calc
 
 Note that an appropriate choice of $f$ naturally allows to modify $\mu$ in such a way that the constructed quantifier is equivalent to the existential or the universal one. For more details, we refer to \cite{Step2014,Cao2017b}.
 
+The \pkg{lfl} package provides factory functions that create quantifiers, which can be used for composition of fuzzy relations with the \code{mult()} function described in Section~\ref{sec:fundcomp}. For instance, the basic composition evaluated by
+%
+\input{chunks/chunk-comp.basic}
+%
+may be equivalently obtained by using the existential quantifier \code{'some'}:
+%
 {\color{red}M: sem asi popis jake funkce toto implementuji v lflfl package}
 
 
@@ -796,7 +814,6 @@ The given contexts, atomic expressions and hedges are recycled for each input nu
 %
 \input{chunks/chunk-lcut.data.frame2}
 
-{\color{red}M: TADY POKRACUJU PRISTE}
 
 The \code{fsets} object returned by the \code{lcut()} function (and the \code{fcut()} function as well, see below) handles an additional information, the \code{vars} and \code{specs} attributes. In particular, \code{vars} is a character vector that assigns the original data name to each of the resulting column of membership degrees. In other words, the \code{vars} vector specifies the equivalence classes of fuzzy sets that were originated from the same data:
 %
