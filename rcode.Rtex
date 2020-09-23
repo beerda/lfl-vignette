@@ -91,11 +91,11 @@ print(S)
 @
 
 <<export='comp.basic'>>=
-compose(R, S, alg='lukasiewicz', type='basic')
+a <- algebra('lukasiewicz')
+compose(R, S, alg=a, type='basic')
 @
 
 <<export='comp.mult'>>=
-a <- algebra('lukasiewicz')
 mult(R, S, function(r, s) {
   a$s(a$pt(r, s))
 })
@@ -147,6 +147,13 @@ a$pt(RS, RU)
 
 <<export='comp.circ.excl.unavoid'>>=
 a$pt(RS, a$n(RE), RU)
+@
+
+<<export='comp.quant.some'>>=
+qsome <- quantifier('some', alg=a)
+mult(R, S, function(r, s) {
+  qsome(a$pt(r, s))
+})
 @
 
 <<export='ctx'>>=

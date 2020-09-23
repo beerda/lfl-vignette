@@ -1,8 +1,10 @@
 \begin{Schunk}
-% --begin: "comp.basic"
+% --begin: "comp.quant.some"
 \begin{Sinput}
-R> a <- algebra("lukasiewicz")
-R> compose(R, S, alg = a, type = "basic")
+R> qsome <- quantifier("some", alg = a)
+R> mult(R, S, function(r, s) {
++      qsome(a$pt(r, s))
++  })
 \end{Sinput}
 \begin{Soutput}
          pulm.hypertens sleeping.sickn malaria hangover influenza
@@ -12,5 +14,5 @@ patient3            0.7            0.9     0.7      0.9       0.9
 patient4            0.9            1.0     0.6      1.0       1.0
 \end{Soutput}
 %
-% --end: "comp.basic"
+% --end: "comp.quant.some"
 \end{Schunk}
