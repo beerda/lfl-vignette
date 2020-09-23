@@ -644,8 +644,11 @@ may be equivalently obtained by using the existential quantifier \code{'some'}:
 %
 \input{chunks/chunk-comp.quant.some}
 %
-Other quantifiers may be used analogously. For instance, one may require the patients to show almost all symptoms of a diagnosis:
-
+Other quantifiers may be used analogously. For instance, one may require the patients to show at least two symptoms of  the diagnosis:
+%
+\input{chunks/chunk-comp.quant.atleast}
+%
+More details on the quantifiers may be found in Section \todo{doplnit}.
 
 
 
@@ -655,7 +658,8 @@ As the whole implementation in \pkg{lfl} is based on the functions, it is very e
    \begin{align*}
    (R\circ^{Q} S^{\backprime}E)^{\rhd U}(x,z) & = (R\circ^Q S) (x,z) \otimes \neg (R\circ E) \otimes (R\rhd U)  \label{form:circ_Q_excl_unavoid}
 \end{align*}
-turned to be very efficient in classifying dragonfly species as well as amphibian species, for appropriately chosen quantifiers, see \cite{Step_etal:Unavoidable_KNOSYS2020}.
+turned to be very efficient in classifying dragonfly species as well as amphibian species, for appropriately chosen quantifiers, see \cite{Step_etal:Unavoidable_KNOSYS2020}. In the \pkg{lfl} package, such formula is evaluated by the following code:
+%
 
 {\color{red}M: sem asi popis jake funkce toto implementuji v lflfl package}
 
