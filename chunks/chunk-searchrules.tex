@@ -1,0 +1,74 @@
+\begin{Schunk}
+% --begin: "searchrules"
+\begin{Sinput}
+R> print(employees)
+\end{Sinput}
+\begin{Soutput}
+     position=accountant position=manager position=worker ve.sm.age sm.age
+[1,]                   0                0               1         0      0
+[2,]                   0                1               0         0      0
+[3,]                   0                0               1         0      0
+[4,]                   0                0               1         0      0
+[5,]                   1                0               0         0      0
+     ro.sm.age    me.age ro.me.age ve.bi.age bi.age ro.bi.age employed
+[1,]         0 1.0000000         1         0      0         0        1
+[2,]         0 0.3914128         1         0      0         0        0
+[3,]         0 0.9859853         1         0      0         0        0
+[4,]         0 1.0000000         1         0      0         0        1
+[5,]         0 1.0000000         1         0      0         0        1
+     not.employed ex.sm.salary ve.sm.salary sm.salary ro.sm.salary ex.bi.salary
+[1,]            0    0.0000000    0.0693853 0.7016150  1.000000000            0
+[2,]            1    0.0000000    0.0000000 0.0000000  0.000000000            0
+[3,]            1    0.0000000    0.0000000 0.0000000  0.005816572            0
+[4,]            0    0.0000000    0.3560801 0.9010937  1.000000000            0
+[5,]            0    0.9019527    1.0000000 1.0000000  1.000000000            0
+     ve.bi.salary bi.salary ro.bi.salary
+[1,]            0         0            0
+[2,]            0         0            0
+[3,]            0         0            0
+[4,]            0         0            0
+[5,]            0         0            0
+\end{Soutput}
+\begin{Sinput}
+R> searchrules(employees, lhs = seq_len(ncol(employees)), rhs = seq_len(ncol(employees)), 
++      minSupport = 0.3, minConfidence = 0.8, maxLength = 3)
+\end{Sinput}
+\begin{Soutput}
+                                             support lhsSupport rhsSupport
+employed => ro.sm.salary                   0.6000000  0.6000000  0.6011633
+ => ro.me.age                              1.0000000  1.0000000  1.0000000
+employed => me.age                         0.6000000  0.6000000  0.8754796
+sm.salary => me.age                        0.5205418  0.5205418  0.8754796
+sm.salary => employed                      0.5205418  0.5205418  0.6000000
+ro.sm.salary => me.age                     0.6011633  0.6011633  0.8754796
+ro.me.age & ro.sm.salary => employed       0.6000000  0.6011633  0.6000000
+me.age & ro.sm.salary => employed          0.6000000  0.6011633  0.6000000
+ro.sm.salary => employed                   0.6000000  0.6011633  0.6000000
+position=worker & ro.sm.salary => employed 0.4000000  0.4011633  0.6000000
+position=worker => me.age                  0.5971971  0.6000000  0.8754796
+ => me.age                                 0.8754796  1.0000000  0.8754796
+ro.me.age & employed => sm.salary          0.5205418  0.6000000  0.5205418
+me.age & employed => sm.salary             0.5205418  0.6000000  0.5205418
+employed => sm.salary                      0.5205418  0.6000000  0.5205418
+position=worker & employed => sm.salary    0.3205417  0.4000000  0.5205418
+                                           confidence
+employed => ro.sm.salary                    1.0000000
+ => ro.me.age                               1.0000000
+employed => me.age                          1.0000000
+sm.salary => me.age                         1.0000000
+sm.salary => employed                       1.0000000
+ro.sm.salary => me.age                      1.0000000
+ro.me.age & ro.sm.salary => employed        0.9980650
+me.age & ro.sm.salary => employed           0.9980650
+ro.sm.salary => employed                    0.9980650
+position=worker & ro.sm.salary => employed  0.9971002
+position=worker => me.age                   0.9953284
+ => me.age                                  0.8754796
+ro.me.age & employed => sm.salary           0.8675696
+me.age & employed => sm.salary              0.8675696
+employed => sm.salary                       0.8675696
+position=worker & employed => sm.salary     0.8013543
+\end{Soutput}
+%
+% --end: "searchrules"
+\end{Schunk}

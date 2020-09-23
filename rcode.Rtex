@@ -169,7 +169,7 @@ a$pt(qRS, a$n(RE), RU)
 @
 
 <<export='ctx'>>=
-ctx3(low=5, center=100, high=1000)
+ctx3(5, 100, 1000)
 ctx3()
 ctx3(high=100)
 ctx5bilat()
@@ -354,6 +354,15 @@ vars(employees)
 specs(employees)[1:6, 1:6]
 @
 
+<<export='searchrules'>>=
+print(employees)
+searchrules(employees,
+            lhs=seq_len(ncol(employees)),
+            rhs=seq_len(ncol(employees)),
+            minSupport=0.3,
+            minConfidence=0.8,
+            maxLength=3)
+@
 
 
 \end{document}
