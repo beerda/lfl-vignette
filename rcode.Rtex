@@ -354,12 +354,11 @@ vars(employees)
 specs(employees)[1:6, 1:6]
 @
 
-<<export='searchrules'>>=
-print(employees)
+<<export='searchrules', tidy=FALSE>>=
 searchrules(employees,
             lhs=seq_len(ncol(employees)),
             rhs=seq_len(ncol(employees)),
-            minSupport=0.3,
+            minSupport=0.5,
             minConfidence=0.8,
             maxLength=3)
 @
