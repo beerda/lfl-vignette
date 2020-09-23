@@ -946,7 +946,22 @@ Table~\ref{Tab:4fold-guha}. The other numbers are determined in an analogous way
 The advantage of associations (\ref{form:assoc_general}) is that each of them can be interpreted as the fuzzy rule:
 $$\mathcal{R}\defeq\IFRuleMore{X_{i1}}{\mathcal{A}_{i1}}{X_{ip}}{\mathcal{A}_{ip}}{Y_k}{\mathcal{B}_{ik}}$$ that may be used in the inference systems for approximate reasoning. Variables $X\neq X_{i1},\ldots , X_{ip}$ that do not explicitly appear in the antecedent are assigned the expression {\tt any}. 
 
-The \pkg{lfl} package provides the \code{searchrules()} function that implements an OPUS-inspired \pcite{webb95opus} algorithm for searching for fuzzy association rules in data. The \code{searchrules()} function traverses through the data set transformed to fuzzy sets (see \code{lcut()} and \code{fcut()} functions in Section~\ref{sec:lcut}) and searches for all rules that satisfy certain restrictive conditions specified by the user.
+The \pkg{lfl} package provides the \code{searchrules()} function that implements an OPUS-inspired \pcite{webb95opus} algorithm for searching for fuzzy association rules in data. The \code{searchrules()} function traverses through the data set transformed to fuzzy sets (see \code{lcut()} and \code{fcut()} functions in Section~\ref{sec:lcut}) and searches for all rules that satisfy certain restrictive conditions specified by the user:
+%
+\input{chunks/chunk-searchrules}
+
+Besides the \code{fsets} data object (see Section~\ref{sec:lcut}), the \code{searchrules()} function accepts the following arguments:
+\begin{itemize}
+    \item \code{lhs} -- indices of data columns that may appear on the left-hand side of the rule (i.e., in the antecedent);
+    \item \code{rhs} -- indices of data columns that may appear on the left-hand side of the rule (i.e., in the consequent);
+    \item \code{tnorm} -- the t-norm that represents the conjunction of predicates in the antecedent (defaults to G\"odel minimum);
+    \item \code{n} -- the maximum number of rules with greatest confidence to be found;
+    \item \code{minSupport} -- the minimum support degree of a rule. Rules with support below that number are filtered out;
+    \item \code{minConfidence} -- the minimum confidence degree of a rule. Rules with confidence below that number are filtered out;
+    \item \code{maxConfidence} -- the maximum confidence threshold. After finding a rule that has confidence degree above the maxConfidence threshold, no other rule is resulted based on adding some additional attribute to its antecedent part. I.e. if \code{a => c} has confidence above the \code{maxConfidence} threshold, no another rule containing \code{a} in the antecedent and \code{c} will be produced regardless of its interest measures;
+    \item \code{maxLength} -- Maximum allowed length of the antecedent, i.e. maximum number of predicates that are allowed to appear on both sides of the rule. If negative, the maximum length of rules is unlimited.
+    \item \code{numThreads} -- the number of computing threads to start in the parallel computation.
+\end{itemize}
 
 {\color{red}tady nasypej implementaci v R, pokud v ni jsou treba ruzne dalsi miry kvality (zamerne se vyhybam pojmu kvantifikator, at se to neplete s temi kvantifikatory u kompozic), tak by je bylo dobre nahore take uvest}
 
