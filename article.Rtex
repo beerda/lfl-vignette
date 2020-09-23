@@ -642,7 +642,10 @@ The \pkg{lfl} package provides factory functions that create quantifiers, which 
 %
 may be equivalently obtained by using the existential quantifier \code{'some'}:
 %
-{\color{red}M: sem asi popis jake funkce toto implementuji v lflfl package}
+\input{chunks/chunk-comp.quant.some}
+%
+Other quantifiers may be used analogously. For instance, one may require the patients to show almost all symptoms of a diagnosis:
+
 
 
 
