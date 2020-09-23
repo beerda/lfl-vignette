@@ -156,6 +156,13 @@ mult(R, S, function(r, s) {
 })
 @
 
+<<export='comp.quant.atleast'>>=
+qatleast <- quantifier('at.least', n=2, alg=a)
+mult(R, S, function(r, s) {
+  qatleast(a$pt(r, s))
+})
+@
+
 <<export='ctx'>>=
 ctx3(low=5, center=100, high=1000)
 ctx3()
