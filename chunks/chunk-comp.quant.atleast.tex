@@ -2,9 +2,10 @@
 % --begin: "comp.quant.atleast"
 \begin{Sinput}
 R> qatleast <- quantifier("at.least", n = 2, alg = a)
-R> mult(R, S, function(r, s) {
+R> qRS <- mult(R, S, function(r, s) {
 +      qatleast(a$pt(r, s))
 +  })
+R> print(qRS)
 \end{Sinput}
 \begin{Soutput}
          pulm.hypertens sleeping.sickn malaria hangover influenza

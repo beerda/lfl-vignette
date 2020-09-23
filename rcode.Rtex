@@ -158,9 +158,14 @@ mult(R, S, function(r, s) {
 
 <<export='comp.quant.atleast'>>=
 qatleast <- quantifier('at.least', n=2, alg=a)
-mult(R, S, function(r, s) {
+qRS <- mult(R, S, function(r, s) {
   qatleast(a$pt(r, s))
 })
+print(qRS)
+@
+
+<<export='comp.quant.combined'>>=
+a$pt(qRS, a$n(RE), RU)
 @
 
 <<export='ctx'>>=
