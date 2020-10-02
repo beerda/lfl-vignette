@@ -355,12 +355,18 @@ specs(employees)[1:6, 1:6]
 @
 
 <<export='searchrules', tidy=FALSE>>=
-searchrules(employees,
-            lhs=seq_len(ncol(employees)),
-            rhs=seq_len(ncol(employees)),
-            minSupport=0.5,
-            minConfidence=0.8,
-            maxLength=3)
+rb <- searchrules(employees,
+                  lhs=seq_len(ncol(employees)),
+                  rhs=seq_len(ncol(employees)),
+                  minSupport=0.5,
+                  minConfidence=0.8,
+                  maxLength=3)
+print(rb)
+@
+
+<<export='reduce'>>=
+reduced <- reduce(employees, rb, 0.9)
+print(reduced)
 @
 
 

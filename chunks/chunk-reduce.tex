@@ -1,0 +1,17 @@
+\begin{Schunk}
+% --begin: "reduce"
+\begin{Sinput}
+R> reduced <- reduce(employees, rb, 0.9)
+R> print(reduced)
+\end{Sinput}
+\begin{Soutput}
+                                    support lhsSupport rhsSupport confidence
+ => me.age                        0.8754796  1.0000000  0.8754796  0.8754796
+ => ro.me.age                     1.0000000  1.0000000  1.0000000  1.0000000
+me.age & ro.sm.salary => employed 0.6000000  0.6011633  0.6000000  0.9980650
+ro.me.age & employed => sm.salary 0.5205418  0.6000000  0.5205418  0.8675696
+employed => ro.sm.salary          0.6000000  0.6000000  0.6011633  1.0000000
+\end{Soutput}
+%
+% --end: "reduce"
+\end{Schunk}
