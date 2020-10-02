@@ -971,14 +971,23 @@ Besides the \code{fsets} data object (see Section~\ref{sec:lcut}), the \code{sea
 
 
 {\color{green}
+Internally, the rule base produced by the \code{searchrules()} function is an instance of the \code{farules} class. It is a list of two elements, \code{rules} and \code{statistics}, where \code{rules} is a list of character vectors of rule predicate names. The first element of these vectors is a consequent of the rule, the rest is the antecedent. The \code{statistics} element is a matrix that assigns some quality measures to each rule:
+%
+%
+The \code{as.data.frame()} function converts the \code{farules} object to a usual data frame:
+%
+%
+The \code{antecedent()} or \code{consequent()} functions create a list of antecedents or consequents from the \code{farules} object:
+
+
 If the generated association rules are intended for use in some inference mechanisms (such as PbLD described in Section~\ref{sec:pbld}), it is sometimes useful to employ a \code{reduce()} function to decrease the amount of rules obtained by the \code{searchrules()} function.
 
 The \emph{rule base coverage of data} expresses the amount of data entries, for which there exists a
 rule with an antecedent that models (that is, ``covers'') the original data. The reduction algorithm performed in the \code{reduce()} function selects a minimal rule base that covers at least the specified ratio of data. The algorithm described by \cite{burda2015} turns out to be very efficient in reduction while retaining the output of the PbLD inference.
 
 For example, a set \code{rb} of rules obtained from the \code{employees} fuzzy sets may be reduced to the 90 \% coverage ratio by issuing the following command:
-
-
+%
+\input{chunks/chunk-reduce}
 }
 
 
@@ -1075,6 +1084,13 @@ After deriving the output $C$, it often needs to be defuzzified that is, we ofte
 
 {\color{red}\emph{Center-Of-Gravity} defuzzification je take k dispozici v lfl?}
 
+\michal{neni, je tam jen MOM, LOM, FOM a DEE. COG muzu dodat, kdyz mi reknes, jak se to dela}
+
+
+{\color{green}
+
+
+}
 
 
 \section{Fuzzy Rule-based Ensemble for Time Series Prediction}
