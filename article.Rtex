@@ -988,7 +988,7 @@ If the generated association rules are intended for use in some inference mechan
 The \emph{rule base coverage of data} expresses the amount of data entries, for which there exists a
 rule with an antecedent that models (that is, ``covers'') the original data. The reduction algorithm performed in the \code{reduce()} function selects a minimal rule base that covers at least the specified ratio of data. The algorithm described by \cite{burda2015} turns out to be very efficient in reduction while retaining the output of the PbLD inference.
 
-For example, a set \code{rb} of rules obtained from the \code{employees} fuzzy sets may be reduced to the 90 \% coverage ratio by issuing the following command:
+For example, a set \code{rb} of rules obtained from the \code{employees} fuzzy sets may be reduced to the 90 \% coverage ratio as follows:
 %
 \input{chunks/chunk-reduce}
 }
@@ -1091,8 +1091,24 @@ After deriving the output $C$, it often needs to be defuzzified that is, we ofte
 
 
 {\color{green}
-
-
+The \pkg{lfl} package implements the PbLD in the \code{pbld()} function. The inference is performed for each row of the input data object (which must be the instance of the \code{fsets} class, see Section~\ref{sec:fuzzysets}). For instance, let us consider the \R{}'s standard dataset, \code{CO2}:
+%
+%
+We are going to create a rule base for predicting the \code{uptake} variable from the other columns of the dataset. First of all, let us convert the original data into the set of fuzzy sets. We define a custom trichotomous context for the predicted variable and leave defaults for all the other columns:
+%
+%
+Now we split the data into the \code{training} and \code{testing} part. For that, here are 10 data rows randomly selected for the testing dataset (in real application, perhaps more sophisticated method of training/testing split may be performed e.g. by using the \code{createDataPartition()} function of the \pkg{caret} package \citep{caretPkg}):
+%
+%
+On the training part, the rule base is created with the \code{uptake} fuzzy sets as consequents (columns 39--58) and the rest as antecedents (columns 1--38):
+%
+%
+Before performing the inference with the \code{pbld()} function, a sampled consequent values have to be provided. The following commands produce a vector \code{v} of 1000 evenly distributed values from the \code{uptake} context and a \code{fsets} object \code{p} of fuzzy sets that appear in the consequent with membership degrees corresponding to the values from \code{v}. This information is needed for de-fuzzification, which enables to obtain a crisp value of the \code{uptake} predicted by the PbLD inference:
+%
+%
+After that, everything is prepared to run the inference on the \code{testing} dataset:
+%
+%
 }
 
 
