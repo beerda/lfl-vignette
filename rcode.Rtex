@@ -396,7 +396,7 @@ head(CO2)
 <<export='pbld2'>>=
 uptakeContext <- ctx3(7, 28.3, 46)
 d <- lcut(CO2, context=list(uptake=uptakeContext))
-head(d)
+colnames(d)
 @
 
 <<export='pbld3'>>=
@@ -406,10 +406,11 @@ training <- d[-testingIndices, ]
 testing <- d[testingIndices, ]
 @
 
-<<export='pbld4'>>=
-colnames(training)[1:38]
-colnames(training)[39:58]
-rb <- searchrules(training, lhs=1:38, rhs=39:58, minConfidence=0.5)
+<<export='pbld4', tidy=FALSE>>=
+rb <- searchrules(training,
+                  lhs=which(vars(d) != 'uptake'),
+                  rhs=which(vars(d) == 'uptake'),
+                  minConfidence=0.5)
 @
 
 <<export='pbld5'>>=
