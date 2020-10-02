@@ -210,7 +210,7 @@ by using the technique of \emph{compositions of fuzzy relations}, see
 
 \subsection{Overview of the Paper}
 
-The rest of the paper is organized as follows. \todo{doplnit}
+The rest of the paper is organized as follows. \michal{doplnit}
 
 
 
@@ -531,7 +531,7 @@ By default, the functions in the structure that is obtained by calling the \code
 %
 \input{chunks/chunk-na.algebra}
 
-\todo{musime tady poresit jeste usporadani - je potreba pozdeji u definice kvantifikatoru}
+\michal{musime tady poresit jeste usporadani - je potreba pozdeji u definice kvantifikatoru}
 
 
 \section{Compositions of Fuzzy Relations}
@@ -541,9 +541,12 @@ By default, the functions in the structure that is obtained by calling the \code
 
 Compositions of fuzzy relation establish one of the fundamental blocks for mathematical fuzzy modeling, see \citep{Belohlavek_book2002,DeBaetsKerre_compoositions93}. Let us consider three non-empty universes $X,Y,Z$ and let $R\in\mathcal{F}(X\times Y)$ and $S\in\mathcal{F}(Y\times Z)$. In general, a composition of $R$ and $S$ results a fuzzy relation $R@S$ on $X\times Z$ so, it defines some appropriate relationship between elements from universes that were not connected before defining the composition. The obligatory example comes from the medical diagnosis where $X$ denotes the set of patients, $Y$ denotes the set of symptoms and $Z$ denotes the set of diseases \citep{BandlerKohout78}. 
 
+The use of the compositions may be easily demonstrated on a toy example from medical diagnosis that by purposes simplifies the situation for the sake of clarity. 
+
 %
 \input{chunks/chunk-comp.data}
 %
+
 
 Below, we repeat the main four compositions that are implemented in \pkg{lfl} and that we stem from:
 \begin{align}
@@ -556,6 +559,7 @@ where $\circ$ denotes the \emph{circlet} or \emph{basic composition} (also \emph
 
 Note that these four compositions were studied already in late 1970's and early 1980's \citep{BandlerKohout78, BandlerKohout80}, the first two of them ($\circ$ and $\lhd$) play an essential role in fuzzy inference mechanisms in the case of fuzzy inputs \citep{Pedrycz,Di-Nola_Pedrycz_Sessa_1989,StepBaluIEEE}, and their impact is essential fro distinct branches including the medical diagnosis, see \cite{Mak:JMS2015}. 
 
+
 The main compositions, as defined above,  may be computed in \pkg{lfl} with the \code{compose()} function as follows:
 %
 \input{chunks/chunk-comp.basic}
@@ -566,9 +570,12 @@ The \code{type} argument must be equal to any of: \code{'basic'}, \code{'sub'}, 
 %
 Additional examples of more complicated compositions computed with the \code{mult()} function may be found below in Section~\ref{sec:compquant}.
 
+
 The fundamental fuzzy relational compositions (\ref{form:circ})-(\ref{form:squ}) can be directly used in the expert classification problem, and the above-mentioned medical diagnosis \citep{Mak:JMS2015} is only its special case where the symptoms are take as the features and the set of diseases is a special case of the set of classes. However, observing the particular formulas it is obvious, that the the huge gap between the existential quantifiers, represented by $\bigvee$ in (\ref{form:circ}), and the universal quantifier, represented by $\bigwedge$ in (\ref{form:lhd})-(\ref{form:squ}), may cause undesirable effect. In particular, the basic composition $\circ$ may detect too many suspicions as finding a single ``connecting'' feature (symptom) will be a very frequent case for many classes (diseases) while carrying all the expected features (symptoms) may be rather idealistic in practice too eliminating requirement. Thus, $\circ$ could nominate too many candidate classes while $\lhd, \rhd$, and $\squ$ may vice-versa, eliminate all possibilities:
+
 %
 \input{chunks/chunk-comp.subsupsquare}
+
 
 In order to get out of the problem, distinct extensions were defined recently. One direction of the extensions led naturally to the employment of generalized quantifiers that fill in the gap between the existential one and the universal one and offer a tool to find an appropriate balance. The other one is based on employing additional fuzzy relations containing another knowledge that may be helpful in reducing the suspicions detected by the basic composition.
 
@@ -585,6 +592,7 @@ The compositions employing the concepts of excluding features and unavoidable fe
     \RSE^{\rhd U}(x,z) & = (R\circ S) (x,z) \otimes \neg (R\circ E) \otimes (R\rhd U)  \label{form:circ_excl_unavoid}
 \end{align}
 where the last one $\RSE^{\rhd U}$ combines the extra knowledge contained in both additional fuzzy relations. As we may see, these extension are mathematically rather straightforward combinations of the fundamental blocks that only allow other fuzzy relations to enter the constructions.
+
 
 For example, let us imagine that the occurrence of fever is an evidence of NOT having a pulmonary hypertension. Similarly, let cough excludes hangover from the possible diagnoses. That is, fever and cough are excluding features of pulmonary hypertension and hangover, respectively. This corresponds to the following matrix $E$ of excluding features:
 %
@@ -606,8 +614,10 @@ Finally, the concept unavoidable and excluding features together, as defined in 
 %
 \input{chunks/chunk-comp.circ.excl.unavoid}
 
+
 \michal{možná ty příklady nejsou zrovna super, ještě je třeba se tomu asi pověnovat}
 
+{\color{red}M: sedi to tu dobre a cely text z tech prikladu to krasne ukazuje, jen souhlasim, musime poladit cisla, treba u tech combined cases to vychazi na same nuly, takze si musime trochu pohrat s tema cislama v maticich, at to vychazi lepe}
 
 \subsection{Compositions based on generalized quantifiers}
 \label{sec:compquant}
@@ -636,6 +646,7 @@ $n$ denotes the cardinality of $Y$. The calculation according to (\ref{form_calc
 
 Note that an appropriate choice of $f$ naturally allows to modify $\mu$ in such a way that the constructed quantifier is equivalent to the existential or the universal one. For more details, we refer to \cite{Step2014,Cao2017b}.
 
+
 The \pkg{lfl} package provides factory functions that create quantifiers, which can be used for composition of fuzzy relations with the \code{mult()} function described in Section~\ref{sec:fundcomp}. For instance, the basic composition evaluated by
 %
 \input{chunks/chunk-comp.basic}
@@ -648,7 +659,8 @@ Other quantifiers may be used analogously. For instance, one may require the pat
 %
 \input{chunks/chunk-comp.quant.atleast}
 %
-More details on the quantifiers may be found in Section \todo{doplnit}.
+More details on the quantifiers may be found in Section \michal{doplnit}.
+
 
 
 
@@ -658,7 +670,9 @@ As the whole implementation in \pkg{lfl} is based on the functions, it is very e
    \begin{align*}
    (R\circ^{Q} S^{\backprime}E)^{\rhd U}(x,z) & = (R\circ^Q S) (x,z) \otimes \neg (R\circ E) \otimes (R\rhd U)  \label{form:circ_Q_excl_unavoid}
 \end{align*}
-turned to be very efficient in classifying dragonfly species as well as amphibian species, for appropriately chosen quantifiers, see \cite{Step_etal:Unavoidable_KNOSYS2020}. In the \pkg{lfl} package, such complex formula is evaluated by the following code:
+turned to be very efficient in classifying dragonfly species as well as amphibian species, for appropriately chosen quantifiers, see \cite{Step_etal:Unavoidable_KNOSYS2020}.
+
+In the \pkg{lfl} package, such complex formula is evaluated by the following code:
 %
 \input{chunks/chunk-comp.quant.combined}
 
@@ -716,8 +730,6 @@ The \code{minmax()} function may be forced not to guess some values by specifyin
 %
 \input{chunks/chunk-minmax2}
 
-{\color{red}M: mam dotaz - nejde nastavit kontext rucne? ja nahore uvadim, priklad s velikosti borovice, proc kontext nelze brat jen jako redundantni vyznaceni prostredku, ale pak uvadis, ze se nic nenastavuje, ze to je automaticky uprostred, anebo z dat. To chapu tak, ze kdyz nemam data, musim volit to ekvidistantni rozdeleni bodu L-C-R popr. analogicky pro ostatni typy kontextu. }
-\michal{jojo, kontext jde nastavit rucne. pridal jsem priklad vyse (hned prvni), kde se to dela cele rucne a nastavuje se (5, 100, 1000). da se nastavovat i jen nektere meze, pricemz zbytek se nejak "rozumne" nastavi automaticky, viz ostatni priklady.}
 
 
 \subsection{Evaluative Linguistic Expressions}
@@ -794,18 +806,11 @@ For the sake of completeness, the \pkg{lfl} package provides tools for the creat
     \label{fig:triangular}
 \end{figure}
 
-\subsection{Specific expressions}
-
-{\color{red}M: tady musíme popsat výrazy typu {\tt any} nebo {\tt undef}, protoze se dale na ne budeme odkazovat}
-
-\michal{o tom se musime pobavit, protoze explicitne v \pkg{lfl} nic takoveho nemam}
-
-
 
 \subsection{Batch Transformations of Data to Membership Degrees of Fuzzy Sets}
 \label{sec:lcut}
 
-Practical applications often require to transform data into multiple fuzzy sets. The \pkg{lfl} package provides the \code{lcut()} and \code{fcut()} functions to perform such transformations. {\color{blue}Both functions transform vectors (numeric, logical or factors), matrices or data frames into an \code{fsets} object. Such an object is a data frame with each column representing a single fuzzy set. The values are from the $[0, 1]$ interval and they are equal to the membership degrees of the point of the universe (context) to the particular fuzzy sets. These functions are the fuzzy-counterparts of the well known \code{cut()} operation of the base \R{}.} {\color{red}M: modrou cast jsem prespal citelne, koukni, zda to obsahove vystihuje presne to, co to v R-ku vazne dela}
+Practical applications often require to transform data into multiple fuzzy sets. The \pkg{lfl} package provides the \code{lcut()} and \code{fcut()} functions to perform such transformations. Both functions transform vectors (numeric, logical or factors), matrices or data frames into an \code{fsets} object. Such an object is a data frame with each column representing a single fuzzy set. The values are from the $[0, 1]$ interval and they are equal to the membership degrees of the element of the universe to the particular fuzzy sets. These functions are the fuzzy-counterparts of the well known \code{cut()} operation of the base \R{}.
 
 For logical input, the \code{lcut()} function returns two columns of 0s and 1s: these columns represent (crisp) truth degrees equivalent to the original input and its negation, respectively. The name of the columns is either specified by the user in the \code{name} argument, or derived from the given data argument automatically:
 %
@@ -844,8 +849,8 @@ The \code{fcut()} function works identically as \code{lcut()} for logical and fa
 
 \subsection{Fuzzy Quantifiers}
 
-\todo{doplnit Holcapkovu i Novakovu verzi}
-
+\michal{doplnit Holcapkovu i Novakovu verzi}
+{\color{red}To musime probrat, jak to tam je obecne implementovano. U kompozic jsem uz Michalovu verzi popsal v sekci 3.2. Pokud to mas nejak obecneji, mohli bychom to popsat a pak se jen odkazovat v 3.2, ale pak by to melo predchazet te sekkci 3.2, coz zas nemuze ta Vilemova verze, ktera vyzaduje znalost evaluacnich vyrazu.}
 
 \section{Fuzzy Association Rules}
 
@@ -944,9 +949,10 @@ Table~\ref{Tab:4fold-guha}. The other numbers are determined in an analogous way
 
 
 The advantage of associations (\ref{form:assoc_general}) is that each of them can be interpreted as the fuzzy rule:
-$$\mathcal{R}\defeq\IFRuleMore{X_{i1}}{\mathcal{A}_{i1}}{X_{ip}}{\mathcal{A}_{ip}}{Y_k}{\mathcal{B}_{ik}}$$ that may be used in the inference systems for approximate reasoning. Variables $X\neq X_{i1},\ldots , X_{ip}$ that do not explicitly appear in the antecedent are assigned the expression {\tt any}. 
+$$\mathcal{R}\defeq\IFRuleMore{X_{i1}}{\mathcal{A}_{i1}}{X_{ip}}{\mathcal{A}_{ip}}{Y_k}{\mathcal{B}_{ik}}$$ that may be used in the inference systems for approximate reasoning. 
 
-The \pkg{lfl} package provides the \code{searchrules()} function that implements an OPUS-inspired \pcite{webb95opus} algorithm for searching for fuzzy association rules in data. The \code{searchrules()} function traverses through the data set transformed to fuzzy sets (see \code{lcut()} and \code{fcut()} functions in Section~\ref{sec:lcut}) and searches for all rules that satisfy certain restrictive conditions specified by the user:
+
+The \pkg{lfl} package provides the \code{searchrules()} function that implements an OPUS-inspired algorithm \citep{webb95opus} for searching for fuzzy association rules in data. The \code{searchrules()} function traverses through the data set transformed to fuzzy sets (see \code{lcut()} and \code{fcut()} functions in Section~\ref{sec:lcut}) and searches for all rules that satisfy certain restrictive conditions specified by the user:
 %
 \input{chunks/chunk-searchrules}
 
@@ -959,20 +965,38 @@ Besides the \code{fsets} data object (see Section~\ref{sec:lcut}), the \code{sea
     \item \code{minSupport} -- the minimum support degree of a rule. Rules with support below that number are filtered out;
     \item \code{minConfidence} -- the minimum confidence degree of a rule. Rules with confidence below that number are filtered out;
     \item \code{maxConfidence} -- the maximum confidence threshold. After finding a rule that has confidence degree above the maxConfidence threshold, no other rule is resulted based on adding some additional attribute to its antecedent part. I.e. if \code{a => c} has confidence above the \code{maxConfidence} threshold, no another rule containing \code{a} in the antecedent and \code{c} will be produced regardless of its interest measures;
-    \item \code{maxLength} -- Maximum allowed length of the antecedent, i.e. maximum number of predicates that are allowed to appear on both sides of the rule. If negative, the maximum length of rules is unlimited.
+    \item \code{maxLength} -- the maximum allowed length of the antecedent, i.e. maximal number of predicates that are allowed to appear on both sides of the rule. If negative, the maximum length of rules is unlimited.
     \item \code{numThreads} -- the number of computing threads to start in the parallel computation.
 \end{itemize}
 
-{\color{red}tady nasypej implementaci v R, pokud v ni jsou treba ruzne dalsi miry kvality (zamerne se vyhybam pojmu kvantifikator, at se to neplete s temi kvantifikatory u kompozic), tak by je bylo dobre nahore take uvest}
+
+{\color{green}
+If the generated association rules are intended for use in some inference mechanisms (such as PbLD described in Section~\ref{sec:pbld}), it is sometimes useful to employ a \code{reduce()} function to decrease the amount of rules obtained by the \code{searchrules()} function.
+
+The \emph{rule base coverage of data} expresses the amount of data entries, for which there exists a
+rule with an antecedent that models (that is, ``covers'') the original data. The reduction algorithm performed in the \code{reduce()} function selects a minimal rule base that covers at least the specified ratio of data. The algorithm described by \cite{burda2015} turns out to be very efficient in reduction while retaining the output of the PbLD inference.
+
+For example, a set \code{rb} of rules obtained from the \code{employees} fuzzy sets may be reduced to the 90 \% coverage ratio by issuing the following command:
 
 
+}
 
 
 
 \section{Perception-based Logical Deduction}
+\label{sec:pbld}
 
 
+Unlike the more frequent fuzzy inference methods, i.e., mainly the Mamdani-Assilian \citep{MamdaniAssilian75} (and other derived conjunctive models) and the Takagi-Sugeno \citep{TakagiSugeno:IEEE85}, the \emph{ perception-based logical deduction} (abbr. PbLD) uses the genuine \L ukasiewicz implication. However, it is even different to the standard fuzzy relational approach to implicative rules \citep{BodenhoferDankovaStepnickaNovak07} that aggregates them to a single fuzzy relation by the minimum. Let us note that the first two above-mentioned approaches as well as many others are accessible in a very rich \pkg{frbs} \proglang{R} package while the latter approach implementing conjunction of implications is up to the best knowledge of the authors not implemented in any \proglang{R} package. 
 
+The difference between inferring with  standard implicative fuzzy rules and inferring with
+linguistic rules (containing evaluative linguistic expressions) lies in the specific inference method PbLD that applies the so-called perception -- a certain algorithm that fires only particular rules based firing degree and the specificity of the antecedents, see \cite{Novak:PbLD,novper:intellig04}. In
+this Section, we present the PbLD in a variant that was in detail
+studied in \cite{Dvorak_etal:RedundancyFSS}. However, note that there are
+also other variants, see e.g. \cite{DvoStep:PbLD2015}. 
+
+ 
+ 
 
 We briefly recall, that the (specificity) ordering of linguistic expressions is based on the ordering of hedges under the assumption that we consider two expressions based on the same atomic expression, i.e.,$
 \mathcal{A}_i \lle \mathcal{A}_k$
@@ -982,10 +1006,10 @@ $\mlingterm{hedge}_i\lh \mlingterm{hedge}_k$ where
 \begin{equation*}
 \mathrm{Ex}\lh  \mathrm{Si} \lh \mathrm{Ve}\lh \mlingterm{empty}\lh
 \mathrm{ML}\lh \mathrm{Ro}\lh  \mathrm{QR} 
-\lh \mathrm{VR} .
+\lh \mathrm{VR} \ .
 \end{equation*}
-The expression {\tt any} has a unique positions as $\mathcal{A}_i \lle \mbox{{\tt any}}$ for arbitrary
-expression $\mathcal{A}_i$.
+%The expression {\tt any} has a unique positions as $\mathcal{A}_i \lle \mbox{{\tt any}}$ for arbitrary
+%expression $\mathcal{A}_i$.
 
 The specificity ordering principle, i.e., evaluative expressions of the same type are ordered according to their hedges and expressions with different atomic expressions are incomparable), is preserved also for the multiple-variable case where the same atomic expression needs to be on each axis and the ordering $\lh$ has to be preserved also for all variables (hedges), otherwise again, the expressions are incomparable. 
 
@@ -1018,107 +1042,49 @@ A_i(x_0) =\bigwedge_{j=1}^m A_{ij}(x_{0j}), \quad \mobx{\rm with}\quad X = X_1\t
 \times X_m , \quad x_0 =  (x_{01}, \dots, x_{0m})\ .
 \end{equation*}
 
-{\color{red}TADY POKRACUJU PROSTE, NIZE MAM JEN NAKOPIROVANE VECI K UCESANI}
-
-\michal{nekde tady zminit i ostatni inferencni mechanismy, mamdani atd, a odkazat na \pkg{frbs} package pro R, ktery je implementuje?}
 
 
-\emph{The perception-based logical deduction} (abbr. PbLD) is a specific
-inference method aimed at the derivation of results based on
-linguistic descriptions, see \cite{Novak:PbLD,novper:intellig04}. In
-this Section, we present the PbLD in a variant that was in detail
-studied in \cite{RedundancyFSS_2015}. However, note that there are
-also other variants, see e.g. \cite{DvoStep:PbLD2015}.
-
-A \emph{perception} is understood as an evaluative expression
-assigned to a given input value (observation) in a given context
-(universe). The perception is always chosen from evaluative
-expressions which occur in the topic of a given linguistic
-description \cite{nov_dvo:commonsense2011}. The perception is
-determined by a special function called the \emph{local perception}
-which is based on the ordering $\llp$.
-\begin{defn}
-{\rm Let $\LD$ be a linguistic description (\ref{form.lingdesc}).
-The \emph{local perception} function is a mapping $\LPerc^{LD}: U
-\to \mathcal{P}(T^{\LD})$ assigning to each value $u_0\in U$ a
+The \emph{perception} function maps an input $x$ to the topic of a given linguistic expression. In particular, it assigns to each input  $x_0\in X$ a
 subset of antecedent fuzzy sets that are minimal wrt.~the ordering
-$\llp$, i.e.,}
-\begin{multline}\label{eq.lperc}
-\LPerc^{\LD}(u_0) =  \{ A_i \in T^{\LD}\mid A_i(u_0)>0 \ \&\
+$\llp$:
+\begin{multline*}\label{eq.lperc}
+\LPerc^{\LD}(x_0) =  \{ A_i \in T^{\LD}\mid A_i(x_0)>0 \ \&\
 \forall A_j\in T^{\LD}: (A_j\llp A_i) \Rightarrow (\mathcal{A}_j =
 \mathcal{A}_i) \}.
-\end{multline}
-\end{defn}
+\end{multline*}
 
-The local perception function has a key role in the definition of
-the PbLD inference mechanism. It can be viewed as a function that
-``fires'' chosen rules.
 
-\begin{defn}
-{\rm Let $\LD$ be a linguistic description (\ref{form.lingdesc}).
-Let us be provided with an observation $u_0\in U$. Then, the
-\emph{rule of perception-based logical deduction} is given as
-follows:}
-\begin{equation}\label{rPbLD}
-r_{PbLD}: \frac{\LPerc^{\LD}(u_0), \LD}{C}
-\end{equation}
-\rm{where}
-\begin{equation*}
+
+Only the rules with antecedents chosen by the perception function are fired which can be interpreted as firing rules with the highest firing degree and, firing the rules with the most specific antecedents, in the case of more rules fired to the degree 1. The motivation came from the situations when some extremely small objects are observed on the input and we have rules with antecedents ``small'' and ``extremely small'', see Figure~\ref{fig_dee}. Indeed, extremely small objects are also small however, we may wish to result different conclusions for those small objects that are even extremely small. 
+
+The conclusion $C\in\mathcal{F}(Y)$ is then determined analogously to the standard implicative approach, i.e., 
+\begin{equation}
 C = \bigcap \{C_{i_\ell}\mid
-C_{i_\ell}(v)=A_{i_\ell}(u_0)\rightarrow B_{i_\ell}(v) \; \  \& \; \
-A_{i_\ell}\in \LPerc^{\LD}(u_0) \}, \quad v\in V,
-\end{equation*}
+C_{i_\ell}(y)=A_{i_\ell}(x_0)\rightarrow B_{i_\ell}(y) \; \  \& \; \
+A_{i_\ell}\in \LPerc^{\LD}(x_0) \}, \quad y\in Y, \label{form:PBLDconclusion} 
+\end{equation}
 {\rm where $\rightarrow$ is the \L ukasiewicz implication and $\cap$
 is the G\"{o}del intersection.}
-\end{defn}
-
-Informally, $C$ is the conclusion which corresponds to the
-observation in the following way. Inputs to this inference rule are
-the linguistic description $\LD$ and the local perception
-$\LPerc^{\LD}(u_0)$ given by (\ref{eq.lperc}). This local perception
-is formed by a set of fuzzy sets $A_{i_{\ell}}$, $\ell = 1, \ldots,
-L$, that are chosen from the topic of $\LD$ according to
-(\ref{eq.lperc}). Formula (\ref{eq.lperc}) chooses these
-antecedents, which best fit the given numerical input $u_0$ and
-thus, they should be fired. Then the individual conclusions
-$C_{i_{\ell}}$ contained in $C$ are computed as
-$A_{i_\ell}(u_0)\rightarrow B_{i_\ell}(v)$ for all $v\in V$. It
-means that for each $A_{i_{\ell}}\in\LPerc^{\LD}(u_0)$ we take the
-$i_{\ell}$-th IF-THEN rule from $\LD$ and compute the conclusion,
-for the time being forgetting other IF-THEN rules from $\LD$.
 
 
-Finally, the inferred output is defuzzified. This is done by the
-\emph{Defuzzification of Evaluative Expressions} (DEE) that has been
-designed specifically for the outputs of the PbLD inference
-mechanism\footnote{In the case of the FRBE method, the
-defuzzification DEE is applied after the inference, in order to
-obtain crisp weights $w_{AR}, w_{ES}, w_{Theta}$ and $w_{RW}$.}, see
-e.g. \cite{Novak:PbLD,step:TS_FSS2011}. As the PbLD stems from
-the implicative rules
-\cite{BodenhoferDankovaStepnickaNovak07,Jones2009} and not from the
-Mamdani-Assilian ones (details can be found below), the
-defuzzification cannot use principles similar to the
-\emph{Center-Of-Gravity} defuzzification but has to focus on sets of
-elements with maximal membership degrees. In principle, this
-defuzzification is a combination of \emph{First-Of-Maxima} (FOM),
-\emph{Mean-Of-Maxima} (MOM) and \emph{Last-Of-Maxima} (LOM) that are
-applied based on the classification of the inferred output fuzzy
-set. Particularly, if the inferred fuzzy set is of the type {\tt
-Small}, the LOM is applied; if the inferred output is of the type
-{\tt Medium}, the MOM is applied; and finally, if the inferred
-output is of the type {\tt Big}, the FOM is applied, see
-Figure~\ref{fig:Dee}. Generally, a simple application of MOM could be
-also possible but it did not confirm to be better on experimental
-evaluations \cite{step:TS_FSS2011}. It is important to
-mention, that PbLD as well as DEE are freely available as an open-source software
-in the \emph{lfl} package \cite{lfl2015,lfl:cran} for the R statistical environment
-\cite{R}.
+
+
+After deriving the output $C$, it often needs to be defuzzified that is, we often need to find an element $y\in Y$ that represents the conclusion $C$ in the best way. This necessity appears whenever particular numerical output is required, e.g., in automatic control, robotics, etc. As the character of the outputs obtained by the (\ref{form:PBLDconclusion}) leads to expressions that look like modified evaluative linguistic expressions, the use of the \emph{Defuzzification of Evaluative Expressions} (DEE) that has been designed for these purposes seems reasonable. It is a hierarchical two-step defuzzification that firstly classifies the type of the output  into three types: S$^-$ ({\tt Small}), $\Pi$ ({\tt Medium}), and S$^+$ ({\tt Big}). This step is done based on the monotonicity of the output fuzzy set membership functions, e.g., non-increasing is  classified as S$^-$ ({\tt Small}). In its second step, DEE calls one of the standard defuzzifications for implicative rules, \emph{First-Of-Maxima} (FOM) is used for the S$^-$ type,
+\emph{Mean-Of-Maxima} (MOM) is used for the $\Pi$ typ, and \emph{Last-Of-Maxima} (LOM) is used for the S$^+$ type, see Figure~\ref{fig_dee}. 
+
+
+{\color{red}\emph{Center-Of-Gravity} defuzzification je take k dispozici v lfl?}
+
 
 
 \section{Fuzzy Rule-based Ensemble for Time Series Prediction}
 
+{\color{red}M: tady mám dotaz, co chceš dávat resp. co je v LFL naimplementováno. Asi nemá cenu tam dávat detailní popis toho FRBE včetně vzniku, pokud je to v LFL jedna funkce. Pokud tam ale máš i proces učení, a funkci, která se naučí novou bázi, pak bych to asi popsat detailněji měl i včetně toho učení.}
 
+
+\footnote{In the case of the FRBE method, the
+defuzzification DEE is applied after the inference, in order to
+obtain crisp weights $w_{AR}, w_{ES}, w_{Theta}$ and $w_{RW}$.}
 
 \section{Conclusion}
 
