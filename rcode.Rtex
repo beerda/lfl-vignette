@@ -389,5 +389,39 @@ reduced <- reduce(employees, rb, 0.9)
 nrow(as.data.frame(reduced))
 @
 
+<<export='pbld1'>>=
+head(CO2)
+@
+
+<<export='pbld2'>>=
+uptakeContext <- ctx3(7, 28.3, 46)
+d <- lcut(CO2, context=list(uptake=uptakeContext))
+head(d)
+@
+
+<<export='pbld3'>>=
+testingIndices <- sort(sample(seq_len(nrow(d)), 10))
+print(testingIndices)
+training <- d[-testingIndices, ]
+testing <- d[testingIndices, ]
+@
+
+<<export='pbld4'>>=
+colnames(training)[1:38]
+colnames(training)[39:58]
+rb <- searchrules(training, lhs=1:38, rhs=39:58, minConfidence=0.5)
+@
+
+<<export='pbld5'>>=
+v <- seq(uptakeContext[1], uptakeContext[3], length.out=1000)
+p <- lcut(v, name='uptake', context=uptakeContext)
+head(v)
+head(p)
+@
+
+<<export='pbld6'>>=
+pbld(testing, rb, p, v)
+@
+
 
 \end{document}
