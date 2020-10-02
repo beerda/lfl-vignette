@@ -364,9 +364,27 @@ rb <- searchrules(employees,
 print(rb)
 @
 
+<<export='searchrules2', tidy=FALSE>>=
+str(rb)
+@
+
+<<export='searchrules3', tidy=FALSE>>=
+as.data.frame(rb)
+@
+
+<<export='searchrules4', tidy=FALSE>>=
+antecedents(rb)
+consequents(rb)
+@
+
 <<export='reduce'>>=
+rb <- searchrules(employees,
+                  lhs=1:13,
+                  rhs=14:21,
+                  minSupport=0.2,
+                  minConfidence=0.6,
+                  maxLength=3)
 reduced <- reduce(employees, rb, 0.9)
-print(reduced)
 @
 
 

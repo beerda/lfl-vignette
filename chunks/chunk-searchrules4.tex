@@ -1,0 +1,97 @@
+\begin{Schunk}
+% --begin: "searchrules4"
+\begin{Sinput}
+R> antecedents(rb)
+\end{Sinput}
+\begin{Soutput}
+[[1]]
+[1] "sm.salary"
+
+[[2]]
+character(0)
+
+[[3]]
+[1] "employed"
+
+[[4]]
+[1] "employed"
+
+[[5]]
+[1] "sm.salary"
+
+[[6]]
+[1] "ro.sm.salary"
+
+[[7]]
+[1] "me.age"       "ro.sm.salary"
+
+[[8]]
+[1] "ro.sm.salary"
+
+[[9]]
+[1] "ro.me.age"    "ro.sm.salary"
+
+[[10]]
+[1] "position=worker"
+
+[[11]]
+character(0)
+
+[[12]]
+[1] "ro.me.age" "employed" 
+
+[[13]]
+[1] "me.age"   "employed"
+
+[[14]]
+[1] "employed"
+\end{Soutput}
+\begin{Sinput}
+R> consequents(rb)
+\end{Sinput}
+\begin{Soutput}
+[[1]]
+[1] "me.age"
+
+[[2]]
+[1] "ro.me.age"
+
+[[3]]
+[1] "me.age"
+
+[[4]]
+[1] "ro.sm.salary"
+
+[[5]]
+[1] "employed"
+
+[[6]]
+[1] "me.age"
+
+[[7]]
+[1] "employed"
+
+[[8]]
+[1] "employed"
+
+[[9]]
+[1] "employed"
+
+[[10]]
+[1] "me.age"
+
+[[11]]
+[1] "me.age"
+
+[[12]]
+[1] "sm.salary"
+
+[[13]]
+[1] "sm.salary"
+
+[[14]]
+[1] "sm.salary"
+\end{Soutput}
+%
+% --end: "searchrules4"
+\end{Schunk}
