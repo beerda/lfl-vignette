@@ -354,6 +354,26 @@ vars(employees)
 specs(employees)[1:6, 1:6]
 @
 
+<<export='fcut.logfact'>>=
+logvec <- c(TRUE, FALSE, FALSE, TRUE, TRUE)
+position <- factor(c('worker', 'manager', 'worker', 'worker', 'accountant'))
+fcut(data.frame(employed=logvec, position=position))
+@
+
+<<export='fcut.numeric1'>>=
+numvec <- 1:9
+fcut(numvec, breaks=c(1, 5, 9), type='triangle')
+@
+
+<<export='fcut.triangular'>>=
+triangular(1, 5, 9)(numvec)
+@
+
+<<export='fcut.numeric2'>>=
+fcut(numvec, breaks=c(1, 3, 5, 7, 9), type='triangle')
+@
+
+
 <<export='searchrules', tidy=FALSE>>=
 rb <- searchrules(employees,
                   lhs=seq_len(ncol(employees)),
