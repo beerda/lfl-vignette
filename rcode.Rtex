@@ -373,6 +373,14 @@ triangular(1, 5, 9)(numvec)
 fcut(numvec, breaks=c(1, 3, 5, 7, 9), type='triangle')
 @
 
+<<export='fcut.merge'>>=
+fcut(numvec, breaks=c(1, 3, 5, 7, 9), merge=2, type='triangle')
+fcut(numvec, breaks=c(1, 3, 5, 7, 9), merge=3, type='triangle')
+@
+
+<<export='fcut.merge2'>>=
+fcut(numvec, breaks=c(1, 3, 5, 7, 9), merge=c(1, 2, 3), type='triangle')
+@
 
 <<export='searchrules', tidy=FALSE>>=
 rb <- searchrules(employees,
