@@ -870,9 +870,11 @@ Note also that unlike \code{base::cut()}, the values that are lower or greater t
 
 Additionally, combined fuzzy sets may be created. The \code{merge} argument determines whether to derive additional fuzzy sets by merging the elementary fuzzy sets (defined with the \code{breaks} argument) into super-sets. The \code{merge} may contain any integer number from \code{1} to \code{length(breaks) - 2}. Value \code{1} means that the elementary fuzzy sets have to be created only, as described above (the default case). Value \code{2} means that the two consecutive elementary fuzzy sets should be combined with the \L{}ukasiewicz t-conorm, value \code{3} causes combining three consecutive elementary fuzzy sets etc.:
 %
+\input{chunks/chunk-fcut.merge}
 %
 The \code{merge} argument may contain multiple values. In that case, all types of merged fuzzy sets is provided:
 %
+\input{chunks/chunk-fcut.merge2}
 %
 The names of the derived (merged) fuzzy sets is created from the names of the original elementary fuzzy sets by concatenating them with the pipe (\code{|}) separator.
 }
@@ -1124,7 +1126,7 @@ After deriving the output $C$, it often needs to be defuzzified that is, we ofte
 
 
 {\color{red}A co to napsat takhle: \\ As the \pkg{lfl} package is mainly focused on modeling implicative rules, it does not contain defuzzifications designed for conjuntive rules (rules of the Mamdani-Assilian type), such as the
-\emph{Center-Of-Gravity} (COG) defuzzification, however, it is at disposal in \pkg{frbs} R-package.}
+\emph{Center-Of-Gravity} (COG) defuzzification, however, it is at disposal in \pkg{frbs} \proglang{R}-package.}
 
 
 
