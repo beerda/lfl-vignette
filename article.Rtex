@@ -335,6 +335,7 @@ As can be seen, the \code{algebra()} function returns a named list of the follow
     $\alpha \lor \beta = \max\{\alpha, \beta\}.$
 \end{itemize}
 
+\michal{popsat order}
 
 Functions \code{n} and \code{ni} accept a vector of numeric values as a single input and return a vector of the negated values. Two-argument functions \code{r} and \code{b} compute the desired operation element-wisely. Similarly, \code{pt}, \code{pc}, \code{pi}, and \code{ps} work element-wisely: they accept a vector of multiple arguments and compute the outputs of the desired operation on first elements of the input vectors, then on second elements, etc. until the end of the vectors is reached, which yields a vector of the resulting values. The vectorized variants of these functions, i.e., \code{t}, \code{c}, \code{i}, and \code{s} first merge\footnote{By merging here, we mean application of the chosen operation on all components of the given vector to obtain a single value.} all the input vector arguments and then calculate a single resulting value from them. See the example below for more information.
 %
@@ -843,8 +844,28 @@ The \code{specs} attribute returns a matrix that encodes a relation of \emph{spe
 %
 As can be seen, the 4th fuzzy set (\code{ve.sm.age}) is more specific than 5th (\code{sm.age}), which is more specific than the 6th fuzzy set (\code{ro.sm.age}).
 
+{\color{green}
+The \code{fcut()} function works identically to \code{lcut()} for logical and factor input:
+%
+%
+Numerical values are transformed with the \code{fcut()} function to triangular or raised-cosine fuzzy set membership degrees:
+%
+%
+The preceding example is identical to the call of the \code{triangular()} function:
+%
+%
+However, the \code{fcut()} function is mainly useful for creation of multiple fuzzy sets. A mandatory \code{breaks} argument determines the break-points of the positions of the fuzzy sets. It should be an ordered vector of numbers such that the $i$-th index specifies the beginning, $(i+1)$-th the center, and $(i+2)$-th the ending of the $i$-th fuzzy set. The minimum number of breaks-points is 3. $n-2$ elementary fuzzy sets would be created for $n$ break-points.
+%
+%
 
-The \code{fcut()} function works identically as \code{lcut()} for logical and factor input:
+If considering an i-th fuzzy set (of type='triangle'), x values lower than i-th break (and greater than (i+2)-th break) would result in zero membership degree, values equal to (i+1)-th break would have membership degree equal 1 and values between them the appropriate membership degree between 0 and 1.
+
+The resulting fuzzy sets would be named after the original data by adding dot (".") and a number i of fuzzy set.
+
+Unlike base::cut(), x values, that are lower or greater than the given break-points, will have all membership degrees equal to zero.
+%
+%
+}
 
 \michal{doplnit detaily fcutu a popsat i parametr merge funkce fcut}
 
@@ -854,6 +875,9 @@ The \code{fcut()} function works identically as \code{lcut()} for logical and fa
 
 \michal{doplnit Holcapkovu i Novakovu verzi}
 {\color{red}To musime probrat, jak to tam je obecne implementovano. U kompozic jsem uz Michalovu verzi popsal v sekci 3.2. Pokud to mas nejak obecneji, mohli bychom to popsat a pak se jen odkazovat v 3.2, ale pak by to melo predchazet te sekkci 3.2, coz zas nemuze ta Vilemova verze, ktera vyzaduje znalost evaluacnich vyrazu.}
+
+
+
 
 \section{Fuzzy Association Rules}
 
@@ -973,7 +997,7 @@ Besides the \code{fsets} data object (see Section~\ref{sec:lcut}), the \code{sea
 \end{itemize}
 
 
-{\color{green}
+
 Internally, the rule base produced by the \code{searchrules()} function is an instance of the \code{farules} class. It is a list of two elements, \code{rules} and \code{statistics}, where \code{rules} is a list of character vectors of rule predicate names. The first element of these vectors is a consequent of the rule, the rest is the antecedent. The \code{statistics} element is a matrix that assigns some quality measures to each rule:
 %
 \input{chunks/chunk-searchrules2}
@@ -994,7 +1018,7 @@ rule with an antecedent that models (that is, ``covers'') the original data. The
 For example, a set \code{rb} of rules obtained from the \code{employees} fuzzy sets may be reduced to the 90 \% coverage ratio as follows:
 %
 \input{chunks/chunk-reduce}
-}
+
 
 
 
@@ -1088,19 +1112,18 @@ After deriving the output $C$, it often needs to be defuzzified that is, we ofte
 \emph{Mean-Of-Maxima} (MOM) is used for the $\Pi$ typ, and \emph{Last-Of-Maxima} (LOM) is used for the S$^+$ type, see Figure~\ref{fig_dee}. 
 
 
-{\color{red}\emph{Center-Of-Gravity} defuzzification je take k dispozici v lfl?}
 
-\michal{neni, je tam jen MOM, LOM, FOM a DEE. COG muzu dodat, kdyz mi reknes, jak se to dela}
+{\color{red}A co to napsat takhle: \\ As the \pkg{lfl} package is mainly focused on modeling implicative rules, it does not contain defuzzifications designed for conjuntive rules (rules of the Mamdani-Assilian type), such as the
+\emph{Center-Of-Gravity} (COG) defuzzification, however, it is at disposal in \pkg{frbs} R-package.}
 
 
-{\color{green}
+
+
 The \pkg{lfl} package implements PbLD in the \code{pbld()} function. The inference is performed for each row of the input data object (which must be the instance of the \code{fsets} class, see Section~\ref{sec:fuzzysets}). For instance, let us consider the \R{}'s standard dataset, \code{CO2}:
 %
 \input{chunks/chunk-pbld1}
 %
 We are going to create a rule base for predicting the \code{uptake} variable from the other columns of the dataset. First of all, let us convert the original data into the set of fuzzy sets. We define a custom trichotomous context for the predicted variable and leave defaults for all the other columns:
-
-\michal{zvazit co dat na vystup misto tech dlouhych vypisu nudnych fuzzy mnozin}
 %
 \input{chunks/chunk-pbld2}
 %
@@ -1121,13 +1144,16 @@ After that, everything is prepared to run the inference on the \code{testing} da
 \input{chunks/chunk-pbld6}
 
 
-}
+\michal{TODO: doplnit popis funkci perceive, defuzz, fire apod)}
+
+
 
 
 \section{Fuzzy Rule-based Ensemble for Time Series Prediction}
 
 {\color{red}M: tady mám dotaz, co chceš dávat resp. co je v LFL naimplementováno. Asi nemá cenu tam dávat detailní popis toho FRBE včetně vzniku, pokud je to v LFL jedna funkce. Pokud tam ale máš i proces učení, a funkci, která se naučí novou bázi, pak bych to asi popsat detailněji měl i včetně toho učení.}
 
+\michal{jj, nemá, je to jen jedna jediná funkce. celé přeučení báze je docela složitá věc, a vzhledem k tomu, že se pořád aktualizují forecastovací packages pro arimu atd, už by to dávalo jiné výsledky než tehdy a je dost možné, že s nalezeným nastavením bychom už zase M3 neporazili... Hrůza no.}
 
 \footnote{In the case of the FRBE method, the
 defuzzification DEE is applied after the inference, in order to
