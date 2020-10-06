@@ -879,7 +879,7 @@ The \code{merge} argument may contain multiple values. In that case, all types o
 The names of the derived (merged) fuzzy sets is created from the names of the original elementary fuzzy sets by concatenating them with the pipe (\code{|}) separator.
 }
 
-\michal{doplnit detaily fcutu a popsat i parametr merge funkce fcut}
+\michal{doplnit obrazky fcutu}
 
 
 
@@ -891,7 +891,7 @@ The names of the derived (merged) fuzzy sets is created from the names of the or
 
 
 
-\section{Fuzzy Association Rules}
+\section{Fuzzy Association Rules}\label{sec:assoc}
 
 
 
@@ -1047,7 +1047,7 @@ studied in \cite{Dvorak_etal:RedundancyFSS}. However, note that there are
 also other variants, see e.g. \cite{DvoStep:PbLD2015}. 
 
  
- 
+ \subsection{Formal background and implementation}
 
 We briefly recall, that the (specificity) ordering of linguistic expressions is based on the ordering of hedges under the assumption that we consider two expressions based on the same atomic expression, i.e.,$
 \mathcal{A}_i \lle \mathcal{A}_k$
@@ -1147,7 +1147,7 @@ On the training part, the rule base is created with the \code{uptake} fuzzy sets
 %
 \input{chunks/chunk-pbld4}
 %
-Before performing the inference with the \code{pbld()} function, a sampled consequent values have to be provided. The following commands produce a vector \code{v} of 1000 evenly distributed values from the \code{uptake} context and a \code{fsets} object \code{p} of fuzzy sets that appear in the consequent with membership degrees corresponding to the values from \code{v}. This information is needed for de-fuzzification, which enables to obtain a crisp value of the \code{uptake} predicted by the PbLD inference:
+Before performing the inference with the \code{pbld()} function, a sampled consequent values have to be provided. The following commands produce a vector \code{v} of 1000 evenly distributed values from the \code{uptake} context and a \code{fsets} object \code{p} of fuzzy sets that appear in the consequent with membership degrees corresponding to the values from \code{v}. This information is needed for defuzzification, which enables to obtain a crisp value of the \code{uptake} predicted by the PbLD inference:
 %
 \input{chunks/chunk-pbld5}
 %
@@ -1160,16 +1160,15 @@ After that, everything is prepared to run the inference on the \code{testing} da
 
 
 
+\subsection{Application -- Fuzzy Rule-based Ensemble for time series prediction}
 
-\section{Fuzzy Rule-based Ensemble for Time Series Prediction}
+The PbLD inference methods together with linguistic fuzzy rules have been used for distinct purposes, such as classification of geological layers \citep{Novak_Geology_Chapter}. We will emphasize one of them that significantly favored i the use of the \proglang{R}-package implementation compared to the LFLC commercial package (see \cite{dvo:lflc}), namely, the \emph{Fuzzy Rule Based Ensemble} (FRBE) for time series predictions \citep{frbe2014}. It is an ensemble of particular time series forecasting methods that is strongly motivated by distinct automatic ensembles for these purposes \citep{Devon_Sven_ensemble2010}, often dealing on the meta-learning level with characteristic features of time series \citep{Gabrys_Lemke_IEEE} and stimulated by the interpretable form of rules as in the case of the well-known \emph{rule based forecasting}, see \cite{armstrong:RBFeval_book}.
 
-{\color{red}M: tady mám dotaz, co chceš dávat resp. co je v LFL naimplementováno. Asi nemá cenu tam dávat detailní popis toho FRBE včetně vzniku, pokud je to v LFL jedna funkce. Pokud tam ale máš i proces učení, a funkci, která se naučí novou bázi, pak bych to asi popsat detailněji měl i včetně toho učení.}
+In this particular application, the  authors used the \pkg{forecast} \proglang{R}-package \citep{R:forecast} in order to use particular forecasting methods with automated parameter tuning, and the above-described functionalities of the \pkg{lfl} package in order to create ensemble that, based on characteristic features of the given time series, flexibly adapts the weights of the particular time series forecasting methods. 
 
-\michal{jj, nemá, je to jen jedna jediná funkce. celé přeučení báze je docela složitá věc, a vzhledem k tomu, že se pořád aktualizují forecastovací packages pro arimu atd, už by to dávalo jiné výsledky než tehdy a je dost možné, že s nalezeným nastavením bychom už zase M3 neporazili... Hrůza no.}
+There were four methods called from \pkg{forecast} package, namely the seasonal ARIMA, exponential smoothing, Theta, and Random Walk. Using the M3 competition dataset of 2829 time series \citep{m3}, it was possible to determine the accuracy of the four particular methods and to determine characteristic features, such as frequency (yearly, monthly, weekly, etc.), skewness, kurtosis, seasonality etc., for more details, see \cite{frbe2014}. The weights were set up proportional to the determined accuracy and employed into a table similar to Table~\ref{Tab:guha_exampleI} where the objects were the particular time series used for the learning, features $X1, X_m$ where the determined time series features, and $Y$ was set up to be equal to the weight determined based on the accuracy of the particular method for the particular time series. Such a table led to the generation of the linguistic description for a single time series forecasting method and the procedure was repeated for the remaining three forecasting methods. This resulted into four linguistic descriptions that, after the redundancy analysis \citep{Dvorak_etal:RedundancyFSS} and the size reduction by the function \code{reduce()} were ready to determine particular method weights. Note, that the DEE defuzzification was used at the end of the inference process followed by the normalization of the obtained weights. 
 
-\footnote{In the case of the FRBE method, the
-defuzzification DEE is applied after the inference, in order to
-obtain crisp weights $w_{AR}, w_{ES}, w_{Theta}$ and $w_{RW}$.}
+The whole procedure was not a single experiment procedure but a creation of a stable forecasting tool that is at disposal in the \pkg{lfl} package under the function \code{SEM NACPI NAYEV FUNKCE A POKRACUJ :-D}
 
 \section{Conclusion}
 
