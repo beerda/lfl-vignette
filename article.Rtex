@@ -895,6 +895,7 @@ As can be seen, the names of the derived (merged) fuzzy sets are created from th
 
 Similarly as for \code{lcut()}, the result of the \code{fcut()} function is an instance of the \code{fsets} object. Hence the additional information, the \code{vars} and \code{specs} attributes discussed above, is also available:
 %
+\input{chunks/chunk-fcut.varsspecs}
 %
 }
 
@@ -1067,6 +1068,8 @@ also other variants, see e.g. \cite{DvoStep:PbLD2015}.
  
  \subsection{Formal background and implementation}
 
+\michal{naimplementovane mam 2 verze pbld "global" a "local"... ta prvni je vilemova varianta, ta druha je tvoje s antoninem}
+
 We briefly recall, that the (specificity) ordering of linguistic expressions is based on the ordering of hedges under the assumption that we consider two expressions based on the same atomic expression, i.e.,$
 \mathcal{A}_i \lle \mathcal{A}_k$
 for  $\mathcal{A}_i:= \mlingterm{hedge}_i
@@ -1173,6 +1176,18 @@ After that, everything is prepared to run the inference on the \code{testing} da
 %
 \input{chunks/chunk-pbld6}
 
+{\color{green}
+If the user wants to create the rule base by herself or himself, a list of chracter strings has to be provided with first element representing the consequent of the rule:
+%
+%
+
+}
+
+\subsection{Other functions related to the inference}
+
+The \pkg{lfl} package provides some additional functions related to the logical inference. These functions act primarily as building blocks for the PbLD, however, they may be sometimes useful even separately.
+
+The \code{fire()} function evaluates a list of rules on a given input. The result is a vector of truth value degrees:
 
 \michal{TODO: doplnit popis funkci perceive, defuzz, fire apod)}
 
