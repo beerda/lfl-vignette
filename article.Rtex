@@ -835,7 +835,7 @@ The \code{fsets} object returned by the \code{lcut()} function (and the \code{fc
 %
 \input{chunks/chunk-lcut.vars}
 %
-The \code{specs} attribute returns a matrix that encodes a sort of \emph{specificity} relation {\color{red}(see Section~\ref{sec:pbld})} between the columns of the \code{fsets} object (some columns and rows are omitted for brevity):
+The \code{specs} attribute returns a matrix that encodes a sort of \emph{specificity} relation see Section~\ref{sec:pbld}) between the columns of the \code{fsets} object (some columns and rows are omitted for brevity):
 %
 \input{chunks/chunk-lcut.specs}
 %
@@ -904,15 +904,6 @@ Similarly as for \code{lcut()}, the result of the \code{fcut()} function is an i
 %
 \input{chunks/chunk-fcut.varsspecs}
 %
-
-
-
-
-
-\subsection{Fuzzy Quantifiers}\label{sec:fuz_quant}
-
-\michal{doplnit Holcapkovu i Novakovu verzi}
-{\color{red}Tak tu napal, jak to mas udelane uvnitr s nejakym narativem, ja to zkusim sladit.}
 
 
 
@@ -1153,10 +1144,12 @@ After deriving the output $C$, it often needs to be defuzzified that is, we ofte
 
 
 
-{\color{red}A co to napsat takhle: \\ As the \pkg{lfl} package is mainly focused on modeling implicative rules, it does not contain defuzzifications designed for conjuntive rules (rules of the Mamdani-Assilian type), such as the
-\emph{Center-Of-Gravity} (COG) defuzzification, however, it is at disposal in \pkg{frbs} \proglang{R}-package.}
+As the \pkg{lfl} package is mainly focused on modeling implicative rules, it does not contain defuzzifications designed for conjuntive rules (rules of the Mamdani-Assilian type), such as the
+\emph{Center-Of-Gravity} (COG) defuzzification, however, it is at disposal in \pkg{frbs} \proglang{R}-package.
 
+\michal{no napsat se to může, a co kdyby se to napsalo až na konec sekce 6.2, kde se píše o funkci \code{defuzz}? nebo nevím... klidně to asi může být i tady}
 
+{\color{red}M: jo, to je takto duplicitne, tyto dva odstavce vyse presuneme dolu a oceseme to, aby to nebylo redundantni}
 
 
 The \pkg{lfl} package implements PbLD in the \code{pbld()} function. The inference is performed for each row of the input data object (which must be the instance of the \code{fsets} class, see Section~\ref{sec:fuzzysets}). For instance, let us consider the \R{}'s standard dataset, \code{CO2}:
@@ -1228,7 +1221,12 @@ In this particular application, the  authors used the \pkg{forecast} \proglang{R
 
 There were four methods called from \pkg{forecast} package, namely the seasonal ARIMA, exponential smoothing, Theta, and Random Walk. Using the M3 competition dataset of 2829 time series \citep{m3}, it was possible to determine the accuracy of the four particular methods and to determine characteristic features, such as frequency (yearly, monthly, weekly, etc.), skewness, kurtosis, seasonality etc., for more details, see \cite{frbe2014}. The weights were set up proportional to the determined accuracy and employed into a table similar to Table~\ref{Tab:guha_exampleI} where the objects were the particular time series used for the learning, features $X1, X_m$ where the determined time series features, and $Y$ was set up to be equal to the weight determined based on the accuracy of the particular method for the particular time series. Such a table led to the generation of the linguistic description for a single time series forecasting method and the procedure was repeated for the remaining three forecasting methods. This resulted into four linguistic descriptions that, after the redundancy analysis \citep{Dvorak_etal:RedundancyFSS} and the size reduction by the function \code{reduce()} were ready to determine particular method weights. Note, that the DEE defuzzification was used at the end of the inference process followed by the normalization of the obtained weights. 
 
-The whole procedure was not a single experiment procedure but a creation of a stable forecasting tool that is at disposal in the \pkg{lfl} package under the function \code{SEM NACPI NAYEV FUNKCE A POKRACUJ :-D}
+The whole procedure was not a single experiment procedure but a creation of a stable forecasting tool that is at disposal in the \pkg{lfl} package under the function \code{frbe()}.
+{\color{green}
+To perform the FRBE forecast, a proper time series object has to be created with assigned frequency attribute. This can be done as in the following example. The \code{frbe()} function may then be called with the \code{h} argument, which is the forecast horizon, i.e. the number of future values to be predicted:
+%
+%
+}
 
 \section{Conclusion}
 
