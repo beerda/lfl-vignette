@@ -521,7 +521,7 @@ rules <- list(c('me.uptake', 'Plant=Mc1', 'sm.conc'),
 pbld(testing, rules, p, v)
 @
 
-<<export='fire'>>=
+<<export='fire', tidy=FALSE>>=
 x <- 1:10 / 10
 names(x) <- letters[1:10]
 print(x)
@@ -529,7 +529,6 @@ rules <- list(c('a', 'c', 'e'),
               c('b'),
               c('d', 'a'),
               c('c', 'a', 'b'))
-print(rules)
 fire(x, rules, tnorm='goguen', onlyAnte=FALSE)
 @
 
