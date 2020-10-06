@@ -511,7 +511,7 @@ head(p)
 @
 
 <<export='pbld6'>>=
-pbld(testing, rb, p, v)
+pbld(testing, rb, p, v, type='global')
 @
 
 <<export='pbld_custom', tidy=FALSE>>=
@@ -533,7 +533,7 @@ fire(x, rules, tnorm='goguen', onlyAnte=FALSE)
 @
 
 <<export='frbe', tidy=FALSE>>=
-myts <- ts(1:100 + rnorm(100), frequency=24)
+myts <- ts(1:100 + rnorm(100), frequency=24)   # hourly frequency
 fit <- frbe(myts, h=10)
 fit$mean
 @
