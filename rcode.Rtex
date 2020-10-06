@@ -245,7 +245,7 @@ createPlot <- function(l, xlims=c(0, 1), legendName='expression', legendBottom=F
     xlim(xlims[1], xlims[2]) +
     labs(x='', y='', colour=legendName)
   if (legendBottom) {
-    g <- g + theme(legend.position='bottom')
+    g <- g + theme(legend.position='bottom', legend.direction='vertical')
   }
   g
 }
@@ -399,7 +399,7 @@ fcut(numvec,
      type='triangle')
 @
 
-<<fcut_plot1, fig.width=4, fig.height=2, fig.show='hide'>>=
+<<fcut_plot1, fig.width=3, fig.height=3.25, fig.show='hide'>>=
 l <- list(
   `numvec=1`=triangular(1, 3, 5),
   `numvec=2`=triangular(3, 5, 7),
@@ -408,7 +408,7 @@ l <- list(
 createPlot(l, xlims=c(0, 10), legendName='', legendBottom=TRUE)
 @
 
-<<fcut_plot2, fig.width=4, fig.height=2, fig.show='hide'>>=
+<<fcut_plot2, fig.width=3, fig.height=3, fig.show='hide'>>=
 mrg <- function(f1, f2) {
   function(x) {
     plukas.tconorm(f1(x), f2(x))
@@ -421,7 +421,7 @@ l <- list(
 createPlot(l, xlims=c(0, 10), legendName='', legendBottom=TRUE)
 @
 
-<<fcut_plot3, fig.width=4, fig.height=2, fig.show='hide'>>=
+<<fcut_plot3, fig.width=3, fig.height=2, fig.show='hide'>>=
 mrg2 <- function(f1, f2, f3) {
   function(x) {
     plukas.tconorm(f1(x), f2(x), f3(x))
