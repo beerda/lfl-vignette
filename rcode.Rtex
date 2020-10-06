@@ -514,11 +514,23 @@ head(p)
 pbld(testing, rb, p, v)
 @
 
-<<export='pbld_custom'>>=
+<<export='pbld_custom', tidy=FALSE>>=
 rules <- list(c('me.uptake', 'Plant=Mc1', 'sm.conc'),
               c('sm.uptake', 'Type=Mississippi'),
               c('bi.uptake', 'Treatment=nonchilled', 'ro.me.conc'))
 pbld(testing, rules, p, v)
+@
+
+<<export='fire'>>=
+x <- 1:10 / 10
+names(x) <- letters[1:10]
+print(x)
+rules <- list(c('a', 'c', 'e'),
+              c('b'),
+              c('d', 'a'),
+              c('c', 'a', 'b'))
+print(rules)
+fire(x, rules, tnorm='goguen', onlyAnte=FALSE)
 @
 
 \end{document}
