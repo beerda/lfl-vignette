@@ -235,15 +235,19 @@ createListOfExpressions <- function(context, atomic, hedges) {
   res
 }
 
-createPlot <- function(l, xlims=c(0, 1), legendName='expression') {
+createPlot <- function(l, xlims=c(0, 1), legendName='expression', legendBottom=FALSE) {
   g <- ggplot(data = data.frame(x = 0), mapping = aes(x = x))
   for (n in names(l)) {
     f <- l[[n]]
     g <- g + stat_function(aes_(color=n), fun = f)
   }
-  g +
+  g <- g +
     xlim(xlims[1], xlims[2]) +
     labs(x='', y='', colour=legendName)
+  if (legendBottom) {
+    g <- g + theme(legend.position='bottom')
+  }
+  g
 }
 
 ctx <- ctx3()
