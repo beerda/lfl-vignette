@@ -141,7 +141,7 @@ a$pt(RS, a$n(RE))
 @
 
 <<export='comp.circ.unavoid'>>=
-RU <- compose(R, S, alg=a, type='super')
+RU <- compose(R, U, alg=a, type='super')
 a$pt(RS, RU)
 @
 
