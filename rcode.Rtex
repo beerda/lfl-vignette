@@ -399,6 +399,17 @@ fcut(numvec,
      type='triangle')
 @
 
+<<export='fcut.varsspecs', tidy=FALSE>>=
+fd <- fcut(numvec,
+           breaks=c(1, 3, 5, 7, 9),
+           merge=c(1, 2, 3),
+           type='triangle')
+colnames(fd)
+vars(fd)
+specs(fd)
+@
+
+
 <<fcut_plot1, fig.width=3, fig.height=3.25, fig.show='hide'>>=
 l <- list(
   `numvec=1`=triangular(1, 3, 5),
