@@ -607,7 +607,7 @@ Now let us assume the blurred vision to be a typical unavoidable feature of pulm
 %
 \input{chunks/chunk-comp.u}
 %
-$(R\circ S)^{\rhd U}$ (see (\ref{form:circ_unavoid})) may be evaluated by the following commands: {\color{red}M: a tady jsem asi našel chybu, ty RU počítáš z matic R a S, proto to celé vyleze níže skoro nulové, protože máš celou S jako unavoidable symptomy. Pokud tam budou jen U unavoidable symptomy, tak se to tak nesnizi.}
+$(R\circ S)^{\rhd U}$ (see (\ref{form:circ_unavoid})) may be evaluated by the following commands: 
 %
 \input{chunks/chunk-comp.circ.unavoid}
 %
@@ -841,7 +841,7 @@ The \code{specs} attribute returns a matrix that encodes a relation of \emph{spe
 %
 As can be seen, the 4th fuzzy set (\code{ve.sm.age}) is more specific than 5th (\code{sm.age}), which is more specific than the 6th fuzzy set (\code{ro.sm.age}).
 
-{\color{green}
+
 The \code{fcut()} function works identically to \code{lcut()} for logical and factor input:
 %
 \input{chunks/chunk-fcut.logfact}
@@ -854,14 +854,17 @@ The preceding example is identical to the call of the \code{triangular()} functi
 %
 \input{chunks/chunk-fcut.triangular}
 %
-However, the \code{fcut()} function is mainly useful for creation of multiple fuzzy sets. A mandatory \code{breaks} argument determines the break-points of the positions of the fuzzy sets. It should be an ordered vector of numbers such that the $i$-th index specifies the beginning, $(i+1)$-th the center, and $(i+2)$-th the ending of the $i$-th fuzzy set. The minimum number of breaks-points is 3. $n-2$ elementary fuzzy sets would be created for $n$ break-points.
+
+However, the \code{fcut()} function is mainly useful for creation of multiple fuzzy sets. A mandatory \code{breaks} argument determines the break-points of the positions of the fuzzy sets. It should be an ordered vector of numbers such that the $i$-th index specifies the beginning {\color{red}infimum of the support}, $(i+1)$-th the center, and $(i+2)$-th the ending {\color{red}infimum of the support} of the $i$-th fuzzy set. The minimum number of breaks-points is 3. $n-2$ elementary fuzzy sets would be created for $n$ break-points.
 
 For instance, the following command produces three triangular fuzzy sets with parameters $(1, 3, 5)$, $(3, 5, 7)$ and $(5, 7, 9)$:
 %
 \input{chunks/chunk-fcut.numeric2}
 %
-If considering an $i$-th fuzzy set, the original values lower than the $i$-th break (and greater than $(i+2)$-th break) would result in the zero membership degree, values equal to $(i+1)$-th break would have membership degree equal 1 and values between them the appropriate membership degree between 0 and 1 accordingly to the specified \code{type} (\code{"triangle"} or \code{"raisedcos"}).
 
+Let us consider the $i$-th fuzzy set. The values smaller than the $i$-th break and greater than $(i+2)$-th break result in the zero membership degree, values equal to $(i+1)$-th break result in the membership degree equal 1, and values between them result in a membership degree between 0 and 1 accordingly to the specified \code{type} (\code{"triangle"} or \code{"raisedcos"}).
+
+{\color{red}M: tak tyto dva odstavce nize mne docela mate, a) jak myslis "would be named after original data"? b) proc opet uvadime, ze body pred a za break points maji membership degree 0, kdyz je to uvedeno uz vyse? c) veta the merge argument je divna, jeji veta vedlejsi nema sloveso d) vyznam from \code{1} to \code{length(breaks) - 2} byl pro mne zahadou az do pateho precteni  (co takhle "The argument \code{merge} may contain an integer number determining the number of fuzzy sets to merge, i.e., from \code{1} to the number of fuzzy sets, that is to \code{length(breaks)} reduced by value 2", e) neni na tom obrazku 5 vpravo spis merge=3?} 
 The resulting fuzzy sets would be named after the original data by adding an equality sign (\code{=}) and a number $i$.
 Note also that unlike \code{base::cut()}, the values that are lower or greater than the given break-points, will have all membership degrees equal to zero.
 
@@ -883,10 +886,14 @@ Note also that unlike \code{base::cut()}, the values that are lower or greater t
     \label{fig:fcut}
 \end{figure}
 
+
+
 Additionally, combined fuzzy sets may be created. The \code{merge} argument determines whether to derive additional fuzzy sets by merging the elementary fuzzy sets (defined with the \code{breaks} argument) into super-sets. The \code{merge} may contain any integer number from \code{1} to \code{length(breaks) - 2}. Value \code{1} means that the elementary fuzzy sets have to be created only, as described above (the default case). Value \code{2} means that the two consecutive elementary fuzzy sets should be combined with the \L{}ukasiewicz t-conorm, value \code{3} causes combining three consecutive elementary fuzzy sets etc. See Fig.~\ref{fig:fcut} and also the following example:
 %
 \input{chunks/chunk-fcut.merge}
 %
+
+
 The \code{merge} argument may contain multiple values. In that case, all types of merged fuzzy sets is provided:
 %
 \input{chunks/chunk-fcut.merge2}
@@ -897,15 +904,15 @@ Similarly as for \code{lcut()}, the result of the \code{fcut()} function is an i
 %
 \input{chunks/chunk-fcut.varsspecs}
 %
-}
 
 
 
 
-\subsection{Fuzzy Quantifiers}
+
+\subsection{Fuzzy Quantifiers}\label{sec:fuz_quant}
 
 \michal{doplnit Holcapkovu i Novakovu verzi}
-{\color{red}To musime probrat, jak to tam je obecne implementovano. U kompozic jsem uz Michalovu verzi popsal v sekci 3.2. Pokud to mas nejak obecneji, mohli bychom to popsat a pak se jen odkazovat v 3.2, ale pak by to melo predchazet te sekkci 3.2, coz zas nemuze ta Vilemova verze, ktera vyzaduje znalost evaluacnich vyrazu.}
+{\color{red}Tak tu napal, jak to mas udelane uvnitr s nejakym narativem, ja to zkusim sladit.}
 
 
 
@@ -1177,17 +1184,29 @@ After that, everything is prepared to run the inference on the \code{testing} da
 \input{chunks/chunk-pbld6}
 
 {\color{green}
-If the user wants to create the rule base by herself or himself, a list of chracter strings has to be provided with first element representing the consequent of the rule:
+If the user wants to create the rule base by herself or himself, a list of character strings has to be provided that represent the rules, with first element standing for the consequent. For instance,
+rules
+\begin{align*}
+    \textbf{if}\quad \texttt{Plant=Mc1}\ \textbf{and}\ \texttt{conc}\ \textit{is small} & \quad \textbf{then}\quad \texttt{uptake}\ \textit{is medium} \\
+    \textbf{if}\quad \texttt{Type=Mississippi} & \quad \textbf{then}\quad \texttt{uptake}\ \textit{is small} \\
+    \textbf{if}\quad \texttt{Treatment=nonchilled}\ \textbf{and}\ \texttt{conc}\ \textit{is roughly medium} & \quad\textbf{then}\quad \texttt{uptake}\ \textit{is big} \\
+\end{align*}
+may be evaluated with PbLD using the following code:
 %
+\input{chunks/chunk-pbld_custom}
 %
-
 }
 
+
+
+
+{\color{green}
 \subsection{Other functions related to the inference}
 
 The \pkg{lfl} package provides some additional functions related to the logical inference. These functions act primarily as building blocks for the PbLD, however, they may be sometimes useful even separately.
 
 The \code{fire()} function evaluates a list of rules on a given input. The result is a vector of truth value degrees:
+}
 
 \michal{TODO: doplnit popis funkci perceive, defuzz, fire apod)}
 
