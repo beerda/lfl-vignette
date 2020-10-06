@@ -514,5 +514,11 @@ head(p)
 pbld(testing, rb, p, v)
 @
 
+<<export='pbld_custom'>>=
+rules <- list(c('me.uptake', 'Plant=Mc1', 'sm.conc'),
+              c('sm.uptake', 'Type=Mississippi'),
+              c('bi.uptake', 'Treatment=nonchilled', 'ro.me.conc'))
+pbld(testing, rules, p, v)
+@
 
 \end{document}
