@@ -532,4 +532,10 @@ rules <- list(c('a', 'c', 'e'),
 fire(x, rules, tnorm='goguen', onlyAnte=FALSE)
 @
 
+<<export='frbe', tidy=FALSE>>=
+myts <- ts(1:100 + rnorm(100), frequency=24)
+fit <- frbe(myts, h=10)
+fit$mean
+@
+
 \end{document}
