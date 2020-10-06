@@ -300,6 +300,7 @@ Therefore, $\sim$ is an important unary connective not only for the \L ukasiewic
 \subsection{G\"odel Algebra}
 
 
+\michal{tady bych radeji dal nejakou veticku ospravedlnujici, ze znova implementujeme vsechny t-normy a dalsi operace, protoze ony uz jsou definovany v jinych balicich taky, ale tady jsme je museli udelat znova, abysme mohli navazat chybejicimi hodnotami. bojim se, aby se recenzent hned pri prvnim cteni nenasral. musi se to promyslet}
 
 Based on the selected t-norm, the \lfl{} package provides all the derived operations in a concise and extendable way. By calling the \code{algebra()} function with the name of the underlying t-norm, a named list of functions is obtained. The user may select from \code{"goedel"}, \code{"goguen"}, or \code{"lukasiewicz"} variant calling the respective G\"odel, Goguen (also often called \emph{product}), or the already above-mentioned \L ukasiewicz residuated lattices of operations. 
 
@@ -1058,17 +1059,19 @@ For example, a set \code{rb} of rules obtained from the \code{employees} fuzzy s
 Unlike the more frequent fuzzy inference methods, i.e., mainly the Mamdani-Assilian \citep{MamdaniAssilian75} (and other derived conjunctive models) and the Takagi-Sugeno \citep{TakagiSugeno:IEEE85}, the \emph{ perception-based logical deduction} (abbr. PbLD) uses the genuine \L ukasiewicz implication. However, it is even different to the standard fuzzy relational approach to implicative rules \citep{BodenhoferDankovaStepnickaNovak07} that aggregates them to a single fuzzy relation by the minimum. Let us note that the first two above-mentioned approaches as well as many others are accessible in a very rich \pkg{frbs} \proglang{R} package while the latter approach implementing conjunction of implications is up to the best knowledge of the authors not implemented in any \proglang{R} package. 
 
 The difference between inferring with  standard implicative fuzzy rules and inferring with
-linguistic rules (containing evaluative linguistic expressions) lies in the specific inference method PbLD that applies the so-called perception -- a certain algorithm that fires only particular rules based firing degree and the specificity of the antecedents, see \cite{Novak:PbLD,novper:intellig04}. In
-this Section, we present the PbLD in a variant that was in detail
-studied in \cite{Dvorak_etal:RedundancyFSS}. However, note that there are
-also other variants, see e.g. \cite{DvoStep:PbLD2015}. 
+linguistic rules (containing evaluative linguistic expressions) lies in the specific inference method PbLD that applies the so-called perception -- a certain algorithm that fires only particular rules based firing degree and the specificity of the antecedents, see \cite{novper:intellig04}.
 
  
  \subsection{Formal background and implementation}
 
 \michal{naimplementovane mam 2 verze pbld "global" a "local"... ta prvni je vilemova varianta, ta druha je tvoje s antoninem}
 
-We briefly recall, that the (specificity) ordering of linguistic expressions is based on the ordering of hedges under the assumption that we consider two expressions based on the same atomic expression, i.e.,$
+ {\color{blue}In this Section, we present the PbLD in a variant that was described in \cite{Novak:PbLD} and in the given formalism studied in \cite{Dvorak_etal:RedundancyFSS}. However, note that there is 
+also another variant, see e.g. \cite{DvoStep:PbLD2015}. The first one will be called global and the latter one local. The names, in the \proglang{R}-package implementation mirrored in the arguments \code{global} and \code{local}, point to the application of the specificity ordering in the perception function that chooses particular rules to be fired. }
+
+
+
+We briefly recall, that the specificity ordering of linguistic expressions is based on the ordering of hedges under the assumption that we consider two expressions based on the same atomic expression, i.e.,$
 \mathcal{A}_i \lle \mathcal{A}_k$
 for  $\mathcal{A}_i:= \mlingterm{hedge}_i
 \mathcal{A}$ and $\mathcal{A}_k:= \mlingterm{hedge}_k \mathcal{A}$ with $\mathcal{A}$ being an atomic expression and
@@ -1177,6 +1180,8 @@ After that, everything is prepared to run the inference on the \code{testing} da
 \input{chunks/chunk-pbld6}
 
 {\color{green}
+Each value of the resulting vector corresponds to the result of the inference performed on a row of the \code{testing} input. As indicated by the \code{type} argument, the \emph{global} variant of PbLD has been computed. The \emph{local} PbLD is obtained for \code{type="local"}.
+
 If the user wants to create the rule base by herself or himself, a list of character strings has to be provided that represent the rules, with first element standing for the consequent. For instance,
 rules
 \begin{align*}
@@ -1225,12 +1230,20 @@ The whole procedure was not a single experiment procedure but a creation of a st
 {\color{green}
 To perform the FRBE forecast, a proper time series object has to be created with assigned frequency attribute. This can be done as in the following example. The \code{frbe()} function may then be called with the \code{h} argument, which is the forecast horizon, i.e. the number of future values to be predicted:
 %
+\input{chunks/chunk-frbe}
 %
 }
 
 \section{Conclusion}
 
 
+
+tohle si tu necham :-D
+
+
+ asi corteze, holenu, coufala, joseho alonsu
+ 
+ 
 
 \section*{Acknowledgments}
 
