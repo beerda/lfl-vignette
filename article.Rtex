@@ -657,7 +657,7 @@ Other quantifiers may be used analogously. For instance, one may require the pat
 %
 \input{chunks/chunk-comp.quant.atleast}
 %
-More details on the quantifiers may be found in Section \michal{doplnit}.
+More details on the quantifiers may be found in Section~\ref{sec:fuz_quant}.
 
 
 
@@ -835,7 +835,7 @@ The \code{fsets} object returned by the \code{lcut()} function (and the \code{fc
 %
 \input{chunks/chunk-lcut.vars}
 %
-The \code{specs} attribute returns a matrix that encodes a relation of \emph{specificity} {\color{red}(see Section~\ref{sec:lingexpr-theory})} between the columns of the \code{fsets} object (some columns and rows are omitted for brevity): {\color{red}M: navic relation specifity jsem jako pojem asi formalne nezavedli}
+The \code{specs} attribute returns a matrix that encodes a sort of \emph{specificity} relation {\color{red}(see Section~\ref{sec:pbld})} between the columns of the \code{fsets} object (some columns and rows are omitted for brevity):
 %
 \input{chunks/chunk-lcut.specs}
 %
@@ -1206,9 +1206,17 @@ may be evaluated with PbLD using the following code:
 The \pkg{lfl} package provides some additional functions related to the logical inference. These functions act primarily as building blocks for the PbLD, however, they may be sometimes useful even separately.
 
 The \code{fire()} function evaluates a list of rules on a given input. The result is a vector of truth value degrees:
+%
+\input{chunks/chunk-fire}
+%
+The \code{onlyAnte=FALSE} argument causes the rule base be treated as a list of antecedents. As such, all the predicates are evaluated. If \code{onlyAnte} is set to \code{TRUE}, the first element of each rule is treated as a consequent and omitted from evaluation.
+
+The \code{perceive()} function handles the perception, which is a central notion of the PbLD inference. From a set of rules, \code{perceive()} removes each rule for which another rule exists that is more specific. The specificity is determined by calling the \code{is.specific()} function. In other words, for each rule $x$ in the list of rules, it searches for another rule $y$ such that \code{is.specific(y, x, ...)} returns \code{TRUE}. If yes then $x$ is removed from the list. The specificity is based on the \code{specs()} matrix defined as an attribute of the \code{fsets} object, which can be created by the \code{lcut()} or \code{fcut()} function.
+
+The \code{defuzz} function performs defuzzification. It takes a numeric vector of membership degrees, a numeric vector of values corresponding to the given membership degrees and a type of defuzzification (\code{"mom"} for \emph{Mean-Of-Maxima}, \code{"fom"} for \emph{First-Of-Maxima}, \code{"lom"} for \emph{Last-Of-Maxima}, or \code{"dee"} for \emph{Defuzzification of Evaluative Expressions}) and returns a defuzzified value.
 }
 
-\michal{TODO: doplnit popis funkci perceive, defuzz, fire apod)}
+\michal{říkám si jestli nestačí tady ty funkce jen tak zmínit bez příkladu, protože ty příklady to hrozně natáhnou a zase se nejedná o kdovíjak důležité funkce.}
 
 
 
