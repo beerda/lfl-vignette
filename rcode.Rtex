@@ -405,7 +405,7 @@ l <- list(
   `numvec=2`=triangular(3, 5, 7),
   `numvec=3`=triangular(5, 7, 9)
 )
-createPlot(l, xlims=c(0, 10), legendName='fuzzy set')
+createPlot(l, xlims=c(0, 10), legendName='fuzzy set', legendBottom=TRUE)
 @
 
 <<fcut_plot2, fig.width=6, fig.height=3, fig.show='hide'>>=
@@ -418,7 +418,7 @@ l <- list(
   `numvec=1|numvec=2`=mrg(triangular(1, 3, 5), triangular(3, 5, 7)),
   `numvec=2|numvec=3`=mrg(triangular(3, 5, 7), triangular(5, 7, 9))
 )
-createPlot(l, xlims=c(0, 10), legendName='fuzzy set')
+createPlot(l, xlims=c(0, 10), legendName='fuzzy set', legendBottom=TRUE)
 @
 
 <<fcut_plot3, fig.width=6, fig.height=3, fig.show='hide'>>=
@@ -430,7 +430,7 @@ mrg2 <- function(f1, f2, f3) {
 l <- list(
   `numvec=1|numvec=2|numvec=3`=mrg2(triangular(1, 3, 5), triangular(3, 5, 7), triangular(5, 7, 9))
 )
-createPlot(l, xlims=c(0, 10), legendName='fuzzy set')
+createPlot(l, xlims=c(0, 10), legendName='fuzzy set', legendBottom=TRUE)
 @
 
 <<export='searchrules', tidy=FALSE>>=
