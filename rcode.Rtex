@@ -451,6 +451,16 @@ atLeast5 <- quant(measure=function(x) as.numeric(x >= 5),
 args(atLeast5)
 @
 
+<<export='quant2'>>=
+A <- c(1, 0.8, 1, 1, 1, 0)
+atLeast5(A)
+@
+
+<<export='quant3'>>=
+B <- c(0.5, 1, 1, 1, 0.9, 1)
+atLeast5(lukas.residuum(B, A))
+@
+
 <<export='searchrules', tidy=FALSE>>=
 rb <- searchrules(employees,
                   lhs=seq_len(ncol(employees)),
