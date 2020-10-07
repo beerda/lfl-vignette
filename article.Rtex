@@ -682,6 +682,7 @@ In the \pkg{lfl} package, such complex formula is evaluated by the following cod
 
 
 \section{Evaluative Linguistic Expressions}
+\label{sec:lingexpr}
 
 Evaluative linguistic expressions \citep{Novak08} are expressions vaguely describing a position on a quantitative axis no matter that not necessarily the position can be numerically expressed, for example, we may consider expressions such as \emph{very nice}, \emph{not very intelligent}, \emph{extremely friendly}. Such expressions have either the form 
 $$\langle \textrm{linguistic hedge}\rangle \langle \textrm{atomic expression}\rangle$$
@@ -952,7 +953,12 @@ The $\langle 1, 1\rangle$ quantifier, may be computed with the help of \L{}ukasi
 
 If the user prefers $\langle 1, 1\rangle$ quantifiers as defined by \cite{murinova2020}, the \code{w} argument must be set to truth values of the antecedent, e.g., ``at least five \code{B}s are \code{A}'' may be evaluated by:
 %
-%\input{chunks/chunk-quant4}
+\input{chunks/chunk-quant4}
+%
+
+For the sake of convenience, the \pkg{lfl} package provides some pre-defined quantifiers, as introduced by \cite{murinova2020}. These use relative measures derived from evaluative linguistic expressions discussed in Section~\ref{sec:lingexpr}. Pre-defined quantifiers may be created by calling the \code{quantifier()} function, which is a wrapper over \code{quant()}:
+%
+%\input{chunks/chunk-quant5}
 %
 
 
