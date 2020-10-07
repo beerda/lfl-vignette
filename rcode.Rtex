@@ -444,6 +444,13 @@ l <- list(
 createPlot(l, xlims=c(0, 10), legendName='', legendBottom=TRUE)
 @
 
+<<export='quant1', tidy=FALSE>>=
+atLeast5 <- quant(measure=function(x) as.numeric(x >= 5),
+                  relative=FALSE,
+                  alg='lukas')
+args(atLeast5)
+@
+
 <<export='searchrules', tidy=FALSE>>=
 rb <- searchrules(employees,
                   lhs=seq_len(ncol(employees)),
