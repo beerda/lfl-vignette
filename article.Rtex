@@ -940,14 +940,19 @@ $$
 
 If all elements of \code{w} are set to 1, equation (\ref{eq:quant}) is equivalent to the $\langle 1 \rangle$ quantifier as developed by \cite{dvorak2009}. For instance, the following commands evaluate the truth value of the sentence ``at least five elements are in \code{A}'':
 %
-%\input{chunks/chunk-quant2}
+\input{chunks/chunk-quant2}
 %
 
 \michal{popsat trochu, co to je $\langle 1 \rangle$ quantifier?}
 
 The $\langle 1, 1\rangle$ quantifier, may be computed with the help of \L{}ukasiewicz residuum. For instance, ``at least five \code{B}s are \code{A}'' may be evaluated by:
 %
-%\input{chunks/chunk-quant2}
+\input{chunks/chunk-quant3}
+
+
+If the user prefers $\langle 1, 1\rangle$ quantifiers as defined by \cite{murinova2020}, the \code{w} argument must be set to truth values of the antecedent, e.g., ``at least five \code{B}s are \code{A}'' may be evaluated by:
+%
+%\input{chunks/chunk-quant4}
 %
 
 
