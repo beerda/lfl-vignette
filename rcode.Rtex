@@ -462,8 +462,28 @@ atLeast5(lukas.residuum(B, A))
 @
 
 <<export='quant4'>>=
-B <- c(0.5, 1, 1, 1, 0.9, 1)
 atLeast5(lukas.residuum(B, A), w=B)
+@
+
+<<export='quant5'>>=
+almost <- quantifier('almost.all')
+most <- quantifier('most')
+many <- quantifier('many')
+almost(A)
+most(A)
+many(A)
+@
+
+<<export='quant6'>>=
+allq <- quantifier('all')
+some <- quantifier('some')
+allq(A)
+some(A)
+@
+
+<<export='quant7'>>=
+atLeast4 <- quantifier('at.least', n=4)
+atLeast4(A)
 @
 
 <<export='searchrules', tidy=FALSE>>=
