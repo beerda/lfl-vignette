@@ -461,6 +461,11 @@ B <- c(0.5, 1, 1, 1, 0.9, 1)
 atLeast5(lukas.residuum(B, A))
 @
 
+<<export='quant4'>>=
+B <- c(0.5, 1, 1, 1, 0.9, 1)
+atLeast5(lukas.residuum(B, A), w=B)
+@
+
 <<export='searchrules', tidy=FALSE>>=
 rb <- searchrules(employees,
                   lhs=seq_len(ncol(employees)),
