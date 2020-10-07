@@ -906,6 +906,43 @@ Similarly as for \code{lcut()}, the result of the \code{fcut()} function is an i
 \input{chunks/chunk-fcut.varsspecs}
 %
 
+{\color{green}
+\subsection{Generalized (?) quantifiers}
+
+The \pkg{lfl} package provides tools for computing of two variants of generalized quantifiers. In \pkg{lfl}, a quantifier is a function that computes a fuzzy truth value of a claim about the quantity. \code{quant()} is a low-level factory function that creates two-argument functions capable of quantifying a vector of membership degrees. There is also \code{quantifier()} function, which is a wrapper around \code{quant()} that enables to create some pre-defined quantifiers based on linguistic expressions.
+
+The \code{quant()} function requires three arguments: \code{measure}, \code{relative} and \code{alg}. The \code{measure} argument, which must be a non-decreasing function that assigns a truth value from the $[0, 1]$ interval to either relative or absolute quantity. The \code{relative} argument is a \code{TRUE}/\code{FALSE} flag indicating what is expected by the \code{measure} function. Finally, the \code{alg} argument is an underlying algebra, i.e., either a string or object of type \code{algebra} (see Section~\ref{sec:fuzzysets}).
+
+For instance, let us create the ``at least 5'' quantifier, which returns 1 if the cardinality of a fuzzy set is at least 5:
+%
+%
+
+As can be seen, the \code{quant()} function returns a two-argument function, which expects two numeric vectors of equal length: the first argument, \code{x}, is a vector of membership degrees to be measured, while the second argument, \code{w}, is the vector of weights.
+
+Let $U$ be the set of input vector indices, $U = \{1, 2, \ldots, \texttt{length(x)}\}$ and let $x_u, w_u$ denote the values of vector \code{x} and \code{w}, respectively, for $u\in U$. The quantifier function created by \code{quant()} computes the truth values accordingly to the following formula:
+%
+$$\bigvee_{z \subseteq U} \left(\bigwedge_{u \in z} (x_u) \wedge \texttt{measure(} m_z \texttt{)} \right),$$
+%
+where
+%
+$$m_z = 
+\begin{cases}
+    \frac{\sum_{u\in z} w_u}{\sum_{u\in U} w_u} & \mbox{if \code{relative} is \code{TRUE}},\\
+    \sum_{u\in z} w_u & \mbox{otherwise}.
+\end{cases}
+$$
+
+Setting \code{w} to 1 yields to operation of the <1> quantifier as developed by Dvořák et al.
+#'   To compute the <1,1> quantifier as developed by Dvořák et al., e.g. "almost all A are B", `w` must
+#'   be set again to 1 and `x` to the result of the implication \eqn{A \Rightarrow B}.
+#'   To compute the <1,1> quantifier as proposed by Murinová et al., e.g. "almost all A are B",
+#'   `x` must be set to the result of the implication \eqn{A \Rightarrow B} and `w` to the membership
+#'   degrees of \eqn{A}. See the examples below.
+
+The \code{quantifier()} function requires at least two arguments: the underlying algebra (\code{alg}) and the required type of quantification (\code{quantity}).
+}
+
+
 
 
 
@@ -1064,10 +1101,9 @@ linguistic rules (containing evaluative linguistic expressions) lies in the spec
  
  \subsection{Formal background and implementation}
 
-\michal{naimplementovane mam 2 verze pbld "global" a "local"... ta prvni je vilemova varianta, ta druha je tvoje s antoninem}
 
- {\color{blue}In this Section, we present the PbLD in a variant that was described in \cite{Novak:PbLD} and in the given formalism studied in \cite{Dvorak_etal:RedundancyFSS}. However, note that there is 
-also another variant, see e.g. \cite{DvoStep:PbLD2015}. The first one will be called global and the latter one local. The names, in the \proglang{R}-package implementation mirrored in the arguments \code{global} and \code{local}, point to the application of the specificity ordering in the perception function that chooses particular rules to be fired. }
+ {\color{blue}In this Section, we present PbLD that was introduced in \cite{Novak:PbLD} and in the selected fuzzy relational formal environment studied in \cite{Dvorak_etal:RedundancyFSS}. However, note that there is 
+also another variant, see e.g. \cite{DvoStep:PbLD2015}. The first one can be called \emph{global PbLD} and the latter one as \emph{local PbLD}. The names, in the \proglang{R}-package implementation mirrored in the arguments \code{global} and \code{local}, point to the application of the specificity ordering in the perception function that chooses particular rules to be fired. Unless explicitly stated, all what is described below has a general validity for both variants. }
 
 
 
