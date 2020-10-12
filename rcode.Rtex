@@ -149,15 +149,11 @@ a$pt(RS, RU)
 a$pt(RS, a$n(RE), RU)
 @
 
-<<export='comp.quant.some'>>=
-qsome <- quantifier('some', alg=a)
-mult(R, S, function(r, s) {
-  qsome(a$pt(r, s))
-})
-@
-
 <<export='comp.quant.atleast'>>=
-qatleast <- quantifier('at.least', n=2, alg=a)
+qatleast <- sugeno(measure=function(x) { (x >= 2) + 0 },
+                   relative=FALSE,
+                   strong=TRUE,
+                   alg='goedel')
 qRS <- mult(R, S, function(r, s) {
   qatleast(a$pt(r, s))
 })
@@ -445,9 +441,9 @@ createPlot(l, xlims=c(0, 10), legendName='', legendBottom=TRUE)
 @
 
 <<export='quant1', tidy=FALSE>>=
-atLeast5 <- quant(measure=function(x) as.numeric(x >= 5),
-                  relative=FALSE,
-                  alg='lukas')
+atLeast5 <- sugeno(measure=function(x) as.numeric(x >= 5),
+                   relative=FALSE,
+                   alg='lukas')
 args(atLeast5)
 @
 

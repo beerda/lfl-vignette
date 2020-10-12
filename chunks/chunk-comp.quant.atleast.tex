@@ -1,7 +1,9 @@
 \begin{Schunk}
 % --begin: "comp.quant.atleast"
 \begin{Sinput}
-R> qatleast <- quantifier("at.least", n = 2, alg = a)
+R> qatleast <- sugeno(measure = function(x) {
++      (x >= 2) + 0
++  }, relative = FALSE, strong = TRUE, alg = "goedel")
 R> qRS <- mult(R, S, function(r, s) {
 +      qatleast(a$pt(r, s))
 +  })
