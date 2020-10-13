@@ -208,7 +208,7 @@ by using the technique of \emph{compositions of fuzzy relations}, see
 
 \subsection{Overview of the paper}
 
-The rest of the paper is organized as follows. \michal{doplnit}
+The aim of the paper is to provide a concise documentation of the \pkg{lfl} package for the \R{} language. The description of the functions of the package are accompanied with examples and theoretical foundations. The paper is organized as follows. Section~\ref{sec:fuzzysets} presents basic algebraic operations for fuzzy sets and fuzzy logic including extensions for missing values. Section~\ref{sec:compositions} describes compositions of fuzzy relations, a framework for classification based on expert knowledge. Section~\ref{sec:lingexpr} introduces the concept of evaluative linguistic expressions, a mathematical model of vague linguistic notions, which allows to consider the numeric information in terms that are very close to human language. Section~\ref{sec:assoc} discusses an application of evaluative linguistic expressions, the fuzzy association rules mining algorithm provided by \pkg{lfl} that extracts potentially useful and interesting knowledge from data in the form of fuzzy if/then rules. Perception-based Logical Deduction is an inference mechanism tightly connected with evaluative linguistic expressions too. It is introduced in Section~\ref{sec:pbld}. Section~\ref{sec:conclusion} concludes the paper.
 
 
 
@@ -298,11 +298,11 @@ Therefore, $\sim$ is an important unary connective not only for the \L ukasiewic
 
 \subsection{G\"odel algebra}
 
-{\color{green}
+
 Based on the selected t-norm, the \pkg{lfl} package provides all the derived operations in a concise and extendable way. By calling the \code{algebra()} function with the name of the underlying t-norm, an instance of the S3 \code{algebra} class is obtained, which is a named list of functions. The user may select from \code{"goedel"}, \code{"goguen"}, or \code{"lukasiewicz"} variant calling the respective G\"odel, Goguen (also often called \emph{product}), or the already above-mentioned \L ukasiewicz residuated lattices of operations. 
 
 The instances of the \code{algebra} class serve often as a parameter to many other functions of the \pkg{lfl} package. A user may extend these objects by selecting from some predefined missing value handling schemes (see Section~\ref{sec:undefvals}) or by defining a custom algebra.
-}
+
 
 For example, the algebra based on the G\"odel t-norm, that is the standard minimum $\otimes = \wedge$, is obtained as follows:
 %
@@ -537,7 +537,12 @@ By default, the functions in the structure that is obtained by calling the \code
 \input{chunks/chunk-na.algebra}
 
 
-\michal{tohle je fajn popis, ale ta \code{order} funkce pro algebry je porad jeste work-in-progress, protoze neni uplne jasne, jak ma fungovat pro jine algebry nez je bochvar, dragonfly a lowerEst. Je potrebna pro kvantifikatory a tam to jeste neni uplne jasne jak to delat, takze bych mozna tohle presel v tichosti, v Rku pri pokusu o pouziti kvantifikatoru zarve hlaska ze to jeste neumime a snad tento odstavec muzeme prozatim vynechat.}
+\michal{tohle je fajn popis, ale ta \code{order} funkce pro algebry je porad jeste work-in-progress, protoze neni uplne jasne, jak ma fungovat pro jine algebry nez je bochvar, dragonfly a lowerEst. Je potrebna pro kvantifikatory a tam to jeste neni uplne jasne jak to delat, takze bych mozna tohle presel v tichosti, v Rku pri pokusu o pouziti kvantifikatoru zarve hlaska ze to jeste neumime a snad tento odstavec muzeme prozatim vynechat.}{\color{red}Chapu snahu se tomu vyhnout, ale moc tomu popisu nerozumim. Pro dve algebry (D a Le) to uz umime, pro treti algerbu (B) si myslime, ze to umime. Budes to mit deaktivovane pro vsechny vcetne techto dvou ci tri? A proc pak nahore uvadis o kterekoliv underlying algebry order: puts NA at the end? To preci potrebujes jen pro ty kvantifikatory a nyni tu pises, ze Rko pri pokusu o pouziti kvantifikatoru zarve chybova hlaska. A v clanku, kde jsme to delali pro D, se na R package lfl odkazujeme, takze to uplne vypnute asi mit nemame. Nicmene bude-li to vypnute, proc pak popisujeme vyse ten order?}
+
+\michal{1. takže jak to je v současné době v kódu: kvantifikátory fungují pro bochvara (default), dragonfly a lowerest. pro všechno ostatní to zařve chybovou hlášku, že není implementována funkce \code{order}.
+
+2. proč tam nahoře popisuju tu funkci order: je to proto, že tam je, že se zobrazuje v tom generovaném výpisu. spravne by to melo byt popsane, protoze to je dulezita soucast te algebry, bez ktere by to nefungovalo a kdyby treba nekdo chtel vyrobit dalsi, svou algebru, tak potrebuje vedet, ze tam je nejaky ten order. na druhou stranu, pro nektere algebry docasne nevime, co tam ma byt. trochu se v tom placam, jak vidis a nevim kudy kam. nejradsi bych sedl a ten order udelal i pro ostatni algebry. anebo zrusime ten vypis funkci jednotlivych algeber a jen popiseme ty klasicke operace a order vynechame uplne?}
+
 As mentioned above, each algebra for partial fuzzy logic adopts its partial
 ordering on the extended set of truth-values $[0,1]\cup \texttt{NA}$. For instance, \code{NA} is incomparable to any $\alpha\in [0,1]$ for the Soboci\'{n}ski or Bochvar algebra, while the same holds only for $\alpha\in (0,1)$ for the Kleene, Dragonfly or Lower Estimation algebra with the additional property $0\le\texttt{NA}\le 1$. However, for the last two algebra, there is additional ``lattice-like'' ordering  $ \leq_{\ell} $ generated by the  lattice operations meet and join (conjunction, disjunction), that is defined as follows: $ 0\leq_{\ell}\texttt{NA}\leq_{\ell}\alpha $ for all $ \alpha\in (0, 1] $, see  \cite{Step_etal_Dragon_IJAR2019}. 
 
@@ -547,110 +552,112 @@ ordering on the extended set of truth-values $[0,1]\cup \texttt{NA}$. For instan
 %}
 
 
-{\color{blue}
-\subsection{Generalized quantifiers}
-\label{sec:fuz_quant}
+%\subsection{Generalized quantifiers}
+%\label{sec:fuz_quant}
 
 
-Apart from the classical existential and universal quantifier, it may be often helpful to use the so-called generalized (intermediate) quantifiers such as {\tt A Few}, {\tt At least 2}, {\tt At least 40\%}, or {\tt Majority}.
 
-Mathematically, the construction of a generalized quantifier $Q$ directly uses a \emph{symmetric fuzzy measure} $\mu$ on the universe $X$ that is a monotone (not necessarily additive) mapping on $X$ with $\mu(\emptyset) = 0$ and $\mu(X) = 1$ that is invariant with respect to cardinality. Then the quantifier $Q:\mathcal{F}(X) \rightarrow [0,1]$ is defined as follows:
-    \begin{align}
-    Q(C)  = \bigvee_{D\in
-        \mathcal{P}(X)\setminus\{\emptyset\}}  \left(   \bigwedge_{x\in
-        D} C(x) \otimes \mu(D) \right) \quad x\in X \ .\label{form_Q_type1}
-    \end{align}
+
+%Apart from the classical existential and universal quantifier, it may be often helpful to use the so-called generalized (intermediate) quantifiers such as {\tt A Few}, {\tt At least 2}, {\tt At least 40\%}, or {\tt Majority}.
+
+%Mathematically, the construction of a generalized quantifier $Q$ directly uses a \emph{symmetric fuzzy measure} $\mu$ on the universe $X$ that is a monotone (not necessarily additive) mapping on $X$ with $\mu(\emptyset) = 0$ and $\mu(X) = 1$ that is invariant with respect to cardinality. Then the quantifier $Q:\mathcal{F}(X) \rightarrow [0,1]$ is defined as follows:
+  %  \begin{align}
+   % Q(C)  = \bigvee_{D\in
+    %    \mathcal{P}(X)\setminus\{\emptyset\}}  \left(   \bigwedge_{x\in
+    %    D} C(x) \otimes \mu(D) \right) \quad x\in X \ .\label{form_Q_type1}
+    %\end{align}
     
 
 
- Formula (\ref{form_calculate_Q}) presents so-called quantifier of the type $\langle 1 \rangle$ \citep{dvorak2009} that can be generalized to the type $\langle 1,1 \rangle$ by adding a restriction to a (fuzzy) subset, see \cite{DvorHolc_type_11_Part1}. Furthermore, another generalization following the work \cite{murinova2020} is employed as a variant of the $\langle 1,1 \rangle$ type of the quantifiers. Note, that this variant allows only the G\"{o}del t-norm $\otimes = \wedge$. 
+% Formula (\ref{form_calculate_Q}) presents so-called quantifier of the type $\langle 1 \rangle$ \citep{dvorak2009} that can be generalized to the type $\langle 1,1 \rangle$ by adding a restriction to a (fuzzy) subset, see \cite{DvorHolc_type_11_Part1}. Furthermore, another generalization following the work \cite{murinova2020} is employed as a variant of the $\langle 1,1 \rangle$ type of the quantifiers. Note, that this variant allows only the G\"{o}del t-norm $\otimes = \wedge$. 
 
 
-The \pkg{lfl} package provides tools for computing both types of generalized quantifiers. In particular, \code{quant()} is a low-level factory function that creates two-argument functions capable of quantifying a vector of membership degrees. There is also \code{quantifier()} function, which is a wrapper around \code{quant()} that enables to create some pre-defined quantifiers.
+%The \pkg{lfl} package provides tools for computing both types of generalized quantifiers. In particular, \code{quant()} is a low-level factory function that creates two-argument functions capable of quantifying a vector of membership degrees. There is also \code{quantifier()} function, which is a wrapper around \code{quant()} that enables to create some pre-defined quantifiers.
 
 
-The \code{quant()} function requires three arguments: \code{measure}, \code{relative} and \code{alg}. The \code{measure} argument is a non-decreasing  function that assigns a truth value from the $[0, 1]$ interval to either relative or absolute quantity. The \code{relative} argument is a \code{TRUE}/\code{FALSE} flag indicating what is expected by the \code{measure} function. Finally, the \code{alg} argument is an underlying algebra, i.e., either a string or object of type \code{algebra}.
+%The \code{quant()} function requires three arguments: \code{measure}, \code{relative} and \code{alg}. The \code{measure} argument is a non-decreasing  function that assigns a truth value from the $[0, 1]$ interval to either relative or absolute quantity. The \code{relative} argument is a \code{TRUE}/\code{FALSE} flag indicating what is expected by the \code{measure} function. Finally, the \code{alg} argument is an underlying algebra, i.e., either a string or object of type \code{algebra}.
 
 
 
-For instance, let us create the {\tt at least 5} quantifier, which returns 1 if the cardinality of a fuzzy set is at least 5:
+%For instance, let us create the {\tt at least 5} quantifier, which returns 1 if the cardinality of a fuzzy set is at least 5:
 %
-\input{chunks/chunk-quant1}
-%
-
-As can be seen, the \code{quant()} function returns a two-argument function, which expects two numeric vectors of equal length: the first argument, \code{x}, is a vector of membership degrees to be measured, while the second argument, \code{w}, is a vector of weights.
-
-{\color{red}M: Tady se mi nelibi to U jako set of indices, protoze zas vyse U bylo universum. Radeji bych tomu dal symbol I, coz pak odpovida i tomu bezicimu "i" ve vzorecku nize. A take mozna zminit, ze lenght(x) = n, kdyz operujeme obema znackama.}
-
-Let $U$ be the set of input vector indices, i.e. $U = \{1, 2, \ldots, \texttt{length(x)}\}$.  For a given $u\in U$, let $x_u, w_u$ denote the values of vectors \code{x} and \code{w}, respectively. The quantifier function created by \code{quant()} computes the truth values according to the following formula:
-
-{\color{red}tady tedy dávám $\otimes$ místo $\wedge$, asi to bude třeba zohlednit v přidání parametru algebry do funkcí} 
-
-%
-\begin{equation}
-\label{eq:quant}
-\bigvee_{z \subseteq U} \left(\bigwedge_{u \in z} (x_u) \otimes \texttt{measure(} m_z \texttt{)} \right),
-\end{equation}
-%
-where
-%
-$$m_z = 
-\begin{cases}
-    \frac{\sum_{u\in z} w_u}{\sum_{u\in U} w_u} & \mbox{if \code{relative} is \code{TRUE}},\\
-    \sum_{u\in z} w_u & \mbox{otherwise}.
-\end{cases}
-$$
-
-
-
-Note, that for the $\langle 1 \rangle$ quantifier  \citep{dvorak2009} as well as for the $\langle 1,1, \rangle$ quantifier defined in \cite{DvorHolc_type_11_Part1},  all elements of \code{w} are set to 1. 
-
-For instance, the following commands evaluate the truth value of the sentence ``at least five elements are in \code{A}'':
-%
-\input{chunks/chunk-quant2}
+%\input{chunks/chunk-quant1}
 %
 
+%As can be seen, the \code{quant()} function returns a two-argument function, which expects two numeric vectors of equal length: the first argument, \code{x}, is a vector of membership degrees to be measured, while the second argument, \code{w}, is a vector of weights.
 
-The $\langle 1, 1\rangle$ quantifier generalizes the simpler type $\langle 1 \rangle$ by adding the restriction on a given set. For the sake of clarity, while the statement ``at least five symptoms belong to COVID-19'' uses only quantifier of the type $\langle 1\rangle$, the type $\langle 1, 1\rangle$  is used in the following statement ``at least five symptoms out of the detected ones do belong to COVID-19''. Note, that due to the different strength, the ``detected symptoms'' constitute a fuzzy set, not necessarily a crisp set. Indeed, each symptom is detected in a certain degree.  It is computed with help of an appropriate residuum. For instance, following the above example defined on the \L{}ukasiewicz algebra, we define ``at least five \code{B}s are \code{A}'' by:
+%{\color{red}M: Tady se mi nelibi to U jako set of indices, protoze zas vyse U bylo universum. Radeji bych tomu dal symbol I, coz pak odpovida i tomu bezicimu "i" ve vzorecku nize. A take mozna zminit, ze lenght(x) = n, kdyz operujeme obema znackama.}
+
+%Let $U$ be the set of input vector indices, i.e. $U = \{1, 2, \ldots, \texttt{length(x)}\}$.  For a given $u\in U$, let $x_u, w_u$ denote the values of vectors \code{x} and \code{w}, respectively. The quantifier function created by \code{quant()} computes the truth values according to the following formula:
+
+%{\color{red}tady tedy dávám $\otimes$ místo $\wedge$, asi to bude třeba zohlednit v přidání parametru algebry do funkcí} 
+
 %
-\input{chunks/chunk-quant3}
+%\begin{equation}
+%\label{eq:quant}
+%\bigvee_{z \subseteq U} \left(\bigwedge_{u \in z} %(x_u) \otimes \texttt{measure(} m_z \texttt{)} %\right),
+%\end{equation}
+%
+%where
+%
+%$$m_z = 
+%\begin{cases}
+%    \frac{\sum_{u\in z} w_u}{\sum_{u\in U} w_u} & \mbox{if \code{relative} is \code{TRUE}},\\
+ %   \sum_{u\in z} w_u & \mbox{otherwise}.
+%\end{cases}
+%$$
 
 
 
-If the user prefers $\langle 1, 1\rangle$ quantifiers as defined by \cite{murinova2020}, the \code{w} argument must be set to truth values of the antecedent, e.g., ``at least five \code{B}s are \code{A}'' may be evaluated by:
-%
-\input{chunks/chunk-quant4}
-%
-\michal{tady ta 0 je spravne. lukas.residuum(B, A) = c(1, 0.8, 1, 1, 1, 0), ale soucet vah je 0.5+1+1+1+0.9 = 4.4, coz neni at least 5.} 
+%Note, that for the $\langle 1 \rangle$ quantifier  \citep{dvorak2009} as well as for the $\langle 1,1, \rangle$ quantifier defined in \cite{DvorHolc_type_11_Part1},  all elements of \code{w} are set to 1. 
 
-For the sake of convenience, the \pkg{lfl} package provides some pre-defined quantifiers, as introduced by \cite{murinova2020}. These use relative measures derived from evaluative linguistic expressions discussed in Section~\ref{sec:lingexpr}. 
-
-Pre-defined quantifiers may be created by calling the \code{quantifier()} function, which is a wrapper over \code{quant()}. The ``at least n'' quantifier is ammong them:
+%For instance, the following commands evaluate the truth value of the sentence ``at least five elements are in \code{A}'':
 %
-\input{chunks/chunk-quant7}
-%
-Also the universal (\code{all}) and existential (\code{some}) quantifiers may be obtained:
-%
-\input{chunks/chunk-quant6}
+%\input{chunks/chunk-quant2}
 %
 
 
-
-Let us also shortly discuss the computational aspects. 
-Due to the choice of the symmetric fuzzy measure $\mu$ in (\ref{form_Q_type1}), i.e. a measure that is invariant with respect to cardinality, it is sufficient to consider relative cardinality and its modification by distinct non-decreasing functions $f:[0,1]\rightarrow [0,1]$ with $f(0) = 0$ and $f(1) = 1$. This allows us to calculate the composition as a Sugeno-integral \citep{KlementMesiarPap_IEEE2010}: 
-\begin{align}
-Q(C) =  \bigvee_{i=1}^n \left(  C(x_{\pi(i)})
-  \otimes f(i/n) \right)
-\label{form_calculate_Q}
-\end{align}
-where $n$ is the cardinality of $X$, $\pi$ is a permutation on the index set ${\color{red}U}=\{ 1, \dots , n\}$ such that
-$C(x_{\pi(i)}) \ge C(x_{\pi(i+1)})$ for any $i = 1, \dots , n-1$. The calculation according to (\ref{form_calculate_Q}) is computationally much cheaper than by using (\ref{form_Q_type1}). However, another advantage lies in the fact that it can be easily applied to the case of partial fuzzy logic, as long as the Dragonfly or Lower estimation algebra is adopted \citep{Cao_etal:Quant_dragon_IEEE19}. In such a case, the lattice-like ordering $ \leq_{\ell} $ is used to order the elements $C(x_{\pi(i)}) \ge_{\ell} C(x_{\pi(i+1)})$.
+%The $\langle 1, 1\rangle$ quantifier generalizes the simpler type $\langle 1 \rangle$ by adding the restriction on a given set. For the sake of clarity, while the statement ``at least five symptoms belong to COVID-19'' uses only quantifier of the type $\langle 1\rangle$, the type $\langle 1, 1\rangle$  is used in the following statement ``at least five symptoms out of the detected ones do belong to COVID-19''. Note, that due to the different strength, the ``detected symptoms'' constitute a fuzzy set, not necessarily a crisp set. Indeed, each symptom is detected in a certain degree.  It is computed with help of an appropriate residuum. For instance, following the above example defined on the \L{}ukasiewicz algebra, we define ``at least five \code{B}s are \code{A}'' by:
+%
+%\input{chunks/chunk-quant3}
 
 
 
-}
+%If the user prefers $\langle 1, 1\rangle$ quantifiers as defined by \cite{murinova2020}, the \code{w} argument must be set to truth values of the antecedent, e.g., ``at least five \code{B}s are \code{A}'' may be evaluated by:
+%
+%\input{chunks/chunk-quant4}
+%
+%\michal{tady ta 0 je spravne. lukas.residuum(B, A) = c(1, 0.8, 1, 1, 1, 0), ale soucet vah je 0.5+1+1+1+0.9 = 4.4, coz neni at least 5.} 
+
+%For the sake of convenience, the \pkg{lfl} package provides some pre-defined quantifiers, as introduced by \cite{murinova2020}. These use relative measures derived from evaluative linguistic expressions discussed in Section~\ref{sec:lingexpr}. 
+
+%Pre-defined quantifiers may be created by calling the \code{quantifier()} function, which is a wrapper over \code{quant()}. The ``at least n'' quantifier is ammong them:
+%
+%\input{chunks/chunk-quant7}
+%
+%Also the universal (\code{all}) and existential (\code{some}) quantifiers may be obtained:
+%
+%\input{chunks/chunk-quant6}
+%
+
+
+
+%Let us also shortly discuss the computational aspects. 
+%Due to the choice of the symmetric fuzzy measure $\mu$ in (\ref{form_Q_type1}), i.e. a measure that is invariant with respect to cardinality, it is sufficient to consider relative cardinality and its modification by distinct non-decreasing functions $f:[0,1]\rightarrow [0,1]$ with $f(0) = 0$ and $f(1) = 1$. This allows us to calculate the composition as a Sugeno-integral \citep{KlementMesiarPap_IEEE2010}: 
+%\begin{align}
+%Q(C) =  \bigvee_{i=1}^n \left(  C(x_{\pi(i)})
+%  \otimes f(i/n) \right)
+%\label{form_calculate_Q}
+%\end{align}
+%where $n$ is the cardinality of $X$, $\pi$ is a permutation on the index set ${\color{red}U}=\{ 1, \dots , n\}$ such that
+%$C(x_{\pi(i)}) \ge C(x_{\pi(i+1)})$ for any $i = 1, \dots , n-1$. The calculation according to (\ref{form_calculate_Q}) is computationally much cheaper than by using (\ref{form_Q_type1}). However, another advantage lies in the fact that it can be easily applied to the case of partial fuzzy logic, as long as the Dragonfly or Lower estimation algebra is adopted \citep{Cao_etal:Quant_dragon_IEEE19}. In such a case, the lattice-like ordering $ \leq_{\ell} $ is used to order the elements $C(x_{\pi(i)}) \ge_{\ell} C(x_{\pi(i+1)})$.
+
+
+
+
 
 \section{Compositions of fuzzy relations}
+\label{sec:compositions}
 
 \subsection{Fundamental compositions}
 \label{sec:fundcomp}
@@ -732,23 +739,24 @@ Finally, the concept unavoidable and excluding features together, as defined in 
 
 
 
-\subsection{Compositions based on generalized quantifiers}
+\subsection{Compositions based on Sugeno integrals}
 \label{sec:compquant}
 
-Another approach to avoid the undesirable effect of too many suspicions (classification candidates) provided by the basic composition and too few (or often none)  suspicions provided by the Bandler-Kohout products is based on employing generalized quantifiers.
+Another approach to avoid the undesirable effect of too many suspicions (classification candidates) provided by the basic composition and too few (or often none)  suspicions provided by the Bandler-Kohout products is based on employing generalized quantifiers. {\color{blue}Intermediate generalized quantifiers allow to deal with quantifications in between of the classical universal and existential quantifiers, for example {\tt Most}, {\tt Many}, {\tt At least 3}, {\tt At least 25\%}, or {\tt A few}.}
 
-The construction uses the type $\langle 1 \rangle$ quantifier (\ref{form_Q_type1}), i.e. $ R @^{Q} S $ where $ @\in \{\circ,\lhd \} $ is defined as follows:
+The construction of a {\color{blue}quantifier $Q$ of the type $\langle 1 \rangle$  \citep{dvorak2009} uses a symmetric fuzzy measure $\mu$, i.e. a monotone measure on the potential set satisfying the boundary condition. The direct application of the quantifier to the compositions, i.e. $ R @^{Q} S $ where $ @\in \{\circ,\lhd \} $, has been proposed in \cite{Step2014,CaoStepHolc_Quant:EUSFLAT2015}  and} it is defined as follows:
     \begin{align}
     (R@^{Q} S) (x,z)  = \bigvee_{D\in
         \mathcal{P}(Y)\setminus\{\emptyset\}} \left( \left(\bigwedge_{y\in
         D} R(x,y) \circledast S(y,z) \right) \otimes \mu(D) \right) \ ,\label{form_compQstandard}
     \end{align}
     where $ \circledast\in\{*,\rightarrow \} $ corresponds to the composition and $x\in X$ and $z\in Z$.
+    
 
-Again, due to the choice of the symmetric fuzzy measure $\mu$, it is sufficient to consider relative cardinality and its modification by distinct non-decreasing functions $f$ in order to use the  Sugeno-integral \citep{KlementMesiarPap_IEEE2010}: 
+Due to the choice of the symmetric fuzzy measure $\mu$, it is sufficient to consider relative cardinality and its modification by distinct non-decreasing functions $f$ in order to use the  Sugeno-integral \citep{KlementMesiarPap_IEEE2010}: 
 \begin{align}
 (R@^{Q} S) (x,z) =  \bigvee_{i=1}^n \left( \left( R(x,y_{\pi(i)})
-\circledast S(y_{\pi(i)}, z) \right) * f(i/n) \right)
+\circledast S(y_{\pi(i)}, z) \right) \otimes f(i/n) \right)
 \label{form_calcu_@}
 \end{align}
 where $n$ is the cardinality of $Y$,  $\pi$ is a permutation on $\{ 1, \dots , n\}$ such that
@@ -756,14 +764,18 @@ $R(x,y_{\pi(i)}) \circledast S(y_{\pi(i)},z) \ge R(x,y_{\pi(i+1)})
 \circledast S(y_{\pi(i+1)},z)$ for any $i = 1, \dots , n-1$ where
 $n$ denotes the cardinality of $Y$.
 
-{\color{green}
+
 The \pkg{lfl} package provides a function for computation of the Sugeno integral, which can be used for composition of fuzzy relations with the \code{mult()} function described in Section~\ref{sec:fundcomp}.
 
 For instance, one may require the patients to show at least two symptoms of the diagnosis. To quantify the ``at least 2'' condition over a fuzzy set, a Sugeno integral will be applied. For that, we need a \code{measure} function that returns a truth value from the $[0,1]$ interval. For us, a simple conditional function will do the work:
 %
 \input{chunks/chunk-comp.quant.atleast}
-%
-}
+
+The \code{sugeno()} function requires four arguments: \code{measure}, \code{relative}, \code{strong} and \code{alg}. The \code{measure} argument is a non-decreasing  function that assigns a truth value from the $[0, 1]$ interval to either relative or absolute quantity. The \code{relative} argument is a \code{TRUE}/\code{FALSE} flag indicating what is expected by the \code{measure} function. The \code{strong} argument determines whether {\color{red}$\otimes$ (bylo tu $*$ asi diky me chybe vyse)} is a strong or weak conjunction. Finally, the \code{alg} argument is an underlying algebra, i.e., either a string or object of type \code{algebra}.
+
+The \code{sugeno()} function creates a Sugeno-integral computer, which is a two-argument function that expects two numeric vectors of equal length: the first argument, \code{x}, is a vector of membership degrees to be measured, while the second argument, \code{w}, is a vector of weights.
+
+
 
 
 \subsection{Combined cases}
@@ -968,7 +980,7 @@ For instance, the following command produces three triangular fuzzy sets with pa
 %
 
 Let us consider the $i$-th fuzzy set. The values smaller than the $i$-th break and greater than $(i+2)$-th break result in the zero membership degree, values equal to $(i+1)$-th break result in the membership degree equal 1, and values between them result in a membership degree between 0 and 1 accordingly to the specified \code{type} (\code{"triangle"} or \code{"raisedcos"}).
-{\color{green} Names of resulting fuzzy sets are created from the name of the original data variable (\code{numvec} in this case), the symbol of equality (\code{=}) and a number $i$.}
+Names of resulting fuzzy sets are created from the name of the original data variable (\code{numvec} in this case), the symbol of equality (\code{=}) and a number $i$.
 
 \begin{figure}
     \centering
@@ -990,10 +1002,10 @@ Let us consider the $i$-th fuzzy set. The values smaller than the $i$-th break a
 \end{figure}
 
 
-{\color{green}
-Additionally, combined fuzzy sets may be created by using a \code{merge} argument. If \code{merge=1} (default), only elementary fuzzy sets are produced, as discussed above. 
-\code{merge=2} means that each two consecutive elementary fuzzy sets should be combined with the \L{}ukasiewicz t-conorm into a single fuzzy set, \code{merge=3} causes combining three consecutive elementary fuzzy sets etc. See Fig.~\ref{fig:fcut} and also the following example:
-}
+
+Additionally, combined fuzzy sets may be created by using the argument \code{merge}. If \code{merge=1} (default), only the elementary fuzzy sets discussed above are produced. 
+Setting \code{merge=2} means that each two consecutive elementary fuzzy sets should be combined with the \L{}ukasiewicz t-conorm into a single fuzzy set, \code{merge=3} causes combining three consecutive elementary fuzzy sets etc. See Fig.~\ref{fig:fcut} and also the following example.
+
 
 The \code{merge} argument determines whether to derive additional fuzzy sets by merging the elementary fuzzy sets (defined with the \code{breaks} argument) into super-sets. The \code{merge} may contain any integer number from \code{1} to \code{length(breaks) - 2}. Value \code{1} means that the elementary fuzzy sets have to be created only, as described above (the default case). 
 
@@ -1002,8 +1014,8 @@ The \code{merge} argument determines whether to derive additional fuzzy sets by 
 %
 
 
-{\color{green}
-The \code{merge} argument may contain multiple values. In that case, all types of merged fuzzy sets is provided. In the following example, the \code{merge} argument is a numeric vector containing \code{1}, i.e., the elementary fuzzy sets are created. It also contains \code{2}, hence the combinations of two consecutive elementary fuzzy sets is provided too. Finally, as also \code{3} is present in \code{merge}, a single fuzzy set that combines all the three elementary fuzzy sets is returned as well:}
+
+The \code{merge} argument may contain multiple values. In that case, all types of merged fuzzy sets is provided {\color{red} (is?)}. In the following example, the \code{merge} argument is a numeric vector containing \code{1}, i.e., the elementary fuzzy sets are created. It also contains \code{2}, hence the combinations of two consecutive elementary fuzzy sets is provided too {\color{red} (is?)}. Finally, as also \code{3} is present in \code{merge}, a single fuzzy set that combines all the three elementary fuzzy sets is returned as well:
 %
 \input{chunks/chunk-fcut.merge2}
 %
@@ -1015,30 +1027,30 @@ Similarly as for \code{lcut()}, the result of the \code{fcut()} function is an i
 %
 
 
-\subsection{Linguistic expressions in generalized quantifiers}
-\label{sec:fuz_quant}
+%\subsection{Linguistic expressions in generalized quantifiers}
+%\label{sec:fuz_quant}
 
-{\color{blue}
 
-The evaluative linguistic expressions may be directly used in the construction of the predefined quantifiers. Indeed, let us consider the $\langle 1, 1\rangle$ quantifiers as defined by \cite{murinova2020}. We recall that the \code{w} argument must be set to truth values of the antecedent, e.g., ``at least five \code{B}s are \code{A}'' may be evaluated by:
+
+
+
+%The evaluative linguistic expressions may be directly used in the construction of the predefined quantifiers. Indeed, let us consider the $\langle 1, 1\rangle$ quantifiers as defined by \cite{murinova2020}. We recall that the \code{w} argument must be set to truth values of the antecedent, e.g., ``at least five \code{B}s are \code{A}'' may be evaluated by:
 %
-\input{chunks/chunk-quant4}
-%
-
-
-The used relative measures may be derived from evaluative linguistic expressions discussed in Section~\ref{sec:lingexpr}. Pre-defined quantifiers may be created by calling the \code{quantifier()} function, which is a wrapper over \code{quant()}:
-%
-\input{chunks/chunk-quant5}
+%\input{chunks/chunk-quant4}
 %
 
-{\color{red} to asi bude chtít popsat trochu víc, jak tam je použit ten jazykový výraz}
 
-}
+%The used relative measures may be derived from evaluative linguistic expressions discussed in Section~\ref{sec:lingexpr}. Pre-defined quantifiers may be created by calling the \code{quantifier()} function, which is a wrapper over \code{quant()}:
+%
+%\input{chunks/chunk-quant5}
+%
 
 
 
 
-\section{Fuzzy Association Rules}\label{sec:assoc}
+
+\section{Fuzzy Association Rules}
+\label{sec:assoc}
 
 
 
@@ -1334,9 +1346,9 @@ The \code{fire()} function evaluates a list of rules on a given input. The resul
 %
 %The \code{onlyAnte=FALSE} argument causes the rule base be treated as a list of antecedents. As such, all the predicates are evaluated. If \code{onlyAnte} is set to \code{TRUE}, the first element of each rule is treated as a consequent and omitted from evaluation.
 
-\michal{predelal jsem to $x$ a $y$ nize na kaligraficke Ri a Rj, aby to bylo stejne jako v sekci o PbLD vyse}
 
-The \code{perceive()} function handles the perception, which is a central notion of the PbLD inference. From a set of rules, \code{perceive()} removes each rule for which another rule exists that is more specific. The specificity is determined by calling the \code{is.specific()} function. In other words, for each rule $\mathcal{R}_i$ in the list of rules, it searches for another rule $\mathcal{R}_j$ such that \code{is.specific(Rj, Ri, ...)} returns \code{TRUE}. If yes then $\mathcal{R}_i$ is removed from the list. The specificity is based on the \code{specs()} matrix defined as an attribute of the \code{fsets} object, which can be created by the \code{lcut()} or \code{fcut()} function.
+
+The \code{perceive()} function handles the perception, which is a central notion of the PbLD inference. From a set of rules, \code{perceive()} removes each rule for which another rule exists that is more specific. The specificity is determined by calling the \code{is.specific()} function. In other words, for each rule $\mathcal{R}_i$ in the list of rules, it searches for another rule $\mathcal{R}_j$ such that \code{is.specific(Rj, Ri, ...)} returns \code{TRUE}. {\color{red}lepe: ``If the answer is positive then ...''}If yes then $\mathcal{R}_i$ is removed from the list. The specificity is based on the \code{specs()} matrix defined as an attribute of the \code{fsets} object, which can be created by the \code{lcut()} or \code{fcut()} function.
 
 The \code{defuzz()} function performs the defuzzification. As the character of the outputs obtained by the (\ref{form:PBLDconclusion}) leads to expressions that look like modified evaluative linguistic expressions, the use of the \emph{Defuzzification of Evaluative Expressions} (DEE) that has been designed for these purposes seems reasonable. It is a hierarchical two-step defuzzification that firstly classifies the type of the output  into three types: S$^-$ ({\tt Small}), $\Pi$ ({\tt Medium}), and S$^+$ ({\tt Big}). This step is done based on the monotonicity of the output fuzzy set membership functions, e.g., non-increasing is  classified as S$^-$ ({\tt Small}). In its second step, DEE calls one of the standard defuzzifications for implicative rules, \emph{First-Of-Maxima} (FOM) is used for the S$^-$ type,
 \emph{Mean-Of-Maxima} (MOM) is used for the $\Pi$ type, and \emph{Last-Of-Maxima} (LOM) is used for the S$^+$ type, see Figure~\ref{fig_dee}. 
@@ -1368,15 +1380,16 @@ To perform the FRBE forecast, a proper time series object has to be created with
 
 
 \section{Conclusion}
+\label{sec:conclusion}
 
 This article presents the \code{R}-package \pkg{lfl} that provides tools and functions for fuzzy relational calculus and fuzzy natural logic. It provides the implementation of the most usual algebras of operations on fuzzy sets (G\"{o}del, Goguen, and \L ukasiewicz), rich variety of compositions of binary fuzzy relations, namely, the basic (circlet) one, all three Bandler-Kohout products, extensions with more binary fuzzy relations and generalized quantifiers. Of course, their combinations are allowed as well. The chosen algebra always holds the position of an argument so, all the compositions may be calculated in an of the chosen function and thus, all the implemented functions can run on any of the algebra of functions. Furthermore, in order to cover various situations when the membership degree is only partially defined  (inconsistency, undefinedness, missing values), distinct algebras for partial fuzzy logics, namely Bohchvar, Soboci\'{n}ski, Kleene, Nelson, Deagonfly, and Lower estimation algebras are implemented as well.  
 
- The second very important part of the \pkg{lfl} is formed by the concepts of the fuzzy natural logic allowing to deal with linguistic fuzzy models. It allows to define fuzzy sets, especially those modeling the evaluative linguistic expressions. The particular shapes of fuzzy sets as well as their universes (contexts) may be determined from data automatically. Theses concepts are later on used in linguistic fuzzy rules that jointly with specific inference method PbLD that is also implemented in \pkg{lfl} for the approximate reasoning. 
+ The second very important part of the \pkg{lfl} is formed by the concepts of the fuzzy natural logic allowing to deal with linguistic fuzzy models. It allows to define fuzzy sets, especially those modeling the evaluative linguistic expressions. The particular shapes of fuzzy sets as well as their universes (contexts) may be determined from data automatically. Theses concepts are later on used in linguistic fuzzy rules that jointly with specific inference method PbLD that is also implemented in \pkg{lfl} for the approximate reasoning. An appropriate defuzzification DEE is implemented as well. 
  
- The rules cab be defined expertly as well as learned from data -- using the associations mining. The \pkg{lfl} package contains original method of mining associations rules with the evaluative expressions in antecedetns as well as consequents. Redundancy analysis and deletion 
- nguis for both classi-fication and regression tasks.  In addition it offers more than ten different learning methodsto  build  FRBSs  out  of  data  in  a  homogeneous  interface.   An  overview  of  the  theory  andimplementation of all the methods, as well as an example of the usage of the package, andcomparisons to other packages available on CRAN is offered.  The comparison was made bothexperimentally, by considering other packages that use different approaches for regression andclassification, as well as functionally, considering packages that implement FRBSs.  The aimof the package is to make the most widely used learning methods for FRBSs available to theRcommunity,  in particular,  and to the computational intelligence community of users andpractitioners, in general 
+ The fuzzy rules cab be defined expertly as well as learned from data -- using the associations mining. The \pkg{lfl} package contains original method of mining associations rules with the evaluative expressions in antecedents as well as consequents. Automatic redundancy analysis is supplied with a size reduction algorithms that additionally reduces the size in cases when the deletion of redundant rules is not sufficient. 
+ The general tools are supplied by a particular yet very powerful tool for time series forecasting based on an ensemble of four forecasting methods. These are combined into a weighted average ensemble  with weights determined by linguistic fuzzy rules based on distinct characteristic features of a given time series. 
 
-(8) (PDF) frbs : Fuzzy Rule-Based Systems for Classification and Regression in R. Available from: https://www.researchgate.net/publication/283866947_frbs_Fuzzy_Rule-Based_Systems_for_Classification_and_Regression_in_R [accessed Oct 12 2020].
+%(8) (PDF) frbs : Fuzzy Rule-Based Systems for Classification and Regression in R. Available from: https://www.researchgate.net/publication/283866947_frbs_Fuzzy_Rule-Based_Systems_for_Classification_and_Regression_in_R [accessed Oct 12 2020].
 
 {\color{red}tohle si tu necham :-D ...
 P. Cortez, M. Holena, D. Coufal, J. Alonso}
@@ -1403,53 +1416,53 @@ Partial support of Czech Science Foundation through the grant 20-07851S is grate
 %% - After the bibliography with page break.
 %% - With proper section titles and _not_ just "Appendix".
 
-\newpage
+%\newpage
 
-\begin{appendix}
+%\begin{appendix}
 
-\section{More technical details} \label{app:technical}
+%\section{More technical details} \label{app:technical}
 
-Appendices can be included after the bibliography (with a page break). Each
-section within the appendix should have a proper section title (rather than
-just \emph{Appendix}).
+%Appendices can be included after the bibliography (with a page break). Each
+%section within the appendix should have a proper section title (rather than
+%just \emph{Appendix}).
 
-For more technical style details, please check out JSS's style FAQ at
-\url{https://www.jstatsoft.org/pages/view/style#frequently-asked-questions}
-which includes the following topics:
-\begin{itemize}
-  \item Title vs.\ sentence case.
-  \item Graphics formatting.
-  \item Naming conventions.
-  \item Turning JSS manuscripts into \proglang{R} package vignettes.
-  \item Trouble shooting.
-  \item Many other potentially helpful details\dots
-\end{itemize}
+%For more technical style details, please check out JSS's style FAQ at
+%\url{https://www.jstatsoft.org/pages/view/style#frequently-asked-questions}
+%which includes the following topics:
+%\begin{itemize}
+%  \item Title vs.\ sentence case.
+%  \item Graphics formatting.
+%  \item Naming conventions.
+%  \item Turning JSS manuscripts into \proglang{R} package vignettes.
+%  \item Trouble shooting.
+%  \item Many other potentially helpful details\dots
+%\end{itemize}
 
 
-\section[Using BibTeX]{Using \textsc{Bib}{\TeX}} \label{app:bibtex}
+%\section[Using BibTeX]{Using \textsc{Bib}{\TeX}} \label{app:bibtex}
 
-References need to be provided in a \textsc{Bib}{\TeX} file (\code{.bib}). All
-references should be made with \verb|\cite|, \verb|\citet|, \verb|\citep|,
-\verb|\citealp| etc.\ (and never hard-coded). This commands yield different
-formats of author-year citations and allow to include additional details (e.g.,
-pages, chapters, \dots) in brackets. In case you are not familiar with these
-commands see the JSS style FAQ for details.
+%References need to be provided in a \textsc{Bib}{\TeX} file (\code{.bib}). All
+%references should be made with \verb|\cite|, \verb|\citet|, \verb|\citep|,
+%\verb|\citealp| etc.\ (and never hard-coded). This commands yield different
+%formats of author-year citations and allow to include additional details (e.g.,
+%pages, chapters, \dots) in brackets. In case you are not familiar with these
+%commands see the JSS style FAQ for details.
 
-Cleaning up \textsc{Bib}{\TeX} files is a somewhat tedious task -- especially
-when acquiring the entries automatically from mixed online sources. However,
-it is important that informations are complete and presented in a consistent
-style to avoid confusions. JSS requires the following format.
-\begin{itemize}
-  \item JSS-specific markup (\verb|\proglang|, \verb|\pkg|, \verb|\code|) should
-    be used in the references.
-  \item Titles should be in title case.
-  \item Journal titles should not be abbreviated and in title case.
-  \item DOIs should be included where available.
-  \item Software should be properly cited as well. For \proglang{R} packages
-    \code{citation("pkgname")} typically provides a good starting point.
-\end{itemize}
+%Cleaning up \textsc{Bib}{\TeX} files is a somewhat tedious task -- especially
+%when acquiring the entries automatically from mixed online sources. However,
+%it is important that informations are complete and presented in a consistent
+%style to avoid confusions. JSS requires the following format.
+%\begin{itemize}
+ % \item JSS-specific markup (\verb|\proglang|, \verb|\pkg|, \verb|\code|) should
+  %  be used in the references.
+ % \item Titles should be in title case.
+ % \item Journal titles should not be abbreviated and in title case.
+ % \item DOIs should be included where available.
+ % \item Software should be properly cited as well. For \proglang{R} packages
+  %  \code{citation("pkgname")} typically provides a good starting point.
+%\end{itemize}
 
-\end{appendix}
+% \end{appendix}
 
 %% -----------------------------------------------------------------------------
 
