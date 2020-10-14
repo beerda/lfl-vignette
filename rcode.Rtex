@@ -150,7 +150,7 @@ a$pt(RS, a$n(RE), RU)
 qatleast <- sugeno(measure=function(x) as.numeric(x >= 2),
                    relative=FALSE,
                    strong=TRUE,
-                   alg='goedel')
+                   alg="goedel")
 qRS <- mult(R, S, function(r, s) {
   qatleast(a$pt(r, s))
 })
@@ -326,8 +326,8 @@ data <- data.frame(position=position,
 print(data)
 employees <- lcut(data,
      context=ctx3(low=0, high=100),
-     atomic=c('sm', 'me', 'bi'),
-     hedges=c('ve', '-', 'ro'))
+     atomic=c("sm", "me", "bi"),
+     hedges=c("ve", "-", "ro"))
 print(employees)
 @
 
@@ -337,9 +337,9 @@ print(data)
 employees <- lcut(data,
                   context=list(age=ctx3(low=0, high=100),
                                salary=ctx3(low=500, high=50000)),
-                  atomic=list(salary=c('sm', 'bi')), # age is default
-                  hedges=list(age=c('ve', '-', 'ro'),
-                              salary=c('ex', 've', '-', 'ro')))
+                  atomic=list(salary=c("sm", "bi")), # age is default
+                  hedges=list(age=c("ve", "-", "ro"),
+                              salary=c("ex", "ve", "-", "ro")))
 print(employees)
 @
 
@@ -361,42 +361,42 @@ fcut(data.frame(employed=logvec, position=position))
 numvec <- 1:9
 fcut(numvec,
      breaks=c(1, 5, 9),
-     type='triangle')
+     type="triangle")
 @
 
-<<export='fcut.triangular', tidy=FALSE>>=
+<<export='fcut.triangular'>>=
 triangular(1, 5, 9)(numvec)
 @
 
 <<export='fcut.numeric2', tidy=FALSE>>=
 fcut(numvec,
      breaks=c(1, 3, 5, 7, 9),
-     type='triangle')
+     type="triangle")
 @
 
 <<export='fcut.merge', tidy=FALSE>>=
 fcut(numvec,
      breaks=c(1, 3, 5, 7, 9),
      merge=2,
-     type='triangle')
+     type="triangle")
 fcut(numvec,
      breaks=c(1, 3, 5, 7, 9),
      merge=3,
-     type='triangle')
+     type="triangle")
 @
 
 <<export='fcut.merge2', tidy=FALSE>>=
 fcut(numvec,
      breaks=c(1, 3, 5, 7, 9),
      merge=c(1, 2, 3),
-     type='triangle')
+     type="triangle")
 @
 
 <<export='fcut.varsspecs', tidy=FALSE>>=
 fd <- fcut(numvec,
            breaks=c(1, 3, 5, 7, 9),
            merge=c(1, 2, 3),
-           type='triangle')
+           type="triangle")
 colnames(fd)
 vars(fd)
 specs(fd)
@@ -440,7 +440,7 @@ createPlot(l, xlims=c(0, 10), legendName='', legendBottom=TRUE)
 <<export='quant1', tidy=FALSE>>=
 atLeast5 <- sugeno(measure=function(x) as.numeric(x >= 5),
                    relative=FALSE,
-                   alg='lukas')
+                   alg="lukasiewicz")
 args(atLeast5)
 @
 
@@ -489,15 +489,15 @@ rb <- searchrules(employees,
 print(rb)
 @
 
-<<export='searchrules2', tidy=FALSE>>=
+<<export='searchrules2'>>=
 str(rb)
 @
 
-<<export='searchrules3', tidy=FALSE>>=
+<<export='searchrules3'>>=
 as.data.frame(rb)
 @
 
-<<export='searchrules4', tidy=FALSE>>=
+<<export='searchrules4'>>=
 antecedents(rb)[1:3]
 consequents(rb)[1:3]
 @
@@ -533,8 +533,8 @@ testing <- d[testingIndices, ]
 
 <<export='pbld4', tidy=FALSE>>=
 rb <- searchrules(training,
-                  lhs=which(vars(d) != 'uptake'),
-                  rhs=which(vars(d) == 'uptake'),
+                  lhs=which(vars(d) != "uptake"),
+                  rhs=which(vars(d) == "uptake"),
                   minConfidence=0.5)
 @
 
@@ -550,9 +550,9 @@ pbld(testing, rb, p, v, type='global')
 @
 
 <<export='pbld_custom', tidy=FALSE>>=
-rules <- list(c('me.uptake', 'Plant=Mc1', 'sm.conc'),
-              c('sm.uptake', 'Type=Mississippi'),
-              c('bi.uptake', 'Treatment=nonchilled', 'ro.me.conc'))
+rules <- list(c("me.uptake", "Plant=Mc1", "sm.conc"),
+              c("sm.uptake", "Type=Mississippi"),
+              c("bi.uptake", "Treatment=nonchilled", "ro.me.conc"))
 pbld(testing, rules, p, v)
 @
 
@@ -560,11 +560,11 @@ pbld(testing, rules, p, v)
 x <- 1:10 / 10
 names(x) <- letters[1:10]
 print(x)
-rules <- list(c('a', 'c', 'e'),
-              c('b'),
-              c('d', 'a'),
-              c('c', 'a', 'b'))
-fire(x, rules, tnorm='goguen', onlyAnte=FALSE)
+rules <- list(c("a", "c", "e"),
+              c("b"),
+              c("d", "a"),
+              c("c", "a", "b"))
+fire(x, rules, tnorm="goguen", onlyAnte=FALSE)
 @
 
 <<export='frbe', tidy=FALSE>>=
