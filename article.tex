@@ -96,17 +96,12 @@
 
 %% - \Abstract{} almost as usual
 \Abstract{
-  This paper presents an \R{} package that enables the use of {\color{blue} fuzzy relational calculus and} linguistic
-  fuzzy logic in data processing applications. The \pkg{lfl} package {\color{blue}enables computing compositions of fuzzy relations enhanced with distinct extensions, such as excluding features, unavoidable features, or generalized quantifiers.} {\color{blue}Furthermore, it} provides tools for transformation of data into fuzzy sets representing linguistic expressions, mining
-  of linguistic fuzzy association rules, performing an inference on fuzzy rule bases
-  using the Perception-based logical deduction (PbLD). The package also enables to use the Fuzzy rule-based ensemble,
-  a tool for time series forecasting based on an ensemble of forecasts from several individual
-  methods implemented in \R{}.
+  This paper presents an \R{} package that supports the use of fuzzy relational calculus and linguistic fuzzy logic in data processing applications. The \pkg{lfl} package enables computing compositions of fuzzy relations enhanced with distinct extensions, such as excluding features, unavoidable features, or generalized quantifiers. Furthermore, it provides tools for transformation of data into fuzzy sets representing linguistic expressions, mining of linguistic fuzzy association rules, and performing an inference on fuzzy rule bases using the Perception-based logical deduction (PbLD). The package also enables to use the Fuzzy rule-based ensemble, a tool for time series forecasting based on an ensemble of forecasts from several individual methods implemented in \R{}.
 }
 
 
-\Keywords{fuzzy sets, fuzzy natural logic, linguistic fuzzy logic, association rules, compositions of relations, \R{}}
-\Plainkeywords{fuzzy sets, fuzzy natural logic, linguistic fuzzy logic, association rules, compositions of relations, R}
+\Keywords{fuzzy sets, fuzzy natural logic, linguistic fuzzy logic, association rules, compositions of fuzzy relations, \R{}}
+\Plainkeywords{fuzzy sets, fuzzy natural logic, linguistic fuzzy logic, association rules, compositions of fuzzy relations, R}
 
 
 %% - \Address{} of at least one author
@@ -172,18 +167,18 @@ that was initially developed by \cite{Novak08}. Moreover, it covers some other c
 %
 $$\langle \textrm{linguistic hedge}\rangle \langle \textrm{atomic expression}\rangle$$
 %
-that evaluates the roughly a position on the real line, for example, ``very small'', ``roughly medium'', or ``extremely big''. The atomic expression takes values usually from the triplet 
-``small'', ``medium'', and ``big''and its vague information can be adjusted by the used linguistic hedge (such as ``very'', ``extremely'', ``roughly'' or ``more or less'').
-The particular \emph{fuzzy sets} modeling the semantics of the evaluative linguistic expressions including the justification can be found in \cite{Novak08}, see also Figure~\ref{fig_dee}. A mathematical framework for manipulation and reasoning with
+that vaguely evaluates a position on the real line, for example, \emph{``very small''}, \emph{``roughly medium''}, or \emph{``extremely big''}. The atomic expression takes values usually from the triplet 
+\emph{``small''}, \emph{``medium''}, and \emph{``big''} and its vague information can be adjusted by the used linguistic hedge (such as \emph{``very''}, \emph{``extremely''}, \emph{``roughly''} or \emph{``more or less''}).
+The particular \emph{fuzzy sets} that model the semantics of the evaluative linguistic expressions including the justification can be found in \cite{Novak08}, see also Figure~\ref{fig_dee}. A mathematical framework for manipulation and reasoning with
 such linguistic expressions is provided in a specific inference method called  \emph{Perception-based
-Logical Deduction} (PbLD), that was tailored to the above-mentioned expressions, see \cite{Dvovrak2004formal,Novak:PbLD, Dvorak_etal:RedundancyFSS}.
+Logical Deduction} (PbLD), which was tailored to the above-mentioned expressions, see \cite{Dvovrak2004formal,Novak:PbLD, Dvorak_etal:RedundancyFSS}.
 
 
 
 Unlike the traditional approach of \cite{MamdaniAssilian75}, who build the
 rule base as a disjunction of conjunctions of antecedents and consequents, the PbLD approach is
-closer to the implicative approach (\cite{Jones2009}, \cite{Step_etal_continuity}) since it employes genuine residuated implications to connect antecedents and consequents. However, it does not aggregate them conjunctively and it considers the rule base as a list of fuzzy rules from which only single or a very few are fired. The function choosing the particular rules to be fired is calle \emph{perception} and it takes into account the  \emph{specificity} of the antecedents of the rules.
-For instance, the antecedent ``age is very small'' is more specific than the antecedent ``age is small'', see the inclusion of the respective fuzzy sets in Figure~\ref{fig_dee}. 
+closer to the implicative approach \citep{Jones2009, Step_etal_continuity} since it employs genuine residuated implications to connect antecedents and consequents. However, it does not aggregate them conjunctively and it considers the rule base as a list of fuzzy rules from which only single or a very few are fired. The function choosing the particular rules to be fired is called \emph{perception} and it takes into account the  \emph{specificity} of the antecedents of the rules.
+For instance, the antecedent \emph{``age is very small''} is more specific than the antecedent \emph{``age is small''}, see the inclusion of the respective fuzzy sets in Figure~\ref{fig_dee}. 
 In PbLD, rules with more specific antecedents take the precedence over the rules with more general antecedents, assuming that both of them fire in the same degree. That enables, e.g., to employ big discontinuous jumps in the control actions according to the needs of the particular
 application. We refer to \cite{Novak:PbLD,DvoStep:PbLD2015} for all the details on PbLD.
 
@@ -191,24 +186,23 @@ application. We refer to \cite{Novak:PbLD,DvoStep:PbLD2015} for all the details 
 
 Another software, dealing with the
 similar topic as the \pkg{lfl} package, is \emph{Linguistic Fuzzy Logic Controller} (LFLC) by \cite{dvo:lflc}.
-However, it is not connected with the \R{} statistical environment and unlike \pkg{lfl} package, LFLC is not fully free nor an open-source.For an exhaustive study on existing software implementations of fuzzy methods we refer to the recent survey \cite{AlcalAlonso:fuzzySW_IEEETFS16}.
+However, it is not connected with the \R{} statistical environment and unlike \pkg{lfl} package, LFLC is neither free nor open-source. For an exhaustive study on existing software implementations of fuzzy methods we refer to the recent survey by \cite{AlcalAlonso:fuzzySW_IEEETFS16}.
 
 
-The \pkg{lfl} package also provides functions for searching for fuzzy association rules (\cite{srikant95}). Together
+The \pkg{lfl} package also provides functions for searching for \emph{fuzzy association rules} \citep{srikant95}. Together
 with PbLD, they can be used as a machine learning tool for classification or regression problems, see \cite{KupkaRusnok:Regression_ESWA_INS17}.
 The package also includes the \emph{Fuzzy Rule-based Ensemble}, a tool for time series forecasting
 \citep{StepBurda:FRBE_FSS}, which is built on top of the fuzzy association rules search algorithm and PbLD.
 
 Alternatively to machine learning, classification tasks may be solved based on human expert knowledge
-by using the technique of \emph{compositions of fuzzy relations}, see
-\cite{Step2014,Cao2017b,Cao2017}.
+by using the technique of \emph{compositions of fuzzy relations}, see \cite{Cao2017b,Cao2017,Step_etal:Unavoidable_KNOSYS2020}. Such an approach is especially useful when lacking a large amount of data needed for automated predictor construction.
 
 
 
 
 \subsection{Overview of the paper}
 
-The aim of the paper is to provide a concise documentation of the \pkg{lfl} package for the \R{} language. The description of the functions of the package are accompanied with examples and theoretical foundations. The paper is organized as follows. Section~\ref{sec:fuzzysets} presents basic algebraic operations for fuzzy sets and fuzzy logic including extensions for missing values. Section~\ref{sec:compositions} describes compositions of fuzzy relations, a framework for classification based on expert knowledge. Section~\ref{sec:lingexpr} introduces the concept of evaluative linguistic expressions, a mathematical model of vague linguistic notions, which allows to consider the numeric information in terms that are very close to human language. Section~\ref{sec:assoc} discusses an application of evaluative linguistic expressions, the fuzzy association rules mining algorithm provided by \pkg{lfl} that extracts potentially useful and interesting knowledge from data in the form of fuzzy if/then rules. Perception-based Logical Deduction is an inference mechanism tightly connected with evaluative linguistic expressions too. It is introduced in Section~\ref{sec:pbld}. Section~\ref{sec:conclusion} concludes the paper.
+The aim of the paper is to provide a concise documentation of the \pkg{lfl} package for the \R{} language. The description of the functions of the package are accompanied with examples and theoretical foundations. The paper is organized as follows. Section~\ref{sec:fuzzysets} presents basic algebraic operations for fuzzy sets and fuzzy logic including extensions for missing values. Section~\ref{sec:compositions} describes compositions of fuzzy relations, a framework for classification based on expert knowledge. Section~\ref{sec:lingexpr} introduces the concept of evaluative linguistic expressions, a mathematical model of vague linguistic notions, which allows to consider the numeric information in terms that are very close to human language. Section~\ref{sec:assoc} discusses an application of evaluative linguistic expressions, the fuzzy association rules mining algorithm provided by \pkg{lfl} that extracts potentially useful and interesting knowledge from data and presents it in the form of fuzzy if/then rules. Perception-based logical deduction is an inference mechanism tightly connected with evaluative linguistic expressions too; it is introduced in Section~\ref{sec:pbld}. Section~\ref{sec:conclusion} concludes the paper.
 
 
 
@@ -231,7 +225,7 @@ After the installation is successful, the following command
 causes loading of the package into the working space so that the user can start using it:
 %
 \input{chunks/chunk-load.lfl}
-%
+
 
 
 
@@ -251,7 +245,6 @@ causes loading of the package into the working space so that the user can start 
 \section{Fuzzy logic and fuzzy sets}
 \label{sec:fuzzysets}
 
-
 Fuzzy sets were proposed by \cite{Zadeh65} as a generalization of classical sets in such a way that elements may belong to them in a certain degree, most typically from the unit interval $[0,1]$. Formally, a \emph{fuzzy set} $A$ from a universe $U$ (denoted by $A\in\mathcal{F}(U)$) is defined as a mapping $A: U \to [0, 1]$ and $A(u)$ is called \emph{membership degree of the element $u$ in the fuzzy set $A$}. As $\{0,1\} \subset [0,1]$ and $A(u)= 0$ and $A(u) = 1$ can be taken as $u \notin A$ and $u\in A$, respectively, a classical set is a special case of a fuzzy set. A \emph{cardinality} $|A|$ of a fuzzy set $A$ on a finite universe $U$ can be defined as
 the sum of the membership degrees \citep{novak1999}:
 %
@@ -259,13 +252,13 @@ $$|A| = \sum_{\forall u\in U} A(u).$$
 
 
 
-In order to extend the intersection and union of classical (binary) sets to $[0,1]$ membership degrees, most commonly triangular norms and conorms, respectively. 
+In order to extend the intersection and union of classical (binary) sets to $[0,1]$ membership degrees, triangular norms and conorms are most commonly used. 
 
 \emph{Triangular norm (t-norm)} is a function $\otimes: [0,1] \times [0,1] \to [0,1]$,
-which is associative, commutative, monotone increasing (in both
-places), and with the neutral element 1, i.e., with $\alpha \otimes 1 = \alpha$ for each $\alpha \in [0, 1]$. The annihilating effect of the element 0 can be easily derived: $\alpha \otimes 0 = 0$ for each $\alpha \in [0, 1]$.
+which is associative, commutative, increasing (in both
+arguments), and with the neutral element 1, i.e., with $\alpha \otimes 1 = \alpha$ for each $\alpha \in [0, 1]$. The annihilating effect of the element 0 can be easily derived: $\alpha \otimes 0 = 0$ for each $\alpha \in [0, 1]$. In fuzzy logic\footnote{Specific multiple-valued logic for modeling the vagueness phenomenon or gradedness.}, a t-norm $\otimes$ is used to model a \emph{conjunction}.
 
-In fuzzy logic\footnote{Specific multiple-valued logic for modeling the vagueness phenomenon or gradedness.}, a t-norm $T$ is used to model the \emph{conjunction}. \emph{Triangular conorm (t-conorm)} is a function $\oplus: [0,1] \times [0,1] \to [0,1]$ that possesses the same properties as t-norm with the only difference that the neutral element is here 0, i.e., $\alpha \oplus 0 = \alpha$ for any $\alpha \in [0,1]$. Consequently, we obtain $\alpha \oplus 1 = 1$ for any $\alpha \in [0,1]$.
+\emph{Triangular conorm (t-conorm)} is a function $\oplus: [0,1] \times [0,1] \to [0,1]$ that possesses the same properties as t-norm with the only difference that the neutral element is 0, i.e., $\alpha \oplus 0 = \alpha$ for any $\alpha \in [0,1]$. Consequently, we obtain $\alpha \oplus 1 = 1$ for any $\alpha \in [0,1]$.
   
 Analogously to the case of classical logic and classical set theory, also here we derive the \emph{intersection} and the \emph{union} of fuzzy sets from the above introduced logical operations. Let $A, B$ be fuzzy sets on $U$. Then the membership degree of an element $u\in U$ to their intersection
 $A \cap B$ and their union $A\cup B$ is defined as follows:
@@ -276,13 +269,13 @@ $A \cap B$ and their union $A\cup B$ is defined as follows:
 
 
 For any left-continuous t-norm $\otimes$, there is a unique binary operation $\Rightarrow$
-called the \emph{residuum} (\emph{residuated implication}) of the t-norm $\otimes$ such that the following adjunction property holds
+called the \emph{residuum} (\emph{residuated implication}) of the t-norm $\otimes$ such that the following adjunction property holds:
 %
 $$\gamma \otimes \alpha \le \beta\quad\textrm{if and only if}\quad \gamma \le \alpha \Rightarrow \beta \ . $$
 %
-Residuated implications possess special position among other fuzzy implications (\cite{Baczynski_Jayaram_2008c}) in capturing the multiple-valued modus ponens property. 
+Residuated implications possess special position among other fuzzy implications \citep{Baczynski_Jayaram_2008c} in capturing the multiple-valued modus ponens property. 
 
-Stemming from a left-continuous t-norm $\otimes$, we may construct so-called \emph{residuated lattice} $\langle [0,1], \wedge, \vee, \otimes , \Rightarrow , 0 , 1 \rangle$ that is the underlying algebraic structure of truth-values of the respective fuzzy logic. Note, that the structure has two conjunctions, the \emph{strong} conjunction $\otimes$ and the \emph{weak} conjunction $\wedge$ that is present in any residuated lattice. Furthermore, we may define additional logical connectives, for instance, the \emph{residual negation} $\lnot$
+Stemming from a left-continuous t-norm $\otimes$, we may construct so-called \emph{residuated lattice} $\langle [0,1], \wedge, \vee, \otimes , \Rightarrow , 0 , 1 \rangle$ that is the underlying algebraic structure of truth-values of the respective fuzzy logic. Note that the structure has two conjunctions, the \emph{strong} conjunction $\otimes$ and the \emph{weak} conjunction $\wedge$ that is present in any residuated lattice. Furthermore, we may define additional logical connectives, for instance, the \emph{residual negation} $\lnot$
 and \emph{biresiduum}  $\Leftrightarrow$ that models the multiple-valued equivalence:
 %
 \begin{align*}
@@ -297,18 +290,19 @@ Therefore, $\sim$ is an important unary connective not only for the \L ukasiewic
 
 
 \subsection{G\"odel algebra}
+\label{sec:goedel}
 
 
-Based on the selected t-norm, the \pkg{lfl} package provides all the derived operations in a concise and extendable way. By calling the \code{algebra()} function with the name of the underlying t-norm, an instance of the S3 \code{algebra} class is obtained, which is a named list of functions. The user may select from \code{"goedel"}, \code{"goguen"}, or \code{"lukasiewicz"} variant calling the respective G\"odel, Goguen (also often called \emph{product}), or the already above-mentioned \L ukasiewicz residuated lattices of operations. 
+Based on the selected t-norm, the \pkg{lfl} package provides all the derived operations in a concise and extendable way. By calling the \code{algebra()} function with the name of the underlying t-norm as an argument, an instance of the S3 \code{algebra} class is obtained, which is a named list of functions. The user may select from \code{"goedel"}, \code{"goguen"}, or \code{"lukasiewicz"} variant calling the respective G\"odel, Goguen (also often called \emph{product}), or the already above-mentioned \L ukasiewicz residuated lattices of operations. 
 
-The instances of the \code{algebra} class serve often as a parameter to many other functions of the \pkg{lfl} package. A user may extend these objects by selecting from some predefined missing value handling schemes (see Section~\ref{sec:undefvals}) or by defining a custom algebra.
+The instances of the \code{algebra} class serve often as a parameter to many other functions of the \pkg{lfl} package. User may extend these objects by selecting from some predefined missing value handling schemes (see Section~\ref{sec:undefvals}) or by defining a custom algebra instances by themselves.
 
 
-For example, the algebra based on the G\"odel t-norm, that is the standard minimum $\otimes = \wedge$, is obtained as follows:
+For example, the algebra based on the \emph{G\"odel} t-norm, that is the standard minimum, $\otimes = \wedge$, is obtained as follows:
 %
 \input{chunks/chunk-goedel.algebra}
 
-As can be seen, the \code{algebra()} function returns a named list of the following functions:
+The \code{algebra()} function returns a named list of the following functions:
 \begin{itemize}
     \item \code{n}: (strict) negation defined as:
     $$
@@ -333,11 +327,10 @@ As can be seen, the \code{algebra()} function returns a named list of the follow
     \item \code{i}, \code{pi}: vectorized and element-wise infimum defined as:
     $\alpha \land \beta = \min\{\alpha, \beta\};$
     \item \code{s}, \code{ps}: vectorized and element-wise supremum defined as:
-    $\alpha \lor \beta = \max\{\alpha, \beta\};$
-    \item \code{order}: {\color{green} ordering of truth values that always put \code{NA} values in the end.}
+    $\alpha \lor \beta = \max\{\alpha, \beta\}.$
 \end{itemize}
 
-Functions \code{n} and \code{ni} accept a vector of numeric values as a single input and return a vector of the negated values. Two-argument functions \code{r} and \code{b} compute the desired operation element-wisely. Similarly, \code{pt}, \code{pc}, \code{pi}, and \code{ps} work element-wisely: they accept a vector of multiple arguments and compute the outputs of the desired operation on first elements of the input vectors, then on second elements, etc. until the end of the vectors is reached, which yields a vector of the resulting values. The vectorized variants of these functions, i.e., \code{t}, \code{c}, \code{i}, and \code{s} first merge\footnote{By merging here, we mean application of the chosen operation on all components of the given vector to obtain a single value.} all the input vector arguments and then calculate a single resulting value from them. See the example below for more information.
+Functions \code{n} and \code{ni} accept a vector of numeric values as a single input and return a vector of negated values. Two-argument functions \code{r} and \code{b} compute the desired operation element-wisely so that both input vectors should be of equal size and return a vector of results of the same size. Similarly, \code{pt}, \code{pc}, \code{pi}, and \code{ps} work element-wisely: they accept a vector of multiple arguments and compute the outputs of the desired operation on first elements of the input vectors, then on second elements, etc. until the end of the vectors is reached, which yields a vector of the resulting values. The vectorized variants of these functions, i.e., \code{t}, \code{c}, \code{i}, and \code{s} first concatenate all the input vector arguments into a single vector and then calculate a single resulting value from it by applying the operation recursively on all elements. See the example below for more information.
 %
 \input{chunks/chunk-goedel.algebra.examples}
 %
@@ -350,12 +343,11 @@ Note that as the strong and weak conjunction coincide in the G\"{o}del algebra a
 \subsection{Goguen algebra}
 
 
-
-Goguen algebra is also often called the product algebra to emphasize that its central point -- the strong conjunction -- is nothing else but the standard product (multiplication) operation. Therefore, $\otimes = \cdot$ is also often called the product t-norm.
+\emph{Goguen algebra} is also often called the \emph{product algebra} to emphasize that its central point -- the strong conjunction -- is nothing else but the standard product (multiplication) operation. Therefore, $\otimes = \cdot$ is also often called the product t-norm. Goguen algebra is obtained in \pkg{lfl} as follows:
 %
 \input{chunks/chunk-goguen.algebra}
 %
-It is defined as follows:
+The resulting list \code{a} contains the following functions:
 \begin{itemize}
     \item \code{n}: (strict) negation defined as:
     $$
@@ -380,14 +372,16 @@ It is defined as follows:
     \item \code{i}, \code{pi}: vectorized and element-wise infimum defined as:
     $\alpha \land \beta = \min\{\alpha, \beta\};$
     \item \code{s}, \code{ps}: vectorized and element-wise supremum defined as:
-    $\alpha \lor \beta = \max\{\alpha, \beta\};$
-    \item \code{order}: {\color{green} ordering of truth values that always put \code{NA} values in the end.}
+    $\alpha \lor \beta = \max\{\alpha, \beta\}.$
 \end{itemize}
+
+Arguments of these functions follow the same usage pattern as for G\"odel algebra described in Section~\ref{sec:goedel}.
+
 
 
 \subsection[Lukasiewicz algebra]{\L ukasiewicz algebra}
 
-The last implemented algebra is the \L{}ukasiewicz algebra that stems from the seminal work on 3-valued logic by Polish logician Jan \L ukasiewicz, see \cite{lukasiewicz19673}. Note, that \L ukasiewicz algebra forms so-called MV algebra (\cite{Chang:MV_1958}) that is the best generalization of the classical Boolean algebra. The implementation is provided as follows:
+The last implemented algebra is the \emph{\L{}ukasiewicz algebra} that stems from the seminal work on 3-valued logic by Polish logician Jan \cite{lukasiewicz19673}. Note, that \L ukasiewicz algebra forms so-called MV algebra \citep{Chang:MV_1958} that is the best generalization of the classical Boolean algebra. The implementation is provided as follows:
 
 \input{chunks/chunk-lukasiewicz.algebra}
 %
@@ -410,9 +404,7 @@ The particular functions are defined as follows:
     \item \code{i}, \code{pi}: vectorized and element-wise infimum defined as:
     $\alpha \land \beta = \min\{\alpha, \beta\};$
     \item \code{s}, \code{ps}: vectorized and element-wise supremum defined as:
-    $\alpha \lor \beta = \max\{\alpha, \beta\};$
-    \item \code{order}: {\color{green} ordering of truth values that always puts \code{NA} values in the end.
-    }
+    $\alpha \lor \beta = \max\{\alpha, \beta\}.$
 \end{itemize}
 
 
@@ -420,18 +412,21 @@ The particular functions are defined as follows:
 \subsection{Partial fuzzy set theory -- handling of undefined and missing values}
 \label{sec:undefvals}
 
-Partial logics (3-valued) were proposed to deal with undefined values of the distinct type (no matter the origin or interpretation of the undefinedness), such as  ``irrelevant'', ``inconsistent'', or ``unknown'' truth values. Detailed elaboration of such approaches is beyond the scope of the article so, we refer readers to the relevant source
+\michal{v nasledujicich dvou odstavcich skoro nevim, o cem to mluvime. prijde mi to takove hodne slozite tady a sroubovane}
+Missing information is an omnipresent phenomenon. Data are missing because of error or purpose and cause challenges in processing. Partial logics (three-valued) were proposed to deal with undefined values of the distinct type (no matter the origin or interpretation of the undefinedness), such as  ``irrelevant'', ``inconsistent'', or ``unknown'' truth values. Detailed elaboration of such approaches is beyond the scope of the article so, we refer readers to the relevant source
 \cite{CiucciDubois_Inf.Sci2013} and note, that three-valued partial logics were recently extended to partial fuzzy logics and partial fuzzy set theory (\cite{BehounekNovak:IEEE15},\cite{BehounekDankova:IPMU16}). 
 
-We follow the above-mentioned works that considered distinct partial fuzzy logics, namely Bochvar, Soboci\'{n}ski, Kleene, and Nelson logic. Furthermore, as none of the referred logics was specifically designed for handling the missing values, two recent algebras for partial fuzzy logics were designed, in particular, the Lower estimation algebra (\cite{CaoStep:KSE18}), and the Dragonfly algebra (\cite{Step_etal_Dragon_IJAR2019}). Note, that in all cases, firstly an underlying algebra, e.g., G\"{o}del, Goguen or \L{}ukasiewicz is chosen and then the support is extended by a dummy value $\star$ in order to obtain $[0,1]\cup \star$. In terms of the missing values in \pkg{lfl}, we deal with extended support $[0,1]\cup \texttt{NA}$.
+We follow the above-mentioned works that considered distinct partial fuzzy logics, namely Bochvar, Soboci\'{n}ski, Kleene, and Nelson logic. Furthermore, as none of the referred logics was specifically designed for handling the missing values, two recent algebras for partial fuzzy logics were designed, in particular, the Lower estimation algebra \citep{CaoStep:KSE18}, and the Dragonfly algebra \citep{Step_etal_Dragon_IJAR2019}. Note that in all cases, firstly an underlying algebra, e.g., G\"{o}del, Goguen, or \L{}ukasiewicz, is chosen and then the truth value interval is extended by a dummy value $\star$ in order to obtain $[0,1]\cup \star$. In terms of the missing values in \pkg{lfl}, we deal with extended support $[0,1]\cup \texttt{NA}$.
 
-The implementation of algebras of functions in \pkg{lfl} treats missing values in such a way that if \code{NA} appears as a value to some operation,
+The implementation of the basic algebras (G\"odel, Goguen, \L ukasiewicz) in \pkg{lfl} treats missing values in such a way that if \code{NA} appears as a value to some operation,
 it is propagated to the result. That is, any operation with \code{NA} results in \code{NA}, by default.
-This scheme of handling missing values is equivalent to the choice of the Bochvar logic \citep{book:malinov} mentioned above.
+This scheme of handling missing values is equivalent to the choice of the \emph{Bochvar logic} \citep{book:malinov}.
 
-The \code{sobocinski()}, \code{kleene()}, \code{nelson()}, \code{lowerEst()} and \code{dragonfly()} functions modify the algebra to
-handle \code{NA}s in a different way than by the default choice. For example, Sobocinski algebra simply ignores \code{NA} values whereas Kleene algebra treats \code{NA} as ``unknown value'' similarly to the Bochvar one however, extreme points 0 and 1 have a specific position among other truth-values from the interval $[0,1]$. Dragonfly approach as well as the Lower estimation algebra combine 
-Sobocinski and Bochvar approaches with the preservation of the ordering $0 \le \texttt{NA} \le 1$ which ,on the other hand, reflects some aspects of the Kleene algebra. The distinct algebraic incorporation of the treatment of missing values is provided in Tables~\ref{tab:res-negation}-\ref{tab:equivalences}.
+However, the treatment of missing values may be easily changed in \pkg{lfl}. The \code{sobocinski()}, \code{kleene()}, \code{nelson()}, \code{lowerEst()} and \code{dragonfly()} functions modify the algebra given as their argument to
+handle \code{NA}s in a different way than by the default choice. For example, \emph{Soboci\'{n}ski algebra} simply ignores \code{NA} values whereas \emph{Kleene algebra} treats \code{NA} as ``unknown value'' similarly to the Bochvar one however, extreme points 0 and 1 have a specific position among other truth-values from the interval $[0,1]$. \emph{Dragonfly} approach as well as the \emph{Lower estimation algebra} combine 
+Soboci\'{n}ski and Bochvar approaches with the preservation of the ordering $0 \le \texttt{NA} \le 1$ which, on the other hand, reflects some aspects of the Kleene algebra. The distinct algebraic incorporation of the treatment of missing values is provided in Tables~\ref{tab:res-negation}-\ref{tab:equivalences}.
+
+
 
 \begin{table}
     \centering
@@ -531,20 +526,11 @@ Sobocinski and Bochvar approaches with the preservation of the ordering $0 \le \
 
 
 
-
 By default, the functions in the structure that is obtained by calling the \code{algebra()} function simply propagate \code{NA} to the output. If some other handling of missing values is required, it can be done as follows. Firstly, the underlying algebra (G\"odel, Goguen or \L{}ukasiewicz) is created and then modified by applying one of the \code{sobocinski()}, \code{kleene()}, \code{nelson()}, \code{dragonfly()}, \code{lowerEst()} functions on it -- see the example:
 %
 \input{chunks/chunk-na.algebra}
 
 
-\michal{tohle je fajn popis, ale ta \code{order} funkce pro algebry je porad jeste work-in-progress, protoze neni uplne jasne, jak ma fungovat pro jine algebry nez je bochvar, dragonfly a lowerEst. Je potrebna pro kvantifikatory a tam to jeste neni uplne jasne jak to delat, takze bych mozna tohle presel v tichosti, v Rku pri pokusu o pouziti kvantifikatoru zarve hlaska ze to jeste neumime a snad tento odstavec muzeme prozatim vynechat.}{\color{red}Chapu snahu se tomu vyhnout, ale moc tomu popisu nerozumim. Pro dve algebry (D a Le) to uz umime, pro treti algerbu (B) si myslime, ze to umime. Budes to mit deaktivovane pro vsechny vcetne techto dvou ci tri? A proc pak nahore uvadis o kterekoliv underlying algebry order: puts NA at the end? To preci potrebujes jen pro ty kvantifikatory a nyni tu pises, ze Rko pri pokusu o pouziti kvantifikatoru zarve chybova hlaska. A v clanku, kde jsme to delali pro D, se na R package lfl odkazujeme, takze to uplne vypnute asi mit nemame. Nicmene bude-li to vypnute, proc pak popisujeme vyse ten order?}
-
-\michal{1. takže jak to je v současné době v kódu: kvantifikátory fungují pro bochvara (default), dragonfly a lowerest. pro všechno ostatní to zařve chybovou hlášku, že není implementována funkce \code{order}.
-
-2. proč tam nahoře popisuju tu funkci order: je to proto, že tam je, že se zobrazuje v tom generovaném výpisu. spravne by to melo byt popsane, protoze to je dulezita soucast te algebry, bez ktere by to nefungovalo a kdyby treba nekdo chtel vyrobit dalsi, svou algebru, tak potrebuje vedet, ze tam je nejaky ten order. na druhou stranu, pro nektere algebry docasne nevime, co tam ma byt. trochu se v tom placam, jak vidis a nevim kudy kam. nejradsi bych sedl a ten order udelal i pro ostatni algebry. anebo zrusime ten vypis funkci jednotlivych algeber a jen popiseme ty klasicke operace a order vynechame uplne?}
-
-As mentioned above, each algebra for partial fuzzy logic adopts its partial
-ordering on the extended set of truth-values $[0,1]\cup \texttt{NA}$. For instance, \code{NA} is incomparable to any $\alpha\in [0,1]$ for the Soboci\'{n}ski or Bochvar algebra, while the same holds only for $\alpha\in (0,1)$ for the Kleene, Dragonfly or Lower Estimation algebra with the additional property $0\le\texttt{NA}\le 1$. However, for the last two algebra, there is additional ``lattice-like'' ordering  $ \leq_{\ell} $ generated by the  lattice operations meet and join (conjunction, disjunction), that is defined as follows: $ 0\leq_{\ell}\texttt{NA}\leq_{\ell}\alpha $ for all $ \alpha\in (0, 1] $, see  \cite{Step_etal_Dragon_IJAR2019}. 
 
 %{\color{green}
 % zatim jeste nepopisovat, neni to dodelane vubec pro jine algebry nez je bochvar, dragonfly a lowerest
@@ -662,39 +648,40 @@ ordering on the extended set of truth-values $[0,1]\cup \texttt{NA}$. For instan
 \subsection{Fundamental compositions}
 \label{sec:fundcomp}
 
-Compositions of fuzzy relation establish one of the fundamental blocks for mathematical fuzzy modeling, see \citep{Belohlavek_book2002,DeBaetsKerre_compoositions93}. Let us consider three non-empty universes $X,Y,Z$ and let $R\in\mathcal{F}(X\times Y)$ and $S\in\mathcal{F}(Y\times Z)$. In general, a composition of $R$ and $S$ results a fuzzy relation $R@S$ on $X\times Z$ so, it defines some appropriate relationship between elements from universes that were not connected before defining the composition. The obligatory example comes from the medical diagnosis where $X$ denotes the set of patients, $Y$ denotes the set of symptoms and $Z$ denotes the set of diseases \citep{BandlerKohout78}. 
+Compositions of fuzzy relations establish one of the fundamental blocks for mathematical fuzzy modeling, see \cite{Belohlavek_book2002,DeBaetsKerre_compoositions93}. Let us consider three non-empty universes $X,Y,Z$ and let $R$ and $S$ be fuzzy relations on that universes, $R\in\mathcal{F}(X\times Y)$ and $S\in\mathcal{F}(Y\times Z)$. In general, a composition of $R$ and $S$ results in a fuzzy relation $R@S\in\mathcal{F}(X\times Z)$ so, it defines some appropriate relationship between elements from universes that were not connected before defining the composition. The obligatory example comes from the medical diagnosis where $X$ denotes a set of patients, $Y$ denotes a set of symptoms and $Z$ denotes a set of diseases \citep{BandlerKohout78}. 
 
-The use of the compositions may be easily demonstrated on a toy example from medical diagnosis that by purposes simplifies the situation for the sake of clarity. 
-
+The use of the compositions may be easily demonstrated on a toy example from medical diagnosis that by purposes simplifies the situation for the sake of clarity. Consider the following numeric matrices \code{R} and \code{S} defined in \R{}:
 %
 \input{chunks/chunk-comp.data}
 %
+The values in matrix \code{R} represent the degrees to which the patients show the given symptoms (tiredness, cough, fever, blurred vision). The values in matrix \code{S} indicate the degrees to which the symptoms are assigned to the given diagnoses (pulmonary hypertension, sleeping sickness, malaria, hangover, influenza).
 
-
-Below, we repeat the main four compositions that are implemented in \pkg{lfl} and that we stem from:
+The main four types of fuzzy relational compositions implemented in \pkg{lfl} are defined as follows:
+%
 \begin{align}
    ( R\circ S )(x,z) & = \bigvee_{y\in Y} \left( R(x,y) \otimes S(y,z)\right) \ ,\label{form:circ}\\
     (R\lhd S )(x,z) & = \bigwedge_{y\in Y} ( R(x,y) \Rightarrow S(y,z)) \ , \label{form:lhd}\\
     (R\rhd S )(x,z) & = \bigwedge_{y\in Y} ( R(x,y) \Leftarrow S(y,z)) \ , \label{form:rhd}\\
-    (R\squ S )(x,z) & = \bigwedge_{y\in Y} ( R(x,y) \Leftrightarrow S(y,z)) \label{form:squ}
+    (R\squ S )(x,z) & = \bigwedge_{y\in Y} ( R(x,y) \Leftrightarrow S(y,z)) \ , \label{form:squ}
 \end{align}
-where $\circ$ denotes the \emph{circlet} or \emph{basic composition} (also \emph{direct product}), $\lhd$ denotes the \emph{Bandler-Kohout subproduct} (also \emph{subdirect product}),  $\rhd$ denotes the \emph{Bandler-Kohout superproduct} (also (also \emph{supdirect product}), and finall, $\squ$ denotes the \emph{Bandler-Kohout square product}. 
+%
+where $\circ$ denotes the \emph{circlet} or the \emph{basic composition} (also the \emph{direct product}), $\lhd$ denotes the \emph{Bandler-Kohout subproduct} (also the \emph{subdirect product}),  $\rhd$ denotes the \emph{Bandler-Kohout superproduct} (also the \emph{supdirect product}), and finally, $\squ$ denotes the \emph{Bandler-Kohout square product}. 
 
-Note that these four compositions were studied already in late 1970's and early 1980's \citep{BandlerKohout78, BandlerKohout80}, the first two of them ($\circ$ and $\lhd$) play an essential role in fuzzy inference mechanisms in the case of fuzzy inputs \citep{Pedrycz,Di-Nola_Pedrycz_Sessa_1989,StepBaluIEEE}, and their impact is essential fro distinct branches including the medical diagnosis, see \cite{Mak:JMS2015}. 
+Note that these four compositions were studied already in late 1970's and early 1980's \citep{BandlerKohout78, BandlerKohout80}, the first two of them ($\circ$ and $\lhd$) play an essential role in fuzzy inference mechanisms in the case of fuzzy inputs \citep{Pedrycz,Di-Nola_Pedrycz_Sessa_1989,StepBaluIEEE}, and their impact is essential for distinct branches including the medical diagnosis, see \cite{Mak:JMS2015}. 
 
 
 The main compositions, as defined above,  may be computed in \pkg{lfl} with the \code{compose()} function as follows:
 %
 \input{chunks/chunk-comp.basic}
 %
-The \code{type} argument must be equal to any of: \code{'basic'}, \code{'sub'}, \code{'super'} or \code{'square'}. The \code{compose()} function is merely a wrapper around the \code{mult()} function, which computes a customizable inner-product of two matrices. The \code{mult()} function takes two matrices as the arguments as well as a two-argument function, which is called for each combination of row and column. For instance, the basic composition may be alternatively computed as follows:
+The \code{type} argument must be equal to some of: \code{"basic"} ($\circ$), \code{"sub"} ($\lhd$), \code{"super"} ($\rhd$) or \code{"square"} ($\square$). The \code{compose()} function is merely a wrapper around the \code{mult()} function, which computes a customizable inner-product of two matrices. The \code{mult()} function takes two matrices as the arguments as well as a two-argument function, which is called for each combination of row and column. For instance, the basic composition may be equivalently computed as follows:
 %
 \input{chunks/chunk-comp.mult}
 %
-Additional examples of more complicated compositions computed with the \code{mult()} function may be found below in Section~\ref{sec:compquant}.
+Additional examples of more complicated compositions computed directly with the \code{mult()} function may be found below in Section~\ref{sec:compquant}.
 
 
-The fundamental fuzzy relational compositions (\ref{form:circ})-(\ref{form:squ}) can be directly used in the expert classification problem, and the above-mentioned medical diagnosis \citep{Mak:JMS2015} is only its special case where the symptoms are take as the features and the set of diseases is a special case of the set of classes. However, observing the particular formulas it is obvious, that the the huge gap between the existential quantifiers, represented by $\bigvee$ in (\ref{form:circ}), and the universal quantifier, represented by $\bigwedge$ in (\ref{form:lhd})-(\ref{form:squ}), may cause undesirable effect. In particular, the basic composition $\circ$ may detect too many suspicions as finding a single ``connecting'' feature (symptom) will be a very frequent case for many classes (diseases) while carrying all the expected features (symptoms) may be rather idealistic in practice too eliminating requirement. Thus, $\circ$ could nominate too many candidate classes while $\lhd, \rhd$, and $\squ$ may vice-versa, eliminate all possibilities:
+The fundamental fuzzy relational compositions (\ref{form:circ})-(\ref{form:squ}) can be directly used in the expert classification problem, and the above-mentioned medical diagnosis \citep{Mak:JMS2015} is only its special case where the symptoms are taken as the features and the set of diseases is a special case of the set of classes. However, observing the particular formulas, it is obvious that the huge gap between the existential quantifier, represented by $\bigvee$ in (\ref{form:circ}), and the universal quantifier, represented by $\bigwedge$ in (\ref{form:lhd})-(\ref{form:squ}), may cause undesirable effect. In particular, the basic composition $\circ$ may detect too many suspicions as finding a single ``connecting'' feature (symptom) will be a very frequent case for many classes (diseases) while carrying all the expected features (symptoms) may be rather idealistic, in practice too eliminating, requirement. Thus, $\circ$ could nominate too many candidate classes while $\lhd, \rhd$, and $\squ$ may, vice-versa, eliminate all possibilities:
 
 %
 \input{chunks/chunk-comp.subsupsquare}
@@ -706,34 +693,34 @@ In order to get out of the problem, distinct extensions were defined recently. O
 
 \subsection{Compositions of more fuzzy relations}
 
-Assume that we are given fuzzy relations $E,U\in\mathcal{F}(Y\times Z)$. The intended semantical meaning is such that $E(y,z)$ expresses the degree up to which $y$ is a feature that excludes the class $z$ from the possible candidates (so-called \emph{excluding feature}) and $U(y,z)$ expresses the degree up to which $y$ is a feature that is unavoidable for any object to be classified into the class $z$ (so-called \emph{unavoidable feature}). The approach using the first fuzzy relation has been described in \cite{CaoStep:ExcludfeatureESWA} while the work incorporating the latter one is very recent, see \cite{Step_etal:Unavoidable_KNOSYS2020}.
+Assume that we are given fuzzy relations $E,U\in\mathcal{F}(Y\times Z)$. The intended semantical meaning is such that $E(y,z)$ expresses the degree up to which $y$ is a feature that excludes the class $z$ from the possible candidates (the so-called \emph{excluding feature}) and $U(y,z)$ expresses the degree up to which $y$ is a feature that is unavoidable for any object to be classified into the class $z$ (the so-called \emph{unavoidable feature}). The approach using the first fuzzy relation has been described by \cite{CaoStep:ExcludfeatureESWA} while the work incorporating the latter one is very recent, see \cite{Step_etal:Unavoidable_KNOSYS2020}.
 
-The compositions employing the concepts of excluding features and unavoidable features are defined as follows:
+The compositions employing the concepts of excluding features ($E$) and unavoidable features ($U$) are defined as follows:
 \begin{align}
     \RSE(x,z) & = (R\circ S) (x,z) \otimes \neg (R\circ E)\ ,\label{form:circ_excl}\\
     (R\circ S)^{\rhd U}(x,z) & = (R\circ S) (x,z) \otimes  (R\rhd U)\ ,  \label{form:circ_unavoid}\\
     \RSE^{\rhd U}(x,z) & = (R\circ S) (x,z) \otimes \neg (R\circ E) \otimes (R\rhd U)  \label{form:circ_excl_unavoid}
 \end{align}
-where the last one $\RSE^{\rhd U}$ combines the extra knowledge contained in both additional fuzzy relations. As we may see, these extension are mathematically rather straightforward combinations of the fundamental blocks that only allow other fuzzy relations to enter the constructions.
+where the last one $\RSE^{\rhd U}$ combines the extra knowledge contained in both additional fuzzy relations. As we may see, these extensions are mathematically rather straightforward combinations of the fundamental blocks that only allow other fuzzy relations to enter the constructions.
 
 
-For example, let us imagine that the occurrence of fever is an evidence of NOT having a pulmonary hypertension. Similarly, let cough excludes hangover from the possible diagnoses. That is, fever and cough are excluding features of pulmonary hypertension and hangover, respectively. This corresponds to the following matrix $E$ of excluding features:
+For example, let us imagine that the occurrence of fever is an evidence of \emph{not} having a pulmonary hypertension. Similarly, let cough excludes hangover from the possible diagnoses. That is, fever and cough are excluding features of pulmonary hypertension and hangover, respectively. This corresponds to the following matrix \code{E} of excluding features:
 %
 \input{chunks/chunk-comp.e}
 %
-To compute $\RSE$ as in (\ref{form:circ_excl}), one can proceed as follows:
+To compute $\RSE$ as in (\ref{form:circ_excl}), one can proceed with \pkg{lfl} as follows:
 %
 \input{chunks/chunk-comp.circ.excl}
 %
-Now let us assume the blurred vision to be a typical unavoidable feature of pulmonary hypertension as well as cough would be unavoidable for influenza. This corresponds to the following matrix $U$ of unavoidable features:
+Now let us assume the blurred vision to be a typical unavoidable feature of pulmonary hypertension as well as cough would be unavoidable for influenza. This corresponds to the following matrix \code{U} of unavoidable features:
 %
 \input{chunks/chunk-comp.u}
 %
-$(R\circ S)^{\rhd U}$ (see (\ref{form:circ_unavoid})) may be evaluated by the following commands: 
+The $(R\circ S)^{\rhd U}$ composition (see \eqref{form:circ_unavoid}) may be evaluated by the following commands: 
 %
 \input{chunks/chunk-comp.circ.unavoid}
 %
-Finally, the concept unavoidable and excluding features together, as defined in (\ref{form:circ_excl_unavoid}), is processed as follows:
+Finally, the concept of unavoidable and excluding features together, as defined in \eqref{form:circ_excl_unavoid}, is processed as follows:
 %
 \input{chunks/chunk-comp.circ.excl.unavoid}
 
@@ -742,39 +729,47 @@ Finally, the concept unavoidable and excluding features together, as defined in 
 \subsection{Compositions based on Sugeno integrals}
 \label{sec:compquant}
 
-Another approach to avoid the undesirable effect of too many suspicions (classification candidates) provided by the basic composition and too few (or often none)  suspicions provided by the Bandler-Kohout products is based on employing generalized quantifiers. {\color{blue}Intermediate generalized quantifiers allow to deal with quantifications in between of the classical universal and existential quantifiers, for example {\tt Most}, {\tt Many}, {\tt At least 3}, {\tt At least 25\%}, or {\tt A few}.}
+Another approach to avoid the undesirable effect of too many suspicions (classification candidates) provided by the basic composition and too few (or often none)  suspicions provided by the Bandler-Kohout products is based on employing generalized quantifiers. Intermediate generalized quantifiers allow to deal with quantifications in between of the classical universal and existential quantifiers, for example \emph{``most''}, \emph{``many''}, \emph{``at least 3''}, \emph{``at least 25''}, or \emph{``a~few''}. Note that the use of generalized quantifiers has been found very useful, e.g., in flexible query answering systems \citep{PivertBosc_book2012,lietard:SugenoFI_2003}.
 
-The construction of a {\color{blue}quantifier $Q$ of the type $\langle 1 \rangle$  \citep{dvorak2009} uses a symmetric fuzzy measure $\mu$, i.e. a monotone measure on the potential set satisfying the boundary condition. The direct application of the quantifier to the compositions, i.e. $ R @^{Q} S $ where $ @\in \{\circ,\lhd \} $, has been proposed in \cite{Step2014,CaoStepHolc_Quant:EUSFLAT2015}  and} it is defined as follows:
-    \begin{align}
-    (R@^{Q} S) (x,z)  = \bigvee_{D\in
-        \mathcal{P}(Y)\setminus\{\emptyset\}} \left( \left(\bigwedge_{y\in
-        D} R(x,y) \circledast S(y,z) \right) \otimes \mu(D) \right) \ ,\label{form_compQstandard}
-    \end{align}
-    where $ \circledast\in\{*,\rightarrow \} $ corresponds to the composition and $x\in X$ and $z\in Z$.
+The construction of a quantifier $Q$ of the type $\langle 1 \rangle$  \citep{dvorak2009} uses a symmetric fuzzy measure $\mu$, i.e., a monotone measure on the potential set satisfying the boundary condition. The direct application of the quantifier to the composition, i.e., $ R @^{Q} S $, where $ @\in \{\circ,\lhd \} $, has been proposed by \cite{Step2014,CaoStepHolc_Quant:EUSFLAT2015}  and it is defined as follows:
+%
+\begin{align}
+(R@^{Q} S) (x,z)  = \bigvee_{D\in
+    \mathcal{P}(Y)\setminus\{\emptyset\}} \left( \left(\bigwedge_{y\in
+    D} R(x,y) \circledast S(y,z) \right) \otimes \mu(D) \right) \ ,\label{form_compQstandard}
+\end{align}
+%
+where $\mathcal{P}(Y)$ represents the powerset of $Y$, $\circledast\in\{*,\rightarrow \}$ corresponds to the composition,  $x\in X$, and $z\in Z$.
     
 
-Due to the choice of the symmetric fuzzy measure $\mu$, it is sufficient to consider relative cardinality and its modification by distinct non-decreasing functions $f$ in order to use the  Sugeno-integral \citep{KlementMesiarPap_IEEE2010}: 
+Due to the choice of the symmetric fuzzy measure $\mu$, it is sufficient to consider relative cardinality and its modification by distinct non-decreasing functions $f$ in order to use  Sugeno integral \citep{KlementMesiarPap_IEEE2010} to calculate the composition based on $Q$: 
+%
 \begin{align}
 (R@^{Q} S) (x,z) =  \bigvee_{i=1}^n \left( \left( R(x,y_{\pi(i)})
-\circledast S(y_{\pi(i)}, z) \right) \otimes f(i/n) \right)
+\circledast S(y_{\pi(i)}, z) \right) \otimes f(i/n) \right) \ ,
 \label{form_calcu_@}
 \end{align}
+%
 where $n$ is the cardinality of $Y$,  $\pi$ is a permutation on $\{ 1, \dots , n\}$ such that
 $R(x,y_{\pi(i)}) \circledast S(y_{\pi(i)},z) \ge R(x,y_{\pi(i+1)})
-\circledast S(y_{\pi(i+1)},z)$ for any $i = 1, \dots , n-1$ where
-$n$ denotes the cardinality of $Y$.
+\circledast S(y_{\pi(i+1)},z)$ for any $i = 1, \dots , n-1$.
 
 
-The \pkg{lfl} package provides a function for computation of the Sugeno integral, which can be used for composition of fuzzy relations with the \code{mult()} function described in Section~\ref{sec:fundcomp}.
+The \pkg{lfl} package provides a function for computation of Sugeno integral, which can be used for composition of fuzzy relations with the \code{mult()} function described in Section~\ref{sec:fundcomp}.
 
-For instance, one may require the patients to show at least two symptoms of the diagnosis. To quantify the ``at least 2'' condition over a fuzzy set, a Sugeno integral will be applied. For that, we need a \code{measure} function that returns a truth value from the $[0,1]$ interval. For us, a simple conditional function will do the work:
+For instance, one may require the patients to show at least two symptoms of the diagnosis. To quantify the \emph{``at least 2''} condition over a fuzzy set, Sugeno integral will be applied. For that, we need a non-decreasing \code{measure} function that returns a truth value from the $[0,1]$ interval. For us, a simple conditional function will do the work:
 %
 \input{chunks/chunk-comp.quant.atleast}
 
-The \code{sugeno()} function requires four arguments: \code{measure}, \code{relative}, \code{strong} and \code{alg}. The \code{measure} argument is a non-decreasing  function that assigns a truth value from the $[0, 1]$ interval to either relative or absolute quantity. The \code{relative} argument is a \code{TRUE}/\code{FALSE} flag indicating what is expected by the \code{measure} function. The \code{strong} argument determines whether {\color{red}$\otimes$ (bylo tu $*$ asi diky me chybe vyse)} is a strong or weak conjunction. Finally, the \code{alg} argument is an underlying algebra, i.e., either a string or object of type \code{algebra}.
+The \code{sugeno()} function requires four arguments: \code{measure}, \code{relative}, \code{strong} and \code{alg}. The \code{measure} argument is a non-decreasing  function that assigns a truth value from the $[0, 1]$ interval to either relative or absolute quantity. The \code{relative} argument is a \code{TRUE}/\code{FALSE} flag indicating what is expected by the \code{measure} function. The \code{strong} argument determines whether $\otimes$ is a strong or weak conjunction. Finally, the \code{alg} argument is an underlying algebra, i.e., either a string or object of type \code{algebra}.
 
 The \code{sugeno()} function creates a Sugeno-integral computer, which is a two-argument function that expects two numeric vectors of equal length: the first argument, \code{x}, is a vector of membership degrees to be measured, while the second argument, \code{w}, is a vector of weights.
 
+
+\begin{rem}
+The above proposed formula (\ref{form_calcu_@}) for  the composition based on Sugeno integrals is implemented for particular algebras for partial fuzzy logic, namely for Bochvar, Dragonfly and Lower estimation algebra. The crucial thing becomes the ordering of the extended set of truth-values $[0,1]\cup$ \code{NA}. In the case of the Bochvar algebra, the ordering, defined by \code{NA}$\le alpha $ for any $\alpha \in [0,1]$, preserves the equality of (\ref{form_compQstandard}) and (\ref{form_calcu_@}) and thus, is adopted. Apart from the Bochvar case, that is implemented as the default, the users may choose the Dragonfly algebra or the Lower estimation algebra. In both cases, a 
+ ``lattice-like'' ordering  $ \leq_{\ell} $ generated by the  lattice operations $\wedge$ and $\vee$ ensures the same preservation of the  equality of  (\ref{form_compQstandard}) and (\ref{form_calcu_@}). It is defined as follows: $ 0\leq_{\ell}$\code{NA}$\leq_{\ell}\alpha $ for all $ \alpha\in (0, 1] $, see  \cite{Step_etal_Dragon_IJAR2019}. 
+\end{rem}
 
 
 
@@ -1391,8 +1386,8 @@ This article presents the \code{R}-package \pkg{lfl} that provides tools and fun
 
 %(8) (PDF) frbs : Fuzzy Rule-Based Systems for Classification and Regression in R. Available from: https://www.researchgate.net/publication/283866947_frbs_Fuzzy_Rule-Based_Systems_for_Classification_and_Regression_in_R [accessed Oct 12 2020].
 
-{\color{red}tohle si tu necham :-D ...
-P. Cortez, M. Holena, D. Coufal, J. Alonso}
+%{\color{red}tohle si tu necham :-D ...
+%P. Cortez, M. Holena, D. Coufal, J. Alonso}
  
  
 
